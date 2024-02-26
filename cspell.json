@@ -6,8 +6,12 @@
         "android/**",
         "ios/**",
         "windows/**",
+        ".metadata/**",
         "cspell.json",
         "pubspec.lock",
-        "pubspec.yaml"
+        "pubspec.yaml",
+        "lib/**/*.g.dart",
+        "lib/**/*.freezed.dart",
+        "lib/**/*.gr.dart",
     ]
 }
