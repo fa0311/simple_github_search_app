@@ -27,6 +27,9 @@ jobs:
 
       # スペルチェック
       - uses: streetsidesoftware/cspell-action@v5
+        with:
+          config: cspell.json
+          files: "**"
 
       # markdownlint
       - uses: DavidAnson/markdownlint-cli2-action@v15
