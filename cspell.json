@@ -1,0 +1,17 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": ["cupertino", "riverpod"],
+  "ignorePaths": [
+    "android/**",
+    "ios/**",
+    "windows/**",
+    ".metadata",
+    "cspell.json",
+    "pubspec.lock",
+    "pubspec.yaml",
+    "lib/**/*.g.dart",
+    "lib/**/*.freezed.dart",
+    "lib/**/*.gr.dart"
+  ]
+}
