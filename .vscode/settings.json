@@ -1,19 +1,31 @@
 {
-    "extensions.ignoreRecommendations": false,
-    "dart.lineLength": 120,
-    "[dart]": {
-        "editor.defaultFormatter": "Dart-Code.dart-code",
-        // "editor.codeActionsOnSave": {
-        //     "source.fixAll": "explicit",
-        //     "source.organizeImports": "explicit",
-        // },
-        // "editor.rulers": [
-        //     120
-        // ],
-    },
-    // "files.exclude": {
-    //     "lib/**/*.g.dart": true,
-    //     "lib/**/*.freezed.dart": true,
-    //     "lib/**/*.gr.dart": true,
+  "extensions.ignoreRecommendations": false,
+  "dart.lineLength": 120,
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[dart]": {
+    "editor.defaultFormatter": "Dart-Code.dart-code"
+    // "editor.codeActionsOnSave": {
+    //     "source.fixAll": "explicit",
+    //     "source.organizeImports": "explicit",
     // },
+    // "editor.rulers": [
+    //     120
+    // ],
+  }
 }
+// "files.exclude": {
+//     "lib/**/*.g.dart": true,
+//     "lib/**/*.freezed.dart": true,
+//     "lib/**/*.gr.dart": true,
+// },
