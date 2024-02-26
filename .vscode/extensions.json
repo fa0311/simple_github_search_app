@@ -3,6 +3,8 @@
         "dart-code.dart-code",
         "dart-code.flutter",
         "jeroen-meijer.pubspec-assist",
-        "localizely.flutter-intl"
+        "localizely.flutter-intl",
+        "streetsidesoftware.code-spell-checker",
+        "davidanson.vscode-markdownlint",
     ],
 }

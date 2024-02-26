@@ -1,0 +1,13 @@
+{
+    "version": "0.2",
+    "language": "en",
+    "words": [],
+    "ignorePaths": [
+        "android/**",
+        "ios/**",
+        "windows/**",
+        "cspell.json",
+        "pubspec.lock",
+        "pubspec.yaml"
+    ]
+}
