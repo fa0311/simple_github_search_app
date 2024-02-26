@@ -1,15 +1,19 @@
 {
     "extensions.ignoreRecommendations": false,
     "dart.lineLength": 120,
-    // 以下は好みで
+    "[dart]": {
+        "editor.defaultFormatter": "Dart-Code.dart-code",
+        // "editor.codeActionsOnSave": {
+        //     "source.fixAll": "explicit",
+        //     "source.organizeImports": "explicit",
+        // },
+        // "editor.rulers": [
+        //     120
+        // ],
+    },
     // "files.exclude": {
     //     "lib/**/*.g.dart": true,
     //     "lib/**/*.freezed.dart": true,
     //     "lib/**/*.gr.dart": true,
-    // },
-    // "[dart]": {
-    //     "editor.rulers": [
-    //         120
-    //     ],
     // },
 }
