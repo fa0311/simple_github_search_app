@@ -52,7 +52,7 @@ jobs:
 
       # テスト
       # https://github.com/dart-lang/dart_style/issues/864#issuecomment-1233176900
-      - run: dart format $(find lib -name "*.dart" -not \( -name "*.*freezed.dart" -o -name "*.*g.dart" -o -name "*.*gr.dart" \) ) --set-exit-if-changed
+      - run: dart format $(find . -name "*.dart" -not \( -name "*.freezed.dart" -o -name "*.g.dart" -o -name "*.gr.dart" \) ) --set-exit-if-changed -l 120
       - run: flutter analyze --no-fatal-infos
 
       - run: flutter test
