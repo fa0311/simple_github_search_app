@@ -1,16 +1,20 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:simple_github_search_app/infrastructure/github/src/api.dart';
-import 'package:simple_github_search_app/infrastructure/github/src/http.dart';
-import 'package:simple_github_search_app/infrastructure/github/src/model/repository.dart';
-import 'package:simple_github_search_app/infrastructure/github/src/model/response.dart';
+import 'package:simple_github_search_app/infrastructure/github/api.dart';
+import 'package:simple_github_search_app/infrastructure/github/http.dart';
+import 'package:simple_github_search_app/infrastructure/github/model/param.dart';
+import 'package:simple_github_search_app/infrastructure/github/model/repository.dart';
+import 'package:simple_github_search_app/infrastructure/github/model/response.dart';
 
 void main() {
   test('searchRepositories API', tags: ['github_api_test'], () async {
     final client = GithubAPI();
-    final res1 = await client.searchRepositories(query: 'flutter');
+    final res1 = await client.searchRepositories(
+      const GithubSearchRepositoriesParam(q: 'flutter'),
+    );
     expect(res1, isA<GithubResponse<GithubRepository>>());
-
-    final res2 = await client.searchRepositories(query: 'flutter', sort: SearchRepositoriesSortParam.stars);
+    final res2 = await client.searchRepositories(
+      const GithubSearchRepositoriesParam(q: 'flutter', sort: SearchRepositoriesSortParam.stars),
+    );
     expect(res2, isA<GithubResponse<GithubRepository>>());
   });
 
@@ -21,15 +25,13 @@ void main() {
         dio: dio,
       ),
     );
-
-    expect(
-      client.searchRepositories(query: 'flutter'),
-      throwsA(isA<GitHubHttpException>()),
+    final res1 = client.searchRepositories(
+      const GithubSearchRepositoriesParam(q: 'flutter'),
     );
-
-    expect(
-      client.searchRepositories(query: 'flutter', sort: SearchRepositoriesSortParam.stars),
-      throwsA(isA<GitHubHttpException>()),
+    expect(res1, throwsA(isA<GitHubHttpException>()));
+    final res2 = client.searchRepositories(
+      const GithubSearchRepositoriesParam(q: 'flutter', sort: SearchRepositoriesSortParam.stars),
     );
+    expect(res2, throwsA(isA<GitHubHttpException>()));
   });
 }

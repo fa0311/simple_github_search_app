@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:http_mock_adapter/http_mock_adapter.dart';
-import 'package:simple_github_search_app/infrastructure/github/src/api.dart';
-import 'package:simple_github_search_app/infrastructure/github/src/http.dart';
+import 'package:simple_github_search_app/infrastructure/github/api.dart';
+import 'package:simple_github_search_app/infrastructure/github/http.dart';
 
 class TestUtilDio {
   TestUtilDio._();

@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:simple_github_search_app/infrastructure/github/src/model/exception.dart';
+import 'package:simple_github_search_app/infrastructure/github/model/exception.dart';
 
 class GitHubHttpException implements Exception {
   GitHubHttpException({
