@@ -1,7 +1,7 @@
 {
   "version": "0.2",
   "language": "en",
-  "words": ["cupertino", "riverpod"],
+  "words": ["cupertino", "riverpod", "Signoff"],
   "ignorePaths": [
     "android/**",
     "ios/**",
@@ -12,6 +12,7 @@
     "pubspec.yaml",
     "lib/**/*.g.dart",
     "lib/**/*.freezed.dart",
-    "lib/**/*.gr.dart"
+    "lib/**/*.gr.dart",
+    "**/assets/**"
   ]
 }
