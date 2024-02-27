@@ -1,0 +1,5 @@
+{
+  "message": "Bad Request",
+  "errors": "The version you specified in the \"X-GitHub-API-Version\" request header, \"1\", is not a supported version. The following versions are currently supported: \"2022-11-28\" (most recent).",
+  "documentation_url": "https://docs.github.com/rest"
+}
