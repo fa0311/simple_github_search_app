@@ -12,6 +12,7 @@
     "pubspec.yaml",
     "lib/**/*.g.dart",
     "lib/**/*.freezed.dart",
-    "lib/**/*.gr.dart"
+    "lib/**/*.gr.dart",
+    "**/assets/**"
   ]
 }

@@ -4,9 +4,15 @@ import 'package:simple_github_search_app/infrastructure/github/src/model/excepti
 class GitHubHttpException implements Exception {
   GitHubHttpException({
     required this.data,
+    required this.type,
+    required this.response,
+    required this.message,
   });
 
   final GitHubException data;
+  final DioExceptionType type;
+  final Response<dynamic>? response;
+  final String? message;
 }
 
 class GitHubHttp {
@@ -51,6 +57,9 @@ class GitHubHttp {
       final k = e.response?.data;
       if (k is Map<String, dynamic>) {
         throw GitHubHttpException(
+          type: e.type,
+          response: e.response,
+          message: e.message,
           data: GitHubException.fromJson(k),
         );
       } else {
