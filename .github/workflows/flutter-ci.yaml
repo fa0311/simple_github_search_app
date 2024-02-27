@@ -51,4 +51,4 @@ jobs:
       - run: dart format $(find lib -name "*.dart" -not \( -name "*.*freezed.dart" -o -name "*.*g.dart" -o -name "*.*gr.dart" \) ) --set-exit-if-changed
       - run: flutter analyze --no-fatal-infos
 
-      - run: flutter test
+      - run: flutter test --exclude-tags github_api_test
