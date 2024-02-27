@@ -10,7 +10,7 @@ void main() {
     final (adapter, client) = TestUtilDio.getGithubAPIMock();
     final file = await TestUtilAssets.readJson('github/exception.json');
     adapter.onGet('/search/repositories', (request) => request.reply(400, file));
-    final res = await client.searchRepositories(
+    final res = client.searchRepositories(
       const GithubSearchRepositoriesParam(q: 'flutter'),
     );
     expect(res, throwsA(isA<GitHubHttpException>()));
