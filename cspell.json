@@ -1,7 +1,7 @@
 {
   "version": "0.2",
   "language": "en",
-  "words": ["cupertino", "riverpod", "Signoff"],
+  "words": ["cupertino", "riverpod", "Signoff", "Goldens"],
   "ignorePaths": [
     "android/**",
     "ios/**",
