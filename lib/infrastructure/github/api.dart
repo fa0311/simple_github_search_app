@@ -11,7 +11,7 @@ class GithubAPI {
     GithubSearchRepositoriesParam param,
   ) async {
     assert(param.q.isNotEmpty);
-    assert(param.perPage == null || param.perPage! <= 100);
+    assert(param.perPage <= 100);
 
     final response = await client.get(
       path: '/search/repositories',

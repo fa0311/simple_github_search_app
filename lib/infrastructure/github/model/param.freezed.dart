@@ -22,10 +22,10 @@ GithubSearchRepositoriesParam _$GithubSearchRepositoriesParamFromJson(
 /// @nodoc
 mixin _$GithubSearchRepositoriesParam {
   String get q => throw _privateConstructorUsedError;
-  SearchRepositoriesSortParam? get sort => throw _privateConstructorUsedError;
-  SearchRepositoriesOrderParam? get order => throw _privateConstructorUsedError;
-  int? get perPage => throw _privateConstructorUsedError;
-  int? get page => throw _privateConstructorUsedError;
+  SearchRepositoriesSortParam get sort => throw _privateConstructorUsedError;
+  SearchRepositoriesOrderParam get order => throw _privateConstructorUsedError;
+  int get perPage => throw _privateConstructorUsedError;
+  int get page => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,10 +43,10 @@ abstract class $GithubSearchRepositoriesParamCopyWith<$Res> {
   @useResult
   $Res call(
       {String q,
-      SearchRepositoriesSortParam? sort,
-      SearchRepositoriesOrderParam? order,
-      int? perPage,
-      int? page});
+      SearchRepositoriesSortParam sort,
+      SearchRepositoriesOrderParam order,
+      int perPage,
+      int page});
 }
 
 /// @nodoc
@@ -64,32 +64,32 @@ class _$GithubSearchRepositoriesParamCopyWithImpl<$Res,
   @override
   $Res call({
     Object? q = null,
-    Object? sort = freezed,
-    Object? order = freezed,
-    Object? perPage = freezed,
-    Object? page = freezed,
+    Object? sort = null,
+    Object? order = null,
+    Object? perPage = null,
+    Object? page = null,
   }) {
     return _then(_value.copyWith(
       q: null == q
           ? _value.q
           : q // ignore: cast_nullable_to_non_nullable
               as String,
-      sort: freezed == sort
+      sort: null == sort
           ? _value.sort
           : sort // ignore: cast_nullable_to_non_nullable
-              as SearchRepositoriesSortParam?,
-      order: freezed == order
+              as SearchRepositoriesSortParam,
+      order: null == order
           ? _value.order
           : order // ignore: cast_nullable_to_non_nullable
-              as SearchRepositoriesOrderParam?,
-      perPage: freezed == perPage
+              as SearchRepositoriesOrderParam,
+      perPage: null == perPage
           ? _value.perPage
           : perPage // ignore: cast_nullable_to_non_nullable
-              as int?,
-      page: freezed == page
+              as int,
+      page: null == page
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
     ) as $Val);
   }
 }
@@ -105,10 +105,10 @@ abstract class _$$GithubSearchRepositoriesParamImplCopyWith<$Res>
   @useResult
   $Res call(
       {String q,
-      SearchRepositoriesSortParam? sort,
-      SearchRepositoriesOrderParam? order,
-      int? perPage,
-      int? page});
+      SearchRepositoriesSortParam sort,
+      SearchRepositoriesOrderParam order,
+      int perPage,
+      int page});
 }
 
 /// @nodoc
@@ -125,32 +125,32 @@ class __$$GithubSearchRepositoriesParamImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? q = null,
-    Object? sort = freezed,
-    Object? order = freezed,
-    Object? perPage = freezed,
-    Object? page = freezed,
+    Object? sort = null,
+    Object? order = null,
+    Object? perPage = null,
+    Object? page = null,
   }) {
     return _then(_$GithubSearchRepositoriesParamImpl(
       q: null == q
           ? _value.q
           : q // ignore: cast_nullable_to_non_nullable
               as String,
-      sort: freezed == sort
+      sort: null == sort
           ? _value.sort
           : sort // ignore: cast_nullable_to_non_nullable
-              as SearchRepositoriesSortParam?,
-      order: freezed == order
+              as SearchRepositoriesSortParam,
+      order: null == order
           ? _value.order
           : order // ignore: cast_nullable_to_non_nullable
-              as SearchRepositoriesOrderParam?,
-      perPage: freezed == perPage
+              as SearchRepositoriesOrderParam,
+      perPage: null == perPage
           ? _value.perPage
           : perPage // ignore: cast_nullable_to_non_nullable
-              as int?,
-      page: freezed == page
+              as int,
+      page: null == page
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
     ));
   }
 }
@@ -161,7 +161,11 @@ class __$$GithubSearchRepositoriesParamImplCopyWithImpl<$Res>
 class _$GithubSearchRepositoriesParamImpl
     implements _GithubSearchRepositoriesParam {
   const _$GithubSearchRepositoriesParamImpl(
-      {required this.q, this.sort, this.order, this.perPage, this.page});
+      {required this.q,
+      this.sort = SearchRepositoriesSortParam.bestMatch,
+      this.order = SearchRepositoriesOrderParam.desc,
+      this.perPage = 30,
+      this.page = 1});
 
   factory _$GithubSearchRepositoriesParamImpl.fromJson(
           Map<String, dynamic> json) =>
@@ -170,13 +174,17 @@ class _$GithubSearchRepositoriesParamImpl
   @override
   final String q;
   @override
-  final SearchRepositoriesSortParam? sort;
+  @JsonKey()
+  final SearchRepositoriesSortParam sort;
   @override
-  final SearchRepositoriesOrderParam? order;
+  @JsonKey()
+  final SearchRepositoriesOrderParam order;
   @override
-  final int? perPage;
+  @JsonKey()
+  final int perPage;
   @override
-  final int? page;
+  @JsonKey()
+  final int page;
 
   @override
   String toString() {
@@ -219,10 +227,10 @@ abstract class _GithubSearchRepositoriesParam
     implements GithubSearchRepositoriesParam {
   const factory _GithubSearchRepositoriesParam(
       {required final String q,
-      final SearchRepositoriesSortParam? sort,
-      final SearchRepositoriesOrderParam? order,
-      final int? perPage,
-      final int? page}) = _$GithubSearchRepositoriesParamImpl;
+      final SearchRepositoriesSortParam sort,
+      final SearchRepositoriesOrderParam order,
+      final int perPage,
+      final int page}) = _$GithubSearchRepositoriesParamImpl;
 
   factory _GithubSearchRepositoriesParam.fromJson(Map<String, dynamic> json) =
       _$GithubSearchRepositoriesParamImpl.fromJson;
@@ -230,13 +238,13 @@ abstract class _GithubSearchRepositoriesParam
   @override
   String get q;
   @override
-  SearchRepositoriesSortParam? get sort;
+  SearchRepositoriesSortParam get sort;
   @override
-  SearchRepositoriesOrderParam? get order;
+  SearchRepositoriesOrderParam get order;
   @override
-  int? get perPage;
+  int get perPage;
   @override
-  int? get page;
+  int get page;
   @override
   @JsonKey(ignore: true)
   _$$GithubSearchRepositoriesParamImplCopyWith<

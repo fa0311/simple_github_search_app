@@ -8,10 +8,10 @@ class GithubSearchRepositoriesParam with _$GithubSearchRepositoriesParam {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory GithubSearchRepositoriesParam({
     required String q,
-    SearchRepositoriesSortParam? sort,
-    SearchRepositoriesOrderParam? order,
-    int? perPage,
-    int? page,
+    @Default(SearchRepositoriesSortParam.bestMatch) SearchRepositoriesSortParam sort,
+    @Default(SearchRepositoriesOrderParam.desc) SearchRepositoriesOrderParam order,
+    @Default(30) int perPage,
+    @Default(1) int page,
   }) = _GithubSearchRepositoriesParam;
 
   factory GithubSearchRepositoriesParam.fromJson(Map<String, dynamic> json) =>
@@ -19,13 +19,15 @@ class GithubSearchRepositoriesParam with _$GithubSearchRepositoriesParam {
 }
 
 enum SearchRepositoriesSortParam {
-  stars('stars'),
-  forks('forks'),
-  helpWantedIssues('help-wanted-issues'),
-  updated('updated');
+  @JsonValue('')
+  bestMatch,
+  stars,
+  forks,
+  @JsonValue('help-wanted-issues')
+  helpWantedIssues,
+  updated;
 
-  const SearchRepositoriesSortParam(this.name);
-  final String name;
+  const SearchRepositoriesSortParam();
 }
 
 enum SearchRepositoriesOrderParam {
