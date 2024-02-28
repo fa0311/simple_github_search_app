@@ -6,11 +6,12 @@ part of 'linguist.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$getLinguistClientHash() => r'9f64800c896781829933ad43e891acda7c540efe';
+String _$getLinguistClientHash() => r'f7f676ceb3cb292c6d7d1b3d90788f37dca432d1';
 
 /// See also [getLinguistClient].
 @ProviderFor(getLinguistClient)
-final getLinguistClientProvider = AutoDisposeFutureProvider<Linguist>.internal(
+final getLinguistClientProvider =
+    AutoDisposeFutureProvider<List<LinguistLanguages>>.internal(
   getLinguistClient,
   name: r'getLinguistClientProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -20,9 +21,10 @@ final getLinguistClientProvider = AutoDisposeFutureProvider<Linguist>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef GetLinguistClientRef = AutoDisposeFutureProviderRef<Linguist>;
+typedef GetLinguistClientRef
+    = AutoDisposeFutureProviderRef<List<LinguistLanguages>>;
 String _$getLinguistLanguagesHash() =>
-    r'0a9fa5ad0bc5a7a5df928f4c55d135a50ac8dd1b';
+    r'c4108216d4fffcee965e48d4e9f6313616436c31';
 
 /// Copied from Dart SDK
 class _SystemHash {
