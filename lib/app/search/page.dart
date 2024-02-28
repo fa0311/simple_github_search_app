@@ -7,7 +7,7 @@ import 'package:simple_github_search_app/component/color_ball.dart';
 import 'package:simple_github_search_app/component/custom_scroll_listener.dart';
 import 'package:simple_github_search_app/component/repository_card.dart';
 import 'package:simple_github_search_app/component/search_field_bar.dart';
-import 'package:simple_github_search_app/component/select_button.dart';
+import 'package:simple_github_search_app/component/select_menu_button.dart';
 import 'package:simple_github_search_app/infrastructure/github/model/param.dart';
 import 'package:simple_github_search_app/infrastructure/linguist/linguist.dart';
 import 'package:simple_github_search_app/provider/github.dart';
@@ -50,15 +50,10 @@ class SearchPage extends HookConsumerWidget {
                 items: [
                   for (final value in SearchRepositoriesSortParam.values)
                     PopupMenuItem(
-                      value: value.name,
                       child: Text(value.name),
+                      onTap: () => param.value = param.value.copyWith(sort: value),
                     ),
                 ],
-                onChanged: (String value) {
-                  param.value = param.value.copyWith(
-                    sort: SearchRepositoriesSortParam.values.bySafeName(value),
-                  );
-                },
               ),
             ],
             title: SearchFieldBar(

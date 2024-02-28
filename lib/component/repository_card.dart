@@ -35,53 +35,49 @@ class RepositoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWellCard(
       onTap: onTap,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(8),
-        onTap: () {},
-        child: SizedBox(
-          child: Padding(
-            padding: const EdgeInsets.all(8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
+      child: SizedBox(
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(8),
+                    child: SizedBox(
+                      width: 25,
+                      height: 25,
+                      child: Placeholder(),
+                    ),
+                  ),
+                  Expanded(
+                    child: title,
+                  ),
+                ],
+              ),
+              description,
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.all(8),
-                      child: SizedBox(
-                        width: 25,
-                        height: 25,
-                        child: Placeholder(),
-                      ),
-                    ),
-                    Expanded(
-                      child: title,
-                    ),
-                  ],
-                ),
-                description,
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      for (final topic in topics)
-                        InkWellCard(
-                          color: Colors.lightBlue[100],
-                          child: InkWell(
-                            borderRadius: BorderRadius.circular(8),
-                            onTap: onTopicTap != null ? () => onTopicTap!(topic) : null,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                              child: Text(topic, style: TextStyle(color: Colors.blue[800])),
-                            ),
+                    for (final topic in topics)
+                      InkWellCard(
+                        color: Colors.lightBlue[100],
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(8),
+                          onTap: onTopicTap != null ? () => onTopicTap!(topic) : null,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                            child: Text(topic, style: TextStyle(color: Colors.blue[800])),
                           ),
                         ),
-                    ],
-                  ),
+                      ),
+                  ],
                 ),
-                child,
-              ],
-            ),
+              ),
+              child,
+            ],
           ),
         ),
       ),

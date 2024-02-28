@@ -28,18 +28,21 @@ class CustomScrollListener extends HookWidget {
     final controller = useScrollController();
     useEffect(
       () {
-        controller.addListener(() {
+        void callback() {
           if (controller.position.minScrollExtent + threshold > controller.offset) {
             onTopReached?.call();
           }
           if (controller.position.maxScrollExtent - threshold < controller.offset) {
             onEndReached?.call();
           }
-        });
-        return controller.dispose;
+        }
+
+        controller.addListener(callback);
+        return () => controller.removeListener(callback);
       },
-      [],
+      [controller],
     );
+
     return CustomScrollView(
       controller: controller,
       slivers: slivers,

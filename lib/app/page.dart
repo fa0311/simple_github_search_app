@@ -4,7 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:simple_github_search_app/app/router.dart';
 import 'package:simple_github_search_app/component/search_field_bar.dart';
-import 'package:simple_github_search_app/component/select_button.dart';
+import 'package:simple_github_search_app/component/select_menu_button.dart';
 import 'package:simple_github_search_app/infrastructure/github/model/param.dart';
 
 @RoutePage()
@@ -29,13 +29,10 @@ class GithubSearchAppPage extends HookConsumerWidget {
                 items: [
                   for (final value in SearchRepositoriesSortParam.values)
                     PopupMenuItem(
-                      value: value.name,
                       child: Text(value.name),
+                      onTap: () => sort.value = value,
                     ),
                 ],
-                onChanged: (selected) {
-                  sort.value = SearchRepositoriesSortParam.values.byName(selected);
-                },
               ),
             ],
           ),
