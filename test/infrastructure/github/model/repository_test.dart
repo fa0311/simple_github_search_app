@@ -3,8 +3,8 @@ import 'package:simple_github_search_app/infrastructure/github/model/param.dart'
 import 'package:simple_github_search_app/infrastructure/github/model/repository.dart';
 import 'package:simple_github_search_app/infrastructure/github/model/response.dart';
 
-import '../../../../test_util/assets.dart';
-import '../../../../test_util/dio.dart';
+import '../../../test_util/assets.dart';
+import '../../../test_util/dio.dart';
 
 void main() {
   test('Repository Model', () async {
