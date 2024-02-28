@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:simple_github_search_app/app/router.dart';
+import 'package:simple_github_search_app/component/color_ball.dart';
 import 'package:simple_github_search_app/component/custom_scroll_listener.dart';
 import 'package:simple_github_search_app/component/repository_card.dart';
 import 'package:simple_github_search_app/component/search_field_bar.dart';
 import 'package:simple_github_search_app/component/select_button.dart';
 import 'package:simple_github_search_app/infrastructure/github/model/param.dart';
+import 'package:simple_github_search_app/infrastructure/linguist/linguist.dart';
 import 'package:simple_github_search_app/provider/github.dart';
+import 'package:simple_github_search_app/provider/linguist.dart';
 import 'package:simple_github_search_app/util/enum.dart';
 
 @RoutePage()
@@ -33,6 +36,12 @@ class SearchPage extends HookConsumerWidget {
 
     return Scaffold(
       body: CustomScrollListener(
+        onEndReached: () async {
+          final value = await ref.watch(githubSearchRepositoriesSearchProvider(param.value).future);
+          if (value.items.length != value.totalCount && context.mounted) {
+            await ref.read(githubSearchRepositoriesSearchProvider(param.value).notifier).nextPage();
+          }
+        },
         slivers: [
           SliverAppBar(
             floating: true,
@@ -63,8 +72,37 @@ class SearchPage extends HookConsumerWidget {
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {
                 final data = ref.watch(githubSearchRepositoriesSearchProvider(param.value)).requireValue;
+                final item = data.items[index];
+                final lang = item.language;
+                final linguistValue = lang == null ? null : ref.watch(getLinguistLanguagesProvider(lang)).valueOrNull;
+                final langColor = linguistValue?.color == null ? null : Color(Linguist.toColor(linguistValue!.color!));
+
                 return RepositoryCard(
-                  repository: data.items[index],
+                  title: Text(item.fullName),
+                  description: Text(item.description ?? ''),
+                  topics: item.topics ?? [],
+                  onTopicTap: (topic) {
+                    context.router.push(SearchRoute(query: 'topic:$topic'));
+                  },
+                  onTap: () {
+                    // TODO: ここでリポジトリの詳細画面に遷移する
+                  },
+                  child: Row(
+                    children: [
+                      if (langColor != null)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8, right: 2),
+                          child: ColorBall(color: langColor),
+                        ),
+                      if (lang != null)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 2, right: 8),
+                          child: Text(lang),
+                        ),
+                      const Icon(Icons.star_outline, size: 16),
+                      Text(item.stargazersCount.toString()),
+                    ],
+                  ),
                 );
               },
               childCount: ref.watch(githubSearchRepositoriesSearchProvider(param.value)).maybeWhen(
