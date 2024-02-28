@@ -42,7 +42,7 @@ class GithubSearchRepositoriesSearch extends _$GithubSearchRepositoriesSearch {
   }
 
   int getPage() {
-    return (state.value?.items.length ?? 0) ~/ (param.perPage ?? 30) + 1;
+    return (state.value?.items.length ?? 0) ~/ param.perPage + 1;
   }
 
   Future<GithubResponse<GithubRepository>> fetch(int page) {

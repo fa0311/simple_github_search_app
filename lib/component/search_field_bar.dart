@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class SearchFieldBar extends StatelessWidget {
+/// 検索フィールドのバー
+class SearchFieldBar extends HookWidget {
   const SearchFieldBar({
     super.key,
     required this.onSubmitted,
     this.defaultText,
     this.hintText,
   });
+
+  /// 検索ボタンを押したときのコールバック
   final void Function(String)? onSubmitted;
+
+  /// デフォルトのテキスト
   final String? defaultText;
+
+  /// ヒントテキスト
   final String? hintText;
 
   @override
   Widget build(BuildContext context) {
+    final controller = useTextEditingController(text: defaultText);
     return SizedBox(
       height: 40,
       child: DecoratedBox(
@@ -24,7 +33,7 @@ class SearchFieldBar extends StatelessWidget {
           child: Container(
             margin: const EdgeInsets.symmetric(vertical: 10),
             child: TextField(
-              controller: TextEditingController()..text = defaultText ?? '',
+              controller: controller,
               decoration: InputDecoration(
                 hintText: hintText,
                 prefixIcon: const Icon(Icons.search),
@@ -33,7 +42,10 @@ class SearchFieldBar extends StatelessWidget {
                 focusedBorder: InputBorder.none,
                 isDense: true,
               ),
-              onSubmitted: onSubmitted,
+              onSubmitted: (text) {
+                controller.clear();
+                onSubmitted!(text);
+              },
             ),
           ),
         ),

@@ -27,7 +27,6 @@ abstract class _$AppRouter extends RootStackRouter {
           orElse: () => SearchRouteArgs(
                 query: pathParams.getString('query'),
                 sort: pathParams.optString('sort'),
-                order: pathParams.optString('order'),
               ));
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -35,7 +34,6 @@ abstract class _$AppRouter extends RootStackRouter {
           key: args.key,
           query: args.query,
           sort: args.sort,
-          order: args.order,
         ),
       );
     },
@@ -63,7 +61,6 @@ class SearchRoute extends PageRouteInfo<SearchRouteArgs> {
     Key? key,
     required String query,
     String? sort,
-    String? order,
     List<PageRouteInfo>? children,
   }) : super(
           SearchRoute.name,
@@ -71,12 +68,10 @@ class SearchRoute extends PageRouteInfo<SearchRouteArgs> {
             key: key,
             query: query,
             sort: sort,
-            order: order,
           ),
           rawPathParams: {
             'query': query,
             'sort': sort,
-            'order': order,
           },
           initialChildren: children,
         );
@@ -91,7 +86,6 @@ class SearchRouteArgs {
     this.key,
     required this.query,
     this.sort,
-    this.order,
   });
 
   final Key? key;
@@ -100,10 +94,8 @@ class SearchRouteArgs {
 
   final String? sort;
 
-  final String? order;
-
   @override
   String toString() {
-    return 'SearchRouteArgs{key: $key, query: $query, sort: $sort, order: $order}';
+    return 'SearchRouteArgs{key: $key, query: $query, sort: $sort}';
   }
 }

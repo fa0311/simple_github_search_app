@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:simple_github_search_app/infrastructure/github/model/repository.dart';
 
+/// リポジトリの情報を表示するカード
 class RepositoryCard extends StatelessWidget {
-  const RepositoryCard({super.key, required this.repository});
+  const RepositoryCard({
+    super.key,
+    required this.repository,
+  });
+
+  /// リポジトリの情報
   final GithubRepository repository;
 
   @override

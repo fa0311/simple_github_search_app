@@ -2,8 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:simple_github_search_app/app/router.dart';
+import 'package:simple_github_search_app/component/custom_scroll_listener.dart';
 import 'package:simple_github_search_app/component/repository_card.dart';
 import 'package:simple_github_search_app/component/search_field_bar.dart';
+import 'package:simple_github_search_app/component/select_button.dart';
 import 'package:simple_github_search_app/infrastructure/github/model/param.dart';
 import 'package:simple_github_search_app/provider/github.dart';
 import 'package:simple_github_search_app/util/enum.dart';
@@ -14,49 +17,45 @@ class SearchPage extends HookConsumerWidget {
     super.key,
     @pathParam required this.query,
     @pathParam this.sort,
-    @pathParam this.order,
   });
 
   final String query;
   final String? sort;
-  final String? order;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = useScrollController();
     final param = useState(
       GithubSearchRepositoriesParam(
         q: query,
-        sort: sort == null ? null : SearchRepositoriesSortParam.values.byNameOrNull(sort!),
-        order: order == null ? null : SearchRepositoriesOrderParam.values.byNameOrNull(order!),
+        sort: SearchRepositoriesSortParam.values.byNameOrNull(sort) ?? SearchRepositoriesSortParam.bestMatch,
       ),
     );
 
-    useEffect(
-      () {
-        controller.addListener(() async {
-          if (controller.position.maxScrollExtent - 100 < controller.offset) {
-            final value = await ref.watch(githubSearchRepositoriesSearchProvider(param.value).future);
-            if (value.items.length != value.totalCount && context.mounted) {
-              await ref.read(githubSearchRepositoriesSearchProvider(param.value).notifier).nextPage();
-            }
-          }
-        });
-        return controller.dispose;
-      },
-      const [],
-    );
-
     return Scaffold(
-      body: CustomScrollView(
-        controller: controller,
+      body: CustomScrollListener(
         slivers: [
           SliverAppBar(
             floating: true,
+            actions: [
+              SelectMenuButton(
+                items: [
+                  for (final value in SearchRepositoriesSortParam.values)
+                    PopupMenuItem(
+                      value: value.name,
+                      child: Text(value.name),
+                    ),
+                ],
+                onChanged: (String value) {
+                  param.value = param.value.copyWith(
+                    sort: SearchRepositoriesSortParam.values.bySafeName(value),
+                  );
+                },
+              ),
+            ],
             title: SearchFieldBar(
               defaultText: param.value.q,
               onSubmitted: (value) {
-                param.value = param.value.copyWith(q: value);
+                context.router.push(SearchRoute(query: value));
               },
             ),
           ),

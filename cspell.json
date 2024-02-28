@@ -1,7 +1,14 @@
 {
   "version": "0.2",
   "language": "en",
-  "words": ["cupertino", "riverpod", "Signoff", "Goldens"],
+  "words": [
+    "codemirror",
+    "cupertino",
+    "Goldens",
+    "LTRB",
+    "riverpod",
+    "Signoff"
+  ],
   "ignorePaths": [
     "android/**",
     "ios/**",
