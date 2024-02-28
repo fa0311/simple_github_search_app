@@ -27,7 +27,7 @@ class SearchFieldBar extends HookWidget {
       child: DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: Colors.grey[200],
+          color: Colors.grey[500]?.withOpacity(0.1),
         ),
         child: Center(
           child: Container(
