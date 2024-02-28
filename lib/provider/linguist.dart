@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:simple_github_search_app/infrastructure/linguist/linguist.dart';
 import 'package:simple_github_search_app/infrastructure/linguist/model/linguist.dart';
@@ -5,7 +6,10 @@ import 'package:simple_github_search_app/infrastructure/linguist/model/linguist.
 part 'linguist.g.dart';
 
 @riverpod
-Future<Linguist> getLinguistClient(GetLinguistClientRef ref) => Linguist.read();
+Future<List<LinguistLanguages>> getLinguistClient(GetLinguistClientRef ref) async {
+  final data = await rootBundle.loadString('assets/linguist/languages.yml');
+  return Linguist.read(data);
+}
 
 @riverpod
 Future<LinguistLanguagesData?> getLinguistLanguages(
@@ -13,6 +17,6 @@ Future<LinguistLanguagesData?> getLinguistLanguages(
   String language,
 ) async {
   final linguist = await ref.watch(getLinguistClientProvider.future);
-  final k = linguist.languages.where((element) => element.name == language);
-  return k.firstOrNull?.value;
+  final lang = linguist.where((element) => element.name == language);
+  return lang.firstOrNull?.value;
 }
