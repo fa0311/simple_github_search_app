@@ -15,6 +15,7 @@ import 'package:simple_github_search_app/infrastructure/linguist/linguist.dart';
 import 'package:simple_github_search_app/provider/github.dart';
 import 'package:simple_github_search_app/provider/http.dart';
 import 'package:simple_github_search_app/provider/linguist.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 @RoutePage()
 class RepositoryPage extends HookConsumerWidget implements AutoRouteWrapper {
@@ -51,8 +52,19 @@ class RepositoryPage extends HookConsumerWidget implements AutoRouteWrapper {
           SliverAppBar(
             floating: true,
             title: Text(name),
+            actions: [
+              // view on browser
+              IconButton(
+                icon: const Icon(Icons.open_in_browser),
+                onPressed: () async {
+                  final url = Uri.parse('https://github.com/$owner/$name');
+                  if (!await launchUrl(url)) {
+                    throw Exception('Could not launch $url');
+                  }
+                },
+              ),
+            ],
           ),
-          // 最大まで拡大
           SliverToBoxAdapter(
             child: ref.watch(githubRepositoriesProvider(owner, name)).when(
               data: (value) {
