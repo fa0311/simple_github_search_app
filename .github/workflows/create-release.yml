@@ -1,0 +1,40 @@
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  update_release_draft:
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.x"
+          channel: "stable"
+          cache: true
+      - run: flutter pub get
+      - run: flutter build apk --release
+
+      - uses: mikefarah/yq@master
+        id: release-version
+        with:
+          cmd: yq '.version' pubspec.yaml
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: app-release-v${{ steps.release-version.outputs.result }}
+          path: build/app/outputs/flutter-apk/app-release.apk
+
+      - uses: release-drafter/release-drafter@v5
+        with:
+          publish: true
+          tag: v${{ steps.release-version.outputs.result }}
+          name: v${{ steps.release-version.outputs.result }}
+          version: ${{ steps.release-version.outputs.result }}
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
