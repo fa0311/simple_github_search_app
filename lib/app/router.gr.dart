@@ -21,12 +21,33 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const GithubSearchAppPage(),
       );
     },
-    SearchRoute.name: (routeData) {
+    RepositoryRoute.name: (routeData) {
       final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<RepositoryRouteArgs>(
+          orElse: () => RepositoryRouteArgs(
+                owner: pathParams.getString('owner'),
+                name: pathParams.getString('name'),
+              ));
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(
+            child: RepositoryPage(
+          key: args.key,
+          owner: args.owner,
+          name: args.name,
+          repository: args.repository,
+        )),
+      );
+    },
+    SearchRoute.name: (routeData) {
+      final queryParams = routeData.queryParams;
       final args = routeData.argsAs<SearchRouteArgs>(
           orElse: () => SearchRouteArgs(
-                query: pathParams.getString('query'),
-                sort: pathParams.optString('sort'),
+                query: queryParams.getString(
+                  'query',
+                  '',
+                ),
+                sort: queryParams.optString('sort'),
               ));
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -55,11 +76,63 @@ class GithubSearchAppRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [RepositoryPage]
+class RepositoryRoute extends PageRouteInfo<RepositoryRouteArgs> {
+  RepositoryRoute({
+    Key? key,
+    required String owner,
+    required String name,
+    GithubRepository? repository,
+    List<PageRouteInfo>? children,
+  }) : super(
+          RepositoryRoute.name,
+          args: RepositoryRouteArgs(
+            key: key,
+            owner: owner,
+            name: name,
+            repository: repository,
+          ),
+          rawPathParams: {
+            'owner': owner,
+            'name': name,
+          },
+          initialChildren: children,
+        );
+
+  static const String name = 'RepositoryRoute';
+
+  static const PageInfo<RepositoryRouteArgs> page =
+      PageInfo<RepositoryRouteArgs>(name);
+}
+
+class RepositoryRouteArgs {
+  const RepositoryRouteArgs({
+    this.key,
+    required this.owner,
+    required this.name,
+    this.repository,
+  });
+
+  final Key? key;
+
+  final String owner;
+
+  final String name;
+
+  final GithubRepository? repository;
+
+  @override
+  String toString() {
+    return 'RepositoryRouteArgs{key: $key, owner: $owner, name: $name, repository: $repository}';
+  }
+}
+
+/// generated route for
 /// [SearchPage]
 class SearchRoute extends PageRouteInfo<SearchRouteArgs> {
   SearchRoute({
     Key? key,
-    required String query,
+    String query = '',
     String? sort,
     List<PageRouteInfo>? children,
   }) : super(
@@ -69,7 +142,7 @@ class SearchRoute extends PageRouteInfo<SearchRouteArgs> {
             query: query,
             sort: sort,
           ),
-          rawPathParams: {
+          rawQueryParams: {
             'query': query,
             'sort': sort,
           },
@@ -84,7 +157,7 @@ class SearchRoute extends PageRouteInfo<SearchRouteArgs> {
 class SearchRouteArgs {
   const SearchRouteArgs({
     this.key,
-    required this.query,
+    this.query = '',
     this.sort,
   });
 

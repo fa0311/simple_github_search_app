@@ -11,7 +11,7 @@ class SearchFieldBar extends HookWidget {
   });
 
   /// 検索ボタンを押したときのコールバック
-  final void Function(String)? onSubmitted;
+  final Future<void> Function(String)? onSubmitted;
 
   /// デフォルトのテキスト
   final String? defaultText;
@@ -42,9 +42,9 @@ class SearchFieldBar extends HookWidget {
                 focusedBorder: InputBorder.none,
                 isDense: true,
               ),
-              onSubmitted: (text) {
-                controller.clear();
-                onSubmitted!(text);
+              onSubmitted: (text) async {
+                await onSubmitted!(text);
+                controller.text = defaultText ?? '';
               },
             ),
           ),
