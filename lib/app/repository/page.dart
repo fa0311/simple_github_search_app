@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:markdown/markdown.dart' as md;
 import 'package:simple_github_search_app/app/router.dart';
+import 'package:simple_github_search_app/component/circle_cached_network_image.dart';
 import 'package:simple_github_search_app/component/color_ball.dart';
 import 'package:simple_github_search_app/component/custom_scroll_listener.dart';
 import 'package:simple_github_search_app/component/ink_well_card.dart';
@@ -75,13 +76,8 @@ class RepositoryPage extends HookConsumerWidget implements AutoRouteWrapper {
                   children: [
                     Row(
                       children: [
-                        const Padding(
-                          padding: EdgeInsets.all(8),
-                          child: SizedBox(
-                            width: 25,
-                            height: 25,
-                            child: Placeholder(),
-                          ),
+                        CircleCachedNetworkImage(
+                          imageUrl: value.owner?.avatarUrl ?? '',
                         ),
                         InkWell(
                           onTap: () {
