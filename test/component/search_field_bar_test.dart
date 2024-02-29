@@ -9,7 +9,7 @@ void main() {
     await tester.pumpWidget(
       TestComponentUtil.setApp(
         SearchFieldBar(
-          onSubmitted: (_) {},
+          onSubmitted: (_) async {},
           defaultText: 'defaultText',
           hintText: 'hintText',
         ),
@@ -26,7 +26,7 @@ void main() {
     await tester.pumpWidget(
       TestComponentUtil.setApp(
         SearchFieldBar(
-          onSubmitted: (text) => onSubmitted = text,
+          onSubmitted: (text) async => onSubmitted = text,
         ),
       ),
     );

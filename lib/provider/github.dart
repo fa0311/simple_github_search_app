@@ -11,8 +11,31 @@ part 'github.g.dart';
 GithubAPI getGithubAPIClient(GetGithubAPIClientRef ref) => GithubAPI();
 
 @riverpod
-Future<GithubResponse<GithubRepository>> searchGithubRepositoriesRow(
-  SearchGithubRepositoriesRowRef ref,
+Future<GithubRepository> githubRepositories(
+  GithubRepositoriesRef ref,
+  String owner,
+  String repositoryName,
+) async {
+  // TODO: owner, repository からリポジトリ情報を取得する
+  throw UnimplementedError();
+}
+
+@riverpod
+Future<String> getGithubReadme(
+  GetGithubReadmeRef ref,
+  String owner,
+  String repositoryName,
+  String branch,
+) async {
+  final client = ref.watch(getGithubAPIClientProvider);
+  final url = 'https://raw.githubusercontent.com/$owner/$repositoryName/$branch/README.md';
+  final response = await client.client.dio.get<String>(url);
+  return response.data!;
+}
+
+@riverpod
+Future<GithubResponse<GithubRepository>> searchGithubRepositoriesRaw(
+  SearchGithubRepositoriesRawRef ref,
   GithubSearchRepositoriesParam param,
 ) async {
   logger.d('send request: $param');
@@ -22,7 +45,7 @@ Future<GithubResponse<GithubRepository>> searchGithubRepositoriesRow(
 }
 
 @riverpod
-class GithubSearchRepositoriesSearch extends _$GithubSearchRepositoriesSearch {
+class GithubSearchRepositories extends _$GithubSearchRepositories {
   @override
   FutureOr<GithubResponse<GithubRepository>> build(GithubSearchRepositoriesParam param) {
     return fetch(1);
@@ -31,11 +54,14 @@ class GithubSearchRepositoriesSearch extends _$GithubSearchRepositoriesSearch {
   Future<void> nextPage() async {
     state = await AsyncValue.guard(() async {
       final res = await fetch(getPage());
-      if (res.items.last == state.requireValue.items.last) {
+      if (state.requireValue.items.last == res.items.last) {
         return state.requireValue;
       } else {
         return res.copyWith(
-          items: [...state.requireValue.items, ...res.items],
+          items: [
+            ...state.requireValue.items,
+            ...res.items,
+          ],
         );
       }
     });
@@ -45,8 +71,9 @@ class GithubSearchRepositoriesSearch extends _$GithubSearchRepositoriesSearch {
     return (state.value?.items.length ?? 0) ~/ param.perPage + 1;
   }
 
-  Future<GithubResponse<GithubRepository>> fetch(int page) {
+  Future<GithubResponse<GithubRepository>> fetch(int page) async {
     final newParam = param.copyWith(page: page);
-    return ref.watch(searchGithubRepositoriesRowProvider(newParam).future);
+    final res = await ref.watch(searchGithubRepositoriesRawProvider(newParam).future);
+    return res;
   }
 }

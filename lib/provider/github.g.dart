@@ -22,8 +22,8 @@ final getGithubAPIClientProvider = AutoDisposeProvider<GithubAPI>.internal(
 );
 
 typedef GetGithubAPIClientRef = AutoDisposeProviderRef<GithubAPI>;
-String _$searchGithubRepositoriesRowHash() =>
-    r'9cd2e9e27de0bda0311bcb1e2ed4f25cae055f01';
+String _$githubRepositoriesHash() =>
+    r'3f8e3ef1c61ea9b9c31e15dd4d5cd5d57242e794';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -46,28 +46,339 @@ class _SystemHash {
   }
 }
 
-/// See also [searchGithubRepositoriesRow].
-@ProviderFor(searchGithubRepositoriesRow)
-const searchGithubRepositoriesRowProvider = SearchGithubRepositoriesRowFamily();
+/// See also [githubRepositories].
+@ProviderFor(githubRepositories)
+const githubRepositoriesProvider = GithubRepositoriesFamily();
 
-/// See also [searchGithubRepositoriesRow].
-class SearchGithubRepositoriesRowFamily
+/// See also [githubRepositories].
+class GithubRepositoriesFamily extends Family<AsyncValue<GithubRepository>> {
+  /// See also [githubRepositories].
+  const GithubRepositoriesFamily();
+
+  /// See also [githubRepositories].
+  GithubRepositoriesProvider call(
+    String owner,
+    String repositoryName,
+  ) {
+    return GithubRepositoriesProvider(
+      owner,
+      repositoryName,
+    );
+  }
+
+  @override
+  GithubRepositoriesProvider getProviderOverride(
+    covariant GithubRepositoriesProvider provider,
+  ) {
+    return call(
+      provider.owner,
+      provider.repositoryName,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'githubRepositoriesProvider';
+}
+
+/// See also [githubRepositories].
+class GithubRepositoriesProvider
+    extends AutoDisposeFutureProvider<GithubRepository> {
+  /// See also [githubRepositories].
+  GithubRepositoriesProvider(
+    String owner,
+    String repositoryName,
+  ) : this._internal(
+          (ref) => githubRepositories(
+            ref as GithubRepositoriesRef,
+            owner,
+            repositoryName,
+          ),
+          from: githubRepositoriesProvider,
+          name: r'githubRepositoriesProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$githubRepositoriesHash,
+          dependencies: GithubRepositoriesFamily._dependencies,
+          allTransitiveDependencies:
+              GithubRepositoriesFamily._allTransitiveDependencies,
+          owner: owner,
+          repositoryName: repositoryName,
+        );
+
+  GithubRepositoriesProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.owner,
+    required this.repositoryName,
+  }) : super.internal();
+
+  final String owner;
+  final String repositoryName;
+
+  @override
+  Override overrideWith(
+    FutureOr<GithubRepository> Function(GithubRepositoriesRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: GithubRepositoriesProvider._internal(
+        (ref) => create(ref as GithubRepositoriesRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        owner: owner,
+        repositoryName: repositoryName,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<GithubRepository> createElement() {
+    return _GithubRepositoriesProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is GithubRepositoriesProvider &&
+        other.owner == owner &&
+        other.repositoryName == repositoryName;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, owner.hashCode);
+    hash = _SystemHash.combine(hash, repositoryName.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin GithubRepositoriesRef on AutoDisposeFutureProviderRef<GithubRepository> {
+  /// The parameter `owner` of this provider.
+  String get owner;
+
+  /// The parameter `repositoryName` of this provider.
+  String get repositoryName;
+}
+
+class _GithubRepositoriesProviderElement
+    extends AutoDisposeFutureProviderElement<GithubRepository>
+    with GithubRepositoriesRef {
+  _GithubRepositoriesProviderElement(super.provider);
+
+  @override
+  String get owner => (origin as GithubRepositoriesProvider).owner;
+  @override
+  String get repositoryName =>
+      (origin as GithubRepositoriesProvider).repositoryName;
+}
+
+String _$getGithubReadmeHash() => r'7495da313f3c1f0472a0fbde9810ab078126a521';
+
+/// See also [getGithubReadme].
+@ProviderFor(getGithubReadme)
+const getGithubReadmeProvider = GetGithubReadmeFamily();
+
+/// See also [getGithubReadme].
+class GetGithubReadmeFamily extends Family<AsyncValue<String>> {
+  /// See also [getGithubReadme].
+  const GetGithubReadmeFamily();
+
+  /// See also [getGithubReadme].
+  GetGithubReadmeProvider call(
+    String owner,
+    String repositoryName,
+    String branch,
+  ) {
+    return GetGithubReadmeProvider(
+      owner,
+      repositoryName,
+      branch,
+    );
+  }
+
+  @override
+  GetGithubReadmeProvider getProviderOverride(
+    covariant GetGithubReadmeProvider provider,
+  ) {
+    return call(
+      provider.owner,
+      provider.repositoryName,
+      provider.branch,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'getGithubReadmeProvider';
+}
+
+/// See also [getGithubReadme].
+class GetGithubReadmeProvider extends AutoDisposeFutureProvider<String> {
+  /// See also [getGithubReadme].
+  GetGithubReadmeProvider(
+    String owner,
+    String repositoryName,
+    String branch,
+  ) : this._internal(
+          (ref) => getGithubReadme(
+            ref as GetGithubReadmeRef,
+            owner,
+            repositoryName,
+            branch,
+          ),
+          from: getGithubReadmeProvider,
+          name: r'getGithubReadmeProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$getGithubReadmeHash,
+          dependencies: GetGithubReadmeFamily._dependencies,
+          allTransitiveDependencies:
+              GetGithubReadmeFamily._allTransitiveDependencies,
+          owner: owner,
+          repositoryName: repositoryName,
+          branch: branch,
+        );
+
+  GetGithubReadmeProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.owner,
+    required this.repositoryName,
+    required this.branch,
+  }) : super.internal();
+
+  final String owner;
+  final String repositoryName;
+  final String branch;
+
+  @override
+  Override overrideWith(
+    FutureOr<String> Function(GetGithubReadmeRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: GetGithubReadmeProvider._internal(
+        (ref) => create(ref as GetGithubReadmeRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        owner: owner,
+        repositoryName: repositoryName,
+        branch: branch,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<String> createElement() {
+    return _GetGithubReadmeProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is GetGithubReadmeProvider &&
+        other.owner == owner &&
+        other.repositoryName == repositoryName &&
+        other.branch == branch;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, owner.hashCode);
+    hash = _SystemHash.combine(hash, repositoryName.hashCode);
+    hash = _SystemHash.combine(hash, branch.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin GetGithubReadmeRef on AutoDisposeFutureProviderRef<String> {
+  /// The parameter `owner` of this provider.
+  String get owner;
+
+  /// The parameter `repositoryName` of this provider.
+  String get repositoryName;
+
+  /// The parameter `branch` of this provider.
+  String get branch;
+}
+
+class _GetGithubReadmeProviderElement
+    extends AutoDisposeFutureProviderElement<String> with GetGithubReadmeRef {
+  _GetGithubReadmeProviderElement(super.provider);
+
+  @override
+  String get owner => (origin as GetGithubReadmeProvider).owner;
+  @override
+  String get repositoryName =>
+      (origin as GetGithubReadmeProvider).repositoryName;
+  @override
+  String get branch => (origin as GetGithubReadmeProvider).branch;
+}
+
+String _$searchGithubRepositoriesRawHash() =>
+    r'aa7b84f305bc128e65c0ce1efaef24e234d4ff03';
+
+/// See also [searchGithubRepositoriesRaw].
+@ProviderFor(searchGithubRepositoriesRaw)
+const searchGithubRepositoriesRawProvider = SearchGithubRepositoriesRawFamily();
+
+/// See also [searchGithubRepositoriesRaw].
+class SearchGithubRepositoriesRawFamily
     extends Family<AsyncValue<GithubResponse<GithubRepository>>> {
-  /// See also [searchGithubRepositoriesRow].
-  const SearchGithubRepositoriesRowFamily();
+  /// See also [searchGithubRepositoriesRaw].
+  const SearchGithubRepositoriesRawFamily();
 
-  /// See also [searchGithubRepositoriesRow].
-  SearchGithubRepositoriesRowProvider call(
+  /// See also [searchGithubRepositoriesRaw].
+  SearchGithubRepositoriesRawProvider call(
     GithubSearchRepositoriesParam param,
   ) {
-    return SearchGithubRepositoriesRowProvider(
+    return SearchGithubRepositoriesRawProvider(
       param,
     );
   }
 
   @override
-  SearchGithubRepositoriesRowProvider getProviderOverride(
-    covariant SearchGithubRepositoriesRowProvider provider,
+  SearchGithubRepositoriesRawProvider getProviderOverride(
+    covariant SearchGithubRepositoriesRawProvider provider,
   ) {
     return call(
       provider.param,
@@ -86,33 +397,33 @@ class SearchGithubRepositoriesRowFamily
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'searchGithubRepositoriesRowProvider';
+  String? get name => r'searchGithubRepositoriesRawProvider';
 }
 
-/// See also [searchGithubRepositoriesRow].
-class SearchGithubRepositoriesRowProvider
+/// See also [searchGithubRepositoriesRaw].
+class SearchGithubRepositoriesRawProvider
     extends AutoDisposeFutureProvider<GithubResponse<GithubRepository>> {
-  /// See also [searchGithubRepositoriesRow].
-  SearchGithubRepositoriesRowProvider(
+  /// See also [searchGithubRepositoriesRaw].
+  SearchGithubRepositoriesRawProvider(
     GithubSearchRepositoriesParam param,
   ) : this._internal(
-          (ref) => searchGithubRepositoriesRow(
-            ref as SearchGithubRepositoriesRowRef,
+          (ref) => searchGithubRepositoriesRaw(
+            ref as SearchGithubRepositoriesRawRef,
             param,
           ),
-          from: searchGithubRepositoriesRowProvider,
-          name: r'searchGithubRepositoriesRowProvider',
+          from: searchGithubRepositoriesRawProvider,
+          name: r'searchGithubRepositoriesRawProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$searchGithubRepositoriesRowHash,
-          dependencies: SearchGithubRepositoriesRowFamily._dependencies,
+                  : _$searchGithubRepositoriesRawHash,
+          dependencies: SearchGithubRepositoriesRawFamily._dependencies,
           allTransitiveDependencies:
-              SearchGithubRepositoriesRowFamily._allTransitiveDependencies,
+              SearchGithubRepositoriesRawFamily._allTransitiveDependencies,
           param: param,
         );
 
-  SearchGithubRepositoriesRowProvider._internal(
+  SearchGithubRepositoriesRawProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -127,13 +438,13 @@ class SearchGithubRepositoriesRowProvider
   @override
   Override overrideWith(
     FutureOr<GithubResponse<GithubRepository>> Function(
-            SearchGithubRepositoriesRowRef provider)
+            SearchGithubRepositoriesRawRef provider)
         create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: SearchGithubRepositoriesRowProvider._internal(
-        (ref) => create(ref as SearchGithubRepositoriesRowRef),
+      override: SearchGithubRepositoriesRawProvider._internal(
+        (ref) => create(ref as SearchGithubRepositoriesRawRef),
         from: from,
         name: null,
         dependencies: null,
@@ -147,12 +458,12 @@ class SearchGithubRepositoriesRowProvider
   @override
   AutoDisposeFutureProviderElement<GithubResponse<GithubRepository>>
       createElement() {
-    return _SearchGithubRepositoriesRowProviderElement(this);
+    return _SearchGithubRepositoriesRawProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is SearchGithubRepositoriesRowProvider && other.param == param;
+    return other is SearchGithubRepositoriesRawProvider && other.param == param;
   }
 
   @override
@@ -164,26 +475,26 @@ class SearchGithubRepositoriesRowProvider
   }
 }
 
-mixin SearchGithubRepositoriesRowRef
+mixin SearchGithubRepositoriesRawRef
     on AutoDisposeFutureProviderRef<GithubResponse<GithubRepository>> {
   /// The parameter `param` of this provider.
   GithubSearchRepositoriesParam get param;
 }
 
-class _SearchGithubRepositoriesRowProviderElement
+class _SearchGithubRepositoriesRawProviderElement
     extends AutoDisposeFutureProviderElement<GithubResponse<GithubRepository>>
-    with SearchGithubRepositoriesRowRef {
-  _SearchGithubRepositoriesRowProviderElement(super.provider);
+    with SearchGithubRepositoriesRawRef {
+  _SearchGithubRepositoriesRawProviderElement(super.provider);
 
   @override
   GithubSearchRepositoriesParam get param =>
-      (origin as SearchGithubRepositoriesRowProvider).param;
+      (origin as SearchGithubRepositoriesRawProvider).param;
 }
 
-String _$githubSearchRepositoriesSearchHash() =>
-    r'850d9e511ae05cd9a40092bc80bfff39c618191e';
+String _$githubSearchRepositoriesHash() =>
+    r'3ccc440a7026c1c4f627eb06d530dd4d5dba2c22';
 
-abstract class _$GithubSearchRepositoriesSearch
+abstract class _$GithubSearchRepositories
     extends BuildlessAutoDisposeAsyncNotifier<
         GithubResponse<GithubRepository>> {
   late final GithubSearchRepositoriesParam param;
@@ -193,29 +504,28 @@ abstract class _$GithubSearchRepositoriesSearch
   );
 }
 
-/// See also [GithubSearchRepositoriesSearch].
-@ProviderFor(GithubSearchRepositoriesSearch)
-const githubSearchRepositoriesSearchProvider =
-    GithubSearchRepositoriesSearchFamily();
+/// See also [GithubSearchRepositories].
+@ProviderFor(GithubSearchRepositories)
+const githubSearchRepositoriesProvider = GithubSearchRepositoriesFamily();
 
-/// See also [GithubSearchRepositoriesSearch].
-class GithubSearchRepositoriesSearchFamily
+/// See also [GithubSearchRepositories].
+class GithubSearchRepositoriesFamily
     extends Family<AsyncValue<GithubResponse<GithubRepository>>> {
-  /// See also [GithubSearchRepositoriesSearch].
-  const GithubSearchRepositoriesSearchFamily();
+  /// See also [GithubSearchRepositories].
+  const GithubSearchRepositoriesFamily();
 
-  /// See also [GithubSearchRepositoriesSearch].
-  GithubSearchRepositoriesSearchProvider call(
+  /// See also [GithubSearchRepositories].
+  GithubSearchRepositoriesProvider call(
     GithubSearchRepositoriesParam param,
   ) {
-    return GithubSearchRepositoriesSearchProvider(
+    return GithubSearchRepositoriesProvider(
       param,
     );
   }
 
   @override
-  GithubSearchRepositoriesSearchProvider getProviderOverride(
-    covariant GithubSearchRepositoriesSearchProvider provider,
+  GithubSearchRepositoriesProvider getProviderOverride(
+    covariant GithubSearchRepositoriesProvider provider,
   ) {
     return call(
       provider.param,
@@ -234,31 +544,31 @@ class GithubSearchRepositoriesSearchFamily
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'githubSearchRepositoriesSearchProvider';
+  String? get name => r'githubSearchRepositoriesProvider';
 }
 
-/// See also [GithubSearchRepositoriesSearch].
-class GithubSearchRepositoriesSearchProvider
-    extends AutoDisposeAsyncNotifierProviderImpl<GithubSearchRepositoriesSearch,
+/// See also [GithubSearchRepositories].
+class GithubSearchRepositoriesProvider
+    extends AutoDisposeAsyncNotifierProviderImpl<GithubSearchRepositories,
         GithubResponse<GithubRepository>> {
-  /// See also [GithubSearchRepositoriesSearch].
-  GithubSearchRepositoriesSearchProvider(
+  /// See also [GithubSearchRepositories].
+  GithubSearchRepositoriesProvider(
     GithubSearchRepositoriesParam param,
   ) : this._internal(
-          () => GithubSearchRepositoriesSearch()..param = param,
-          from: githubSearchRepositoriesSearchProvider,
-          name: r'githubSearchRepositoriesSearchProvider',
+          () => GithubSearchRepositories()..param = param,
+          from: githubSearchRepositoriesProvider,
+          name: r'githubSearchRepositoriesProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$githubSearchRepositoriesSearchHash,
-          dependencies: GithubSearchRepositoriesSearchFamily._dependencies,
+                  : _$githubSearchRepositoriesHash,
+          dependencies: GithubSearchRepositoriesFamily._dependencies,
           allTransitiveDependencies:
-              GithubSearchRepositoriesSearchFamily._allTransitiveDependencies,
+              GithubSearchRepositoriesFamily._allTransitiveDependencies,
           param: param,
         );
 
-  GithubSearchRepositoriesSearchProvider._internal(
+  GithubSearchRepositoriesProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -272,7 +582,7 @@ class GithubSearchRepositoriesSearchProvider
 
   @override
   FutureOr<GithubResponse<GithubRepository>> runNotifierBuild(
-    covariant GithubSearchRepositoriesSearch notifier,
+    covariant GithubSearchRepositories notifier,
   ) {
     return notifier.build(
       param,
@@ -280,10 +590,10 @@ class GithubSearchRepositoriesSearchProvider
   }
 
   @override
-  Override overrideWith(GithubSearchRepositoriesSearch Function() create) {
+  Override overrideWith(GithubSearchRepositories Function() create) {
     return ProviderOverride(
       origin: this,
-      override: GithubSearchRepositoriesSearchProvider._internal(
+      override: GithubSearchRepositoriesProvider._internal(
         () => create()..param = param,
         from: from,
         name: null,
@@ -296,15 +606,14 @@ class GithubSearchRepositoriesSearchProvider
   }
 
   @override
-  AutoDisposeAsyncNotifierProviderElement<GithubSearchRepositoriesSearch,
+  AutoDisposeAsyncNotifierProviderElement<GithubSearchRepositories,
       GithubResponse<GithubRepository>> createElement() {
-    return _GithubSearchRepositoriesSearchProviderElement(this);
+    return _GithubSearchRepositoriesProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is GithubSearchRepositoriesSearchProvider &&
-        other.param == param;
+    return other is GithubSearchRepositoriesProvider && other.param == param;
   }
 
   @override
@@ -316,21 +625,20 @@ class GithubSearchRepositoriesSearchProvider
   }
 }
 
-mixin GithubSearchRepositoriesSearchRef
+mixin GithubSearchRepositoriesRef
     on AutoDisposeAsyncNotifierProviderRef<GithubResponse<GithubRepository>> {
   /// The parameter `param` of this provider.
   GithubSearchRepositoriesParam get param;
 }
 
-class _GithubSearchRepositoriesSearchProviderElement
-    extends AutoDisposeAsyncNotifierProviderElement<
-        GithubSearchRepositoriesSearch, GithubResponse<GithubRepository>>
-    with GithubSearchRepositoriesSearchRef {
-  _GithubSearchRepositoriesSearchProviderElement(super.provider);
+class _GithubSearchRepositoriesProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<GithubSearchRepositories,
+        GithubResponse<GithubRepository>> with GithubSearchRepositoriesRef {
+  _GithubSearchRepositoriesProviderElement(super.provider);
 
   @override
   GithubSearchRepositoriesParam get param =>
-      (origin as GithubSearchRepositoriesSearchProvider).param;
+      (origin as GithubSearchRepositoriesProvider).param;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

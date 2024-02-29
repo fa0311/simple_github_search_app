@@ -18,8 +18,8 @@ import 'package:simple_github_search_app/util/enum.dart';
 class SearchPage extends HookConsumerWidget {
   const SearchPage({
     super.key,
-    @pathParam required this.query,
-    @pathParam this.sort,
+    @queryParam this.query = '',
+    @queryParam this.sort,
   });
 
   final String query;
@@ -37,9 +37,9 @@ class SearchPage extends HookConsumerWidget {
     return Scaffold(
       body: CustomScrollListener(
         onEndReached: () async {
-          final value = await ref.watch(githubSearchRepositoriesSearchProvider(param.value).future);
+          final value = await ref.watch(githubSearchRepositoriesProvider(param.value).future);
           if (value.items.length != value.totalCount && context.mounted) {
-            await ref.read(githubSearchRepositoriesSearchProvider(param.value).notifier).nextPage();
+            await ref.read(githubSearchRepositoriesProvider(param.value).notifier).nextPage();
           }
         },
         slivers: [
@@ -58,15 +58,15 @@ class SearchPage extends HookConsumerWidget {
             ],
             title: SearchFieldBar(
               defaultText: param.value.q,
-              onSubmitted: (value) {
-                context.router.push(SearchRoute(query: value));
+              onSubmitted: (value) async {
+                await context.router.push(SearchRoute(query: value));
               },
             ),
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {
-                final data = ref.watch(githubSearchRepositoriesSearchProvider(param.value)).requireValue;
+                final data = ref.watch(githubSearchRepositoriesProvider(param.value)).requireValue;
                 final item = data.items[index];
                 final lang = item.language;
                 final linguistValue = lang == null ? null : ref.watch(getLinguistLanguagesProvider(lang)).valueOrNull;
@@ -80,34 +80,78 @@ class SearchPage extends HookConsumerWidget {
                     context.router.push(SearchRoute(query: 'topic:$topic'));
                   },
                   onTap: () {
-                    // TODO: ここでリポジトリの詳細画面に遷移する
+                    context.router.push(
+                      RepositoryRoute(
+                        owner: item.owner!.login,
+                        name: item.name,
+                        repository: item,
+                      ),
+                    );
                   },
                   child: Row(
                     children: [
-                      if (langColor != null)
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8, right: 2),
-                          child: ColorBall(color: langColor),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (langColor != null) ColorBall(color: langColor),
+                            if (lang != null) Text(lang),
+                          ],
                         ),
-                      if (lang != null)
-                        Padding(
-                          padding: const EdgeInsets.only(left: 2, right: 8),
-                          child: Text(lang),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.star_outline, size: 16),
+                            Text(item.stargazersCount.toString()),
+                          ],
                         ),
-                      const Icon(Icons.star_outline, size: 16),
-                      Text(item.stargazersCount.toString()),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.remove_red_eye_outlined, size: 16),
+                            Text(item.watchersCount.toString()),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.call_split_outlined, size: 16),
+                            Text(item.forksCount.toString()),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.error_outline, size: 16),
+                            Text(item.openIssuesCount.toString()),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 );
               },
-              childCount: ref.watch(githubSearchRepositoriesSearchProvider(param.value)).maybeWhen(
+              childCount: ref.watch(githubSearchRepositoriesProvider(param.value)).maybeWhen(
                     data: (response) => response.items.length,
                     orElse: () => 0,
                   ),
             ),
           ),
           SliverToBoxAdapter(
-            child: ref.watch(githubSearchRepositoriesSearchProvider(param.value)).when(
+            child: ref.watch(githubSearchRepositoriesProvider(param.value)).when(
               data: (response) {
                 if (response.items.length != response.totalCount) {
                   return const Padding(padding: EdgeInsets.all(8), child: Center(child: CircularProgressIndicator()));
