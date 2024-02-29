@@ -1,10 +1,12 @@
+name: Update Release
 on:
   push:
     branches:
       - release
+  workflow_dispatch:
 
 jobs:
-  update_release_draft:
+  update_release:
     permissions:
       contents: write
       pull-requests: write
@@ -24,10 +26,11 @@ jobs:
         with:
           cmd: yq '.version' pubspec.yaml
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
           name: app-release-v${{ steps.release-version.outputs.result }}
           path: build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 7
 
       - uses: release-drafter/release-drafter@v5
         with:
