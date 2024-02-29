@@ -1,4 +1,4 @@
-name: Update Release
+name: Create Release
 on:
   push:
     branches:
@@ -6,10 +6,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  update_release:
+  create-release:
     permissions:
       contents: write
-      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -26,18 +25,10 @@ jobs:
         with:
           cmd: yq '.version' pubspec.yaml
 
-      - uses: actions/upload-artifact@v4
+      - uses: softprops/action-gh-release@v1
         with:
-          name: app-release-v${{ steps.release-version.outputs.result }}
-          path: build/app/outputs/flutter-apk/app-release.apk
-          retention-days: 7
-
-      - uses: release-drafter/release-drafter@v5
-        with:
-          publish: true
-          tag: v${{ steps.release-version.outputs.result }}
-          name: v${{ steps.release-version.outputs.result }}
-          version: ${{ steps.release-version.outputs.result }}
-
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          files: |
+            build/app/outputs/flutter-apk/app-release.apk
+          tag_name: v${{ steps.release-version.outputs.result }}
+          body: v${{ steps.release-version.outputs.result }}
+          token: ${{ secrets.GITHUB_TOKEN }}
