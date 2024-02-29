@@ -54,7 +54,6 @@ class RepositoryPage extends HookConsumerWidget implements AutoRouteWrapper {
             floating: true,
             title: Text(name),
             actions: [
-              // view on browser
               IconButton(
                 icon: const Icon(Icons.open_in_browser),
                 onPressed: () async {
@@ -165,27 +164,33 @@ class RepositoryPage extends HookConsumerWidget implements AutoRouteWrapper {
                         ),
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(Icons.link_outlined, size: 16),
-                          InkWell(
-                            onTap: () => {},
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                              child: Text(
-                                value.homepage.toString(),
-                                style: Theme.of(context).textTheme.bodyMedium?.merge(
-                                      const TextStyle(color: Colors.blue),
-                                    ),
+                    if (value.homepage != null)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.link_outlined, size: 16),
+                            InkWell(
+                              onTap: () async {
+                                final url = Uri.parse(value.homepage.toString());
+                                if (!await launchUrl(url)) {
+                                  throw Exception('Could not launch $url');
+                                }
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                child: Text(
+                                  value.homepage.toString(),
+                                  style: Theme.of(context).textTheme.bodyMedium?.merge(
+                                        const TextStyle(color: Colors.blue),
+                                      ),
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
                     Wrap(
                       children: [
                         for (final topic in value.topics ?? <String>[])

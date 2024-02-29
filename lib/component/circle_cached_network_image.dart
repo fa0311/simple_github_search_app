@@ -6,7 +6,7 @@ class CircleCachedNetworkImage extends StatelessWidget {
   const CircleCachedNetworkImage({
     super.key,
     required this.imageUrl,
-    this.size = 25,
+    this.size = 40,
   });
 
   /// URL
@@ -19,6 +19,8 @@ class CircleCachedNetworkImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CachedNetworkImage(
       imageUrl: imageUrl,
+      width: size,
+      height: size,
       imageBuilder: (context, imageProvider) {
         return CircleAvatar(
           backgroundImage: imageProvider,

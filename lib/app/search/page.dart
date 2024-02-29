@@ -75,6 +75,7 @@ class SearchPage extends HookConsumerWidget {
                 return RepositoryCard(
                   title: Text(item.fullName),
                   description: Text(item.description ?? ''),
+                  avatarUrl: item.owner!.avatarUrl,
                   topics: item.topics ?? [],
                   onTopicTap: (topic) {
                     context.router.push(SearchRoute(query: 'topic:$topic'));

@@ -11,6 +11,7 @@ void main() {
         RepositoryCard(
           title: const Text('title'),
           description: const Text('description'),
+          avatarUrl: 'avatarUrl',
           topics: const ['topic1', 'topic2'],
           child: const SizedBox(width: 100, height: 100),
           onTap: () {},
@@ -32,6 +33,7 @@ void main() {
         RepositoryCard(
           title: const Text('title'),
           description: const Text('description'),
+          avatarUrl: 'avatarUrl',
           child: const SizedBox(width: 100, height: 100),
           onTap: () => onTap = true,
         ),
@@ -52,6 +54,7 @@ void main() {
         RepositoryCard(
           title: const Text('title'),
           description: const Text('description'),
+          avatarUrl: 'avatarUrl',
           topics: const ['topic1', 'topic2'],
           child: const SizedBox(width: 100, height: 100),
           onTopicTap: (topic) => onTopicTap = topic,

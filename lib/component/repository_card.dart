@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simple_github_search_app/component/circle_cached_network_image.dart';
 import 'package:simple_github_search_app/component/ink_well_card.dart';
 
 /// リポジトリの情報を表示するカード
@@ -7,6 +8,7 @@ class RepositoryCard extends StatelessWidget {
     super.key,
     required this.title,
     required this.description,
+    required this.avatarUrl,
     required this.child,
     this.topics = const <String>[],
     this.onTap,
@@ -18,6 +20,9 @@ class RepositoryCard extends StatelessWidget {
 
   /// リポジトリの情報
   final Widget description;
+
+  /// アバターのURL
+  final String avatarUrl;
 
   /// その他の情報を表示するためのウィジェット
   final Widget child;
@@ -43,12 +48,10 @@ class RepositoryCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.all(8),
-                    child: SizedBox(
-                      width: 25,
-                      height: 25,
-                      child: Placeholder(),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 14),
+                    child: CircleCachedNetworkImage(
+                      imageUrl: avatarUrl,
                     ),
                   ),
                   Expanded(
