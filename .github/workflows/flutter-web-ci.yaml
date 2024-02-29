@@ -1,4 +1,4 @@
-name: Flutter Android CI
+name: Flutter Web CI
 
 on:
   push:
@@ -6,16 +6,16 @@ on:
       - main
       - release
     paths:
-      - "android/**"
+      - "web/**"
   pull_request:
     branches:
       - main
       - release
     paths:
-      - "android/**"
+      - "web/**"
 
 jobs:
-  build-android:
+  build-web:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -27,4 +27,4 @@ jobs:
           channel: "stable"
           cache: true
       - run: flutter pub get
-      - run: flutter build apk --release
+      - run: flutter build web --release

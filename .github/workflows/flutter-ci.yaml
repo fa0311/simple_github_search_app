@@ -4,11 +4,11 @@ on:
   push:
     branches:
       - main
-      - develop
+      - release
   pull_request:
     branches:
       - main
-      - develop
+      - release
 
 jobs:
   flutter-test:
@@ -38,11 +38,11 @@ jobs:
       # markdownlint
       - uses: DavidAnson/markdownlint-cli2-action@v15
 
-      # eslint
+      # prettier
       - uses: creyD/prettier_action@v4.3
         with:
           dry: true
-          prettier_options: '--check --write "{**/*,*}.{json,yaml,yml,md}"'
+          prettier_options: '--check --write "{**/*,*}.{json,yaml,yml,md,html,css}"'
 
       # ジェネレータの出力がコミットに含まれているかチェック
       - run: flutter pub run build_runner build --delete-conflicting-outputs

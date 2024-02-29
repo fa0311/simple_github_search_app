@@ -42,6 +42,9 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-
+# ゴールデンテスト用のファイル
 test/**/goldens/
 test/**/failures/
+
+# フォーマッタ関連で必要なファイル
+node_modules
