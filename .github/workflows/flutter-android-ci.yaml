@@ -3,13 +3,13 @@ name: Flutter Android CI
 on:
   push:
     branches:
-      - master
+      - main
       - release
     paths:
       - "android/**"
   pull_request:
     branches:
-      - master
+      - main
       - release
     paths:
       - "android/**"

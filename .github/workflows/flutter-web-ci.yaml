@@ -3,13 +3,13 @@ name: Flutter Web CI
 on:
   push:
     branches:
-      - master
+      - main
       - release
     paths:
       - "web/**"
   pull_request:
     branches:
-      - master
+      - main
       - release
     paths:
       - "web/**"
