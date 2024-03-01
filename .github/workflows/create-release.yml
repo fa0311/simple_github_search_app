@@ -25,13 +25,10 @@ jobs:
         with:
           cmd: yq '.version' pubspec.yaml
 
-      - name: Get previous tag
-        id: get-previous-tag
-        run: echo ::set-output name=previous_tag::$(git describe --tags --abbrev=0)
-
       - uses: softprops/action-gh-release@v1
         with:
           files: |
             build/app/outputs/flutter-apk/app-release.apk
+          generate_release_notes: true
           tag_name: v${{ steps.release-version.outputs.result }}
           token: ${{ secrets.GITHUB_TOKEN }}
