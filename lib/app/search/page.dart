@@ -3,16 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:simple_github_search_app/app/router.dart';
-import 'package:simple_github_search_app/component/part/color_ball.dart';
 import 'package:simple_github_search_app/component/part/custom_scroll_listener.dart';
 import 'package:simple_github_search_app/component/part/repository_card.dart';
 import 'package:simple_github_search_app/component/part/search_field_bar.dart';
 import 'package:simple_github_search_app/component/part/select_menu_button.dart';
+import 'package:simple_github_search_app/component/widget/repository_status.dart';
 import 'package:simple_github_search_app/infrastructure/github/model/param.dart';
 import 'package:simple_github_search_app/provider/github/repository.dart';
 import 'package:simple_github_search_app/provider/github/search.dart';
 import 'package:simple_github_search_app/provider/github/user.dart';
-import 'package:simple_github_search_app/provider/linguist.dart';
 import 'package:simple_github_search_app/util/enum.dart';
 
 @RoutePage()
@@ -87,64 +86,12 @@ class SearchPage extends HookConsumerWidget {
                             ),
                           );
                         },
-                        child: Row(
-                          children: [
-                            if (lang != null)
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 4),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    ...ref.watch(getLinguistColorProvider(lang)).when(
-                                          data: (color) => [if (color != null) ColorBall(color: Color(color))],
-                                          loading: () => [],
-                                          error: (error, stackTrace) => [Text(error.toString())],
-                                        ),
-                                    Text(lang),
-                                  ],
-                                ),
-                              ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 4),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Icon(Icons.star_outline, size: 16),
-                                  Text(repo.stargazersCount.toString()),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 4),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Icon(Icons.remove_red_eye_outlined, size: 16),
-                                  Text(repo.watchersCount.toString()),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 4),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Icon(Icons.call_split_outlined, size: 16),
-                                  Text(repo.forksCount.toString()),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 4),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Icon(Icons.error_outline, size: 16),
-                                  Text(repo.openIssuesCount.toString()),
-                                ],
-                              ),
-                            ),
-                          ],
+                        child: RepositoryStatus(
+                          lang: lang,
+                          stargazersCount: repo.stargazersCount,
+                          watchersCount: repo.watchersCount,
+                          forksCount: repo.forksCount,
+                          openIssuesCount: repo.openIssuesCount,
                         ),
                       );
                     },
@@ -153,14 +100,24 @@ class SearchPage extends HookConsumerWidget {
                 ),
                 if (response.items.length != response.totalCount)
                   const SliverToBoxAdapter(
-                    child: Padding(padding: EdgeInsets.all(8), child: Center(child: CircularProgressIndicator())),
+                    child: Padding(
+                      padding: EdgeInsets.all(8),
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
                   ),
               ];
             },
             loading: () {
               return [
                 const SliverToBoxAdapter(
-                  child: Padding(padding: EdgeInsets.all(8), child: Center(child: CircularProgressIndicator())),
+                  child: Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
                 ),
               ];
             },
