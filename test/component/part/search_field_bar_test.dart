@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:simple_github_search_app/component/search_field_bar.dart';
+import 'package:simple_github_search_app/component/part/search_field_bar.dart';
 
-import '../test_util/component.dart';
+import '../../test_util/component.dart';
 
 void main() {
   testWidgets('SearchFieldBar の初期状態', (WidgetTester tester) async {

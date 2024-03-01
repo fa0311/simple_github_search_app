@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:simple_github_search_app/component/circle_cached_network_image.dart';
-import 'package:simple_github_search_app/component/ink_well_card.dart';
+import 'package:simple_github_search_app/component/part/circle_cached_network_image.dart';
+import 'package:simple_github_search_app/component/part/ink_well_card.dart';
 
 /// リポジトリの情報を表示するカード
 class RepositoryCard extends StatelessWidget {
