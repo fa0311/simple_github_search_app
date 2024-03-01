@@ -65,3 +65,21 @@ class GithubSearchRepositories extends _$GithubSearchRepositories {
     );
   }
 }
+
+/// 検索リクエストのロード状態を管理するProvider
+@Riverpod(keepAlive: true)
+class GithubSearchRepositoriesLoadingState extends _$GithubSearchRepositoriesLoadingState {
+  @override
+  bool build(String query, SearchRepositoriesSortParam sort) {
+    return false;
+  }
+
+  Future<void> nextPage() async {
+    if (state) {
+      return;
+    }
+    state = true;
+    await ref.read(githubSearchRepositoriesProvider(query, sort).notifier).nextPage();
+    state = false;
+  }
+}

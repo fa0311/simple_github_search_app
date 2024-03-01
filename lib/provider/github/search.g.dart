@@ -359,5 +359,190 @@ class _GithubSearchRepositoriesProviderElement
   SearchRepositoriesSortParam get sort =>
       (origin as GithubSearchRepositoriesProvider).sort;
 }
+
+String _$githubSearchRepositoriesLoadingStateHash() =>
+    r'91151f15dc46417124dbc0c22135ac4cc9ccafa5';
+
+abstract class _$GithubSearchRepositoriesLoadingState
+    extends BuildlessNotifier<bool> {
+  late final String query;
+  late final SearchRepositoriesSortParam sort;
+
+  bool build(
+    String query,
+    SearchRepositoriesSortParam sort,
+  );
+}
+
+/// 検索リクエストのロード状態を管理するProvider
+///
+/// Copied from [GithubSearchRepositoriesLoadingState].
+@ProviderFor(GithubSearchRepositoriesLoadingState)
+const githubSearchRepositoriesLoadingStateProvider =
+    GithubSearchRepositoriesLoadingStateFamily();
+
+/// 検索リクエストのロード状態を管理するProvider
+///
+/// Copied from [GithubSearchRepositoriesLoadingState].
+class GithubSearchRepositoriesLoadingStateFamily extends Family<bool> {
+  /// 検索リクエストのロード状態を管理するProvider
+  ///
+  /// Copied from [GithubSearchRepositoriesLoadingState].
+  const GithubSearchRepositoriesLoadingStateFamily();
+
+  /// 検索リクエストのロード状態を管理するProvider
+  ///
+  /// Copied from [GithubSearchRepositoriesLoadingState].
+  GithubSearchRepositoriesLoadingStateProvider call(
+    String query,
+    SearchRepositoriesSortParam sort,
+  ) {
+    return GithubSearchRepositoriesLoadingStateProvider(
+      query,
+      sort,
+    );
+  }
+
+  @override
+  GithubSearchRepositoriesLoadingStateProvider getProviderOverride(
+    covariant GithubSearchRepositoriesLoadingStateProvider provider,
+  ) {
+    return call(
+      provider.query,
+      provider.sort,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'githubSearchRepositoriesLoadingStateProvider';
+}
+
+/// 検索リクエストのロード状態を管理するProvider
+///
+/// Copied from [GithubSearchRepositoriesLoadingState].
+class GithubSearchRepositoriesLoadingStateProvider
+    extends NotifierProviderImpl<GithubSearchRepositoriesLoadingState, bool> {
+  /// 検索リクエストのロード状態を管理するProvider
+  ///
+  /// Copied from [GithubSearchRepositoriesLoadingState].
+  GithubSearchRepositoriesLoadingStateProvider(
+    String query,
+    SearchRepositoriesSortParam sort,
+  ) : this._internal(
+          () => GithubSearchRepositoriesLoadingState()
+            ..query = query
+            ..sort = sort,
+          from: githubSearchRepositoriesLoadingStateProvider,
+          name: r'githubSearchRepositoriesLoadingStateProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$githubSearchRepositoriesLoadingStateHash,
+          dependencies:
+              GithubSearchRepositoriesLoadingStateFamily._dependencies,
+          allTransitiveDependencies: GithubSearchRepositoriesLoadingStateFamily
+              ._allTransitiveDependencies,
+          query: query,
+          sort: sort,
+        );
+
+  GithubSearchRepositoriesLoadingStateProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.query,
+    required this.sort,
+  }) : super.internal();
+
+  final String query;
+  final SearchRepositoriesSortParam sort;
+
+  @override
+  bool runNotifierBuild(
+    covariant GithubSearchRepositoriesLoadingState notifier,
+  ) {
+    return notifier.build(
+      query,
+      sort,
+    );
+  }
+
+  @override
+  Override overrideWith(
+      GithubSearchRepositoriesLoadingState Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: GithubSearchRepositoriesLoadingStateProvider._internal(
+        () => create()
+          ..query = query
+          ..sort = sort,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        query: query,
+        sort: sort,
+      ),
+    );
+  }
+
+  @override
+  NotifierProviderElement<GithubSearchRepositoriesLoadingState, bool>
+      createElement() {
+    return _GithubSearchRepositoriesLoadingStateProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is GithubSearchRepositoriesLoadingStateProvider &&
+        other.query == query &&
+        other.sort == sort;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, query.hashCode);
+    hash = _SystemHash.combine(hash, sort.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin GithubSearchRepositoriesLoadingStateRef on NotifierProviderRef<bool> {
+  /// The parameter `query` of this provider.
+  String get query;
+
+  /// The parameter `sort` of this provider.
+  SearchRepositoriesSortParam get sort;
+}
+
+class _GithubSearchRepositoriesLoadingStateProviderElement
+    extends NotifierProviderElement<GithubSearchRepositoriesLoadingState, bool>
+    with GithubSearchRepositoriesLoadingStateRef {
+  _GithubSearchRepositoriesLoadingStateProviderElement(super.provider);
+
+  @override
+  String get query =>
+      (origin as GithubSearchRepositoriesLoadingStateProvider).query;
+  @override
+  SearchRepositoriesSortParam get sort =>
+      (origin as GithubSearchRepositoriesLoadingStateProvider).sort;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

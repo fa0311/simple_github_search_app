@@ -33,11 +33,8 @@ class SearchPage extends HookConsumerWidget {
 
     return Scaffold(
       body: CustomScrollListener(
-        onEndReached: () async {
-          final value = await ref.watch(githubSearchRepositoriesProvider(queryState.value, sortState.value).future);
-          if (value.items.length != value.totalCount && context.mounted) {
-            await ref.read(githubSearchRepositoriesProvider(queryState.value, sortState.value).notifier).nextPage();
-          }
+        onEndReached: () {
+          ref.read(githubSearchRepositoriesLoadingStateProvider(queryState.value, sortState.value).notifier).nextPage();
         },
         slivers: [
           SliverAppBar(
@@ -122,7 +119,11 @@ class SearchPage extends HookConsumerWidget {
               ];
             },
             error: (Object error, StackTrace stackTrace) {
-              return [Center(child: Text('Error: $error'))];
+              return [
+                SliverToBoxAdapter(
+                  child: Center(child: Text('Error: $error')),
+                ),
+              ];
             },
           ),
         ],
