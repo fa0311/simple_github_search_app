@@ -29,6 +29,6 @@ jobs:
         with:
           files: |
             build/app/outputs/flutter-apk/app-release.apk
+          generate_release_notes: true
           tag_name: v${{ steps.release-version.outputs.result }}
-          body: v${{ steps.release-version.outputs.result }}
           token: ${{ secrets.GITHUB_TOKEN }}
