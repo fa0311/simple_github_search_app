@@ -25,10 +25,25 @@ jobs:
         with:
           cmd: yq '.version' pubspec.yaml
 
+      - name: Get previous tag
+        id: get-previous-tag
+        run: echo ::set-output name=previous_tag::$(git describe --tags --abbrev=0)
+
+      - name: Get commit history
+        id: get-commit-history
+        run: |
+          echo ::set-output name=commit_history::$(git log --pretty=format:"%h %s" ${{ steps.get-previous-tag.outputs.previous_tag }}..HEAD)
+
       - uses: softprops/action-gh-release@v1
         with:
           files: |
             build/app/outputs/flutter-apk/app-release.apk
           tag_name: v${{ steps.release-version.outputs.result }}
-          body: v${{ steps.release-version.outputs.result }}
+          body: |
+            ### リリース v${{ steps.release-version.outputs.result }} 🎉
+            #### 変更履歴
+            ${{ steps.get-commit-history.outputs.commit_history }}
+            #### 全ての変更
+            https://github.com/fa0311/simple_github_search_app/compare/${{ steps.get-previous-tag.outputs.previous_tag }}...v${{ steps.release-version.outputs.result }}
+
           token: ${{ secrets.GITHUB_TOKEN }}
