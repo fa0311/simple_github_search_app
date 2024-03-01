@@ -25,46 +25,43 @@ Future<GithubResponse<GithubRepository>> searchGithubRepositoriesRaw(
 /// 検索リクエストを管理するProvider
 @riverpod
 class GithubSearchRepositories extends _$GithubSearchRepositories {
+  static const perPage = 30;
+
   @override
-  FutureOr<GithubItems<({String userName, String repositoryName})>> build(GithubSearchRepositoriesParam param) {
-    return fetch(1);
+  FutureOr<GithubItems<(String, String)>> build(String query, SearchRepositoriesSortParam sort) {
+    return fetch();
   }
 
   Future<void> nextPage() async {
     state = await AsyncValue.guard(() async {
-      final res = await fetch(getPage());
-      if (state.requireValue.items.last == res.items.last) {
-        return state.requireValue;
-      } else {
-        return res.copyWith(
-          items: [...state.requireValue.items, ...res.items],
-        );
-      }
+      final res = await fetch();
+      return res.copyWith(
+        items: [...state.requireValue.items, ...res.items],
+      );
     });
   }
 
-  int getPage() {
-    return (state.value?.items.length ?? 0) ~/ param.perPage + 1;
-  }
-
-  Future<GithubItems<({String userName, String repositoryName})>> fetch(int page) async {
-    final newParam = param.copyWith(page: page);
-    final res = await ref.watch(searchGithubRepositoriesRawProvider(newParam).future);
+  Future<GithubItems<(String, String)>> fetch() async {
+    final param = GithubSearchRepositoriesParam(
+      q: query,
+      sort: sort,
+      page: (state.value?.items.length ?? 0) ~/ perPage + 1,
+    );
+    final res = await ref.read(searchGithubRepositoriesRawProvider(param).future);
 
     for (final item in res.items) {
       final repositoryName = item.name;
       final userName = item.owner!.login;
-      await ref.watch(githubRepositoriesOrNullProvider(userName, repositoryName).notifier).update((_) => item);
-      await ref.watch(githubUserOrNullProvider(userName).notifier).update((_) => item.owner);
+      ref.read(githubRepositoriesStateProvider(userName, repositoryName).notifier).change(item);
+      ref.read(githubUserStateProvider(userName).notifier).change(item.owner!);
     }
 
-    final items = res.items.map((e) => (owner: e.owner?.login, repositoryName: e.name));
-    final newItems = items.whereType<({String userName, String repositoryName})>();
+    final items = res.items.map((e) => (e.owner!.login, e.name));
 
     return GithubItems(
       totalCount: res.totalCount,
       incompleteResults: res.incompleteResults,
-      items: newItems.toList(),
+      items: items.toList(),
     );
   }
 }

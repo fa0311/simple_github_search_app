@@ -4,29 +4,28 @@ import 'package:simple_github_search_app/infrastructure/github/model/user.dart';
 part 'user.g.dart';
 
 /// リポジトリの情報を管理するProvider
-@riverpod
-class GithubUserOrNull extends _$GithubUserOrNull {
+@Riverpod(keepAlive: true)
+class GithubUserState extends _$GithubUserState {
   @override
-  FutureOr<GithubUser?> build(String userName) async {
+  GithubUser? build(String userName) {
     return null;
   }
 
-  Future<void> fetch() async {
-    state = await AsyncValue.guard(() async {
-      // `TODO`: userName からユーザー情報を取得する
-      throw UnimplementedError();
-    });
+  // ignore: use_setters_to_change_properties
+  void change(GithubUser newState) {
+    state = newState;
   }
 }
 
 /// 情報がなかったらリクエストを送るProvider
 @riverpod
 Future<GithubUser> getGithubUser(GetGithubUserRef ref, String userName) async {
-  final userOrNull = await ref.watch(githubUserOrNullProvider(userName).future);
+  final userOrNull = ref.watch(githubUserStateProvider(userName));
   if (userOrNull == null) {
-    await ref.watch(githubUserOrNullProvider(userName).notifier).fetch();
-    final user = await ref.watch(githubUserOrNullProvider(userName).future);
-    return user!;
+    // todo: ここでリクエストを送る
+    // 今のところ、ユーザー情報はリポジトリ情報を取得する際に取得しているため、ここでリクエストを送る必要はない
+    // ref.watch(githubUserStateProvider(userName, repositoryName).notifier).change(_);
+    throw UnimplementedError();
   } else {
     return userOrNull;
   }

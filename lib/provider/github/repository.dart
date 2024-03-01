@@ -4,29 +4,27 @@ import 'package:simple_github_search_app/infrastructure/github/model/repository.
 part 'repository.g.dart';
 
 /// リポジトリの情報を管理するProvider
-@riverpod
-class GithubRepositoriesOrNull extends _$GithubRepositoriesOrNull {
+@Riverpod(keepAlive: true)
+class GithubRepositoriesState extends _$GithubRepositoriesState {
   @override
-  FutureOr<GithubRepository?> build(String userName, String repositoryName) async {
+  GithubRepository? build(String userName, String repositoryName) {
     return null;
   }
 
-  Future<void> fetch() async {
-    state = await AsyncValue.guard(() async {
-      // `TODO`: owner, repository からリポジトリ情報を取得する
-      throw UnimplementedError();
-    });
+  // ignore: use_setters_to_change_properties
+  void change(GithubRepository newState) {
+    state = newState;
   }
 }
 
 /// 情報がなかったらリクエストを送るProvider
 @riverpod
 Future<GithubRepository> getGithubRepository(GetGithubRepositoryRef ref, String userName, String repositoryName) async {
-  final repoOrNull = await ref.watch(githubRepositoriesOrNullProvider(userName, repositoryName).future);
+  final repoOrNull = ref.watch(githubRepositoriesStateProvider(userName, repositoryName));
   if (repoOrNull == null) {
-    await ref.read(githubRepositoriesOrNullProvider(userName, repositoryName).notifier).fetch();
-    final repo = await ref.watch(githubRepositoriesOrNullProvider(userName, repositoryName).future);
-    return repo!;
+    // todo: ここでリクエストを送る
+    // ref.watch(githubRepositoriesStateProvider(userName, repositoryName).notifier).change(_);
+    throw UnimplementedError();
   } else {
     return repoOrNull;
   }

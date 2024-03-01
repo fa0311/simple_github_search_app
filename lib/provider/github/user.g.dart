@@ -6,7 +6,7 @@ part of 'user.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$getGithubUserHash() => r'7adb15ecfaa82a4ad2a66b05a1952877af60ec27';
+String _$getGithubUserHash() => r'13d1212140b6a7c9cdcfd2e4a57344653081e699';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -182,46 +182,45 @@ final getGithubGhostProvider = AutoDisposeFutureProvider<GithubUser>.internal(
 );
 
 typedef GetGithubGhostRef = AutoDisposeFutureProviderRef<GithubUser>;
-String _$githubUserOrNullHash() => r'169c35861680963519490e0909deb1be3647484c';
+String _$githubUserStateHash() => r'8d94760f213c38d2bee9e8913f996f6ff869ab47';
 
-abstract class _$GithubUserOrNull
-    extends BuildlessAutoDisposeAsyncNotifier<GithubUser?> {
+abstract class _$GithubUserState extends BuildlessNotifier<GithubUser?> {
   late final String userName;
 
-  FutureOr<GithubUser?> build(
+  GithubUser? build(
     String userName,
   );
 }
 
 /// リポジトリの情報を管理するProvider
 ///
-/// Copied from [GithubUserOrNull].
-@ProviderFor(GithubUserOrNull)
-const githubUserOrNullProvider = GithubUserOrNullFamily();
+/// Copied from [GithubUserState].
+@ProviderFor(GithubUserState)
+const githubUserStateProvider = GithubUserStateFamily();
 
 /// リポジトリの情報を管理するProvider
 ///
-/// Copied from [GithubUserOrNull].
-class GithubUserOrNullFamily extends Family<AsyncValue<GithubUser?>> {
+/// Copied from [GithubUserState].
+class GithubUserStateFamily extends Family<GithubUser?> {
   /// リポジトリの情報を管理するProvider
   ///
-  /// Copied from [GithubUserOrNull].
-  const GithubUserOrNullFamily();
+  /// Copied from [GithubUserState].
+  const GithubUserStateFamily();
 
   /// リポジトリの情報を管理するProvider
   ///
-  /// Copied from [GithubUserOrNull].
-  GithubUserOrNullProvider call(
+  /// Copied from [GithubUserState].
+  GithubUserStateProvider call(
     String userName,
   ) {
-    return GithubUserOrNullProvider(
+    return GithubUserStateProvider(
       userName,
     );
   }
 
   @override
-  GithubUserOrNullProvider getProviderOverride(
-    covariant GithubUserOrNullProvider provider,
+  GithubUserStateProvider getProviderOverride(
+    covariant GithubUserStateProvider provider,
   ) {
     return call(
       provider.userName,
@@ -240,34 +239,34 @@ class GithubUserOrNullFamily extends Family<AsyncValue<GithubUser?>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'githubUserOrNullProvider';
+  String? get name => r'githubUserStateProvider';
 }
 
 /// リポジトリの情報を管理するProvider
 ///
-/// Copied from [GithubUserOrNull].
-class GithubUserOrNullProvider extends AutoDisposeAsyncNotifierProviderImpl<
-    GithubUserOrNull, GithubUser?> {
+/// Copied from [GithubUserState].
+class GithubUserStateProvider
+    extends NotifierProviderImpl<GithubUserState, GithubUser?> {
   /// リポジトリの情報を管理するProvider
   ///
-  /// Copied from [GithubUserOrNull].
-  GithubUserOrNullProvider(
+  /// Copied from [GithubUserState].
+  GithubUserStateProvider(
     String userName,
   ) : this._internal(
-          () => GithubUserOrNull()..userName = userName,
-          from: githubUserOrNullProvider,
-          name: r'githubUserOrNullProvider',
+          () => GithubUserState()..userName = userName,
+          from: githubUserStateProvider,
+          name: r'githubUserStateProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$githubUserOrNullHash,
-          dependencies: GithubUserOrNullFamily._dependencies,
+                  : _$githubUserStateHash,
+          dependencies: GithubUserStateFamily._dependencies,
           allTransitiveDependencies:
-              GithubUserOrNullFamily._allTransitiveDependencies,
+              GithubUserStateFamily._allTransitiveDependencies,
           userName: userName,
         );
 
-  GithubUserOrNullProvider._internal(
+  GithubUserStateProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -280,8 +279,8 @@ class GithubUserOrNullProvider extends AutoDisposeAsyncNotifierProviderImpl<
   final String userName;
 
   @override
-  FutureOr<GithubUser?> runNotifierBuild(
-    covariant GithubUserOrNull notifier,
+  GithubUser? runNotifierBuild(
+    covariant GithubUserState notifier,
   ) {
     return notifier.build(
       userName,
@@ -289,10 +288,10 @@ class GithubUserOrNullProvider extends AutoDisposeAsyncNotifierProviderImpl<
   }
 
   @override
-  Override overrideWith(GithubUserOrNull Function() create) {
+  Override overrideWith(GithubUserState Function() create) {
     return ProviderOverride(
       origin: this,
-      override: GithubUserOrNullProvider._internal(
+      override: GithubUserStateProvider._internal(
         () => create()..userName = userName,
         from: from,
         name: null,
@@ -305,14 +304,13 @@ class GithubUserOrNullProvider extends AutoDisposeAsyncNotifierProviderImpl<
   }
 
   @override
-  AutoDisposeAsyncNotifierProviderElement<GithubUserOrNull, GithubUser?>
-      createElement() {
-    return _GithubUserOrNullProviderElement(this);
+  NotifierProviderElement<GithubUserState, GithubUser?> createElement() {
+    return _GithubUserStateProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is GithubUserOrNullProvider && other.userName == userName;
+    return other is GithubUserStateProvider && other.userName == userName;
   }
 
   @override
@@ -324,18 +322,18 @@ class GithubUserOrNullProvider extends AutoDisposeAsyncNotifierProviderImpl<
   }
 }
 
-mixin GithubUserOrNullRef on AutoDisposeAsyncNotifierProviderRef<GithubUser?> {
+mixin GithubUserStateRef on NotifierProviderRef<GithubUser?> {
   /// The parameter `userName` of this provider.
   String get userName;
 }
 
-class _GithubUserOrNullProviderElement
-    extends AutoDisposeAsyncNotifierProviderElement<GithubUserOrNull,
-        GithubUser?> with GithubUserOrNullRef {
-  _GithubUserOrNullProviderElement(super.provider);
+class _GithubUserStateProviderElement
+    extends NotifierProviderElement<GithubUserState, GithubUser?>
+    with GithubUserStateRef {
+  _GithubUserStateProviderElement(super.provider);
 
   @override
-  String get userName => (origin as GithubUserOrNullProvider).userName;
+  String get userName => (origin as GithubUserStateProvider).userName;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

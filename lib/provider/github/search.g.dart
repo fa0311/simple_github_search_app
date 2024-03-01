@@ -177,15 +177,16 @@ class _SearchGithubRepositoriesRawProviderElement
 }
 
 String _$githubSearchRepositoriesHash() =>
-    r'94fb6c445eea91844c1674d979e05f61bf2bee0e';
+    r'e7cf194590fb62c77bdea62a826677f1e9d90aed';
 
 abstract class _$GithubSearchRepositories
-    extends BuildlessAutoDisposeAsyncNotifier<
-        GithubItems<({String userName, String repositoryName})>> {
-  late final GithubSearchRepositoriesParam param;
+    extends BuildlessAutoDisposeAsyncNotifier<GithubItems<(String, String)>> {
+  late final String query;
+  late final SearchRepositoriesSortParam sort;
 
-  FutureOr<GithubItems<({String userName, String repositoryName})>> build(
-    GithubSearchRepositoriesParam param,
+  FutureOr<GithubItems<(String, String)>> build(
+    String query,
+    SearchRepositoriesSortParam sort,
   );
 }
 
@@ -198,8 +199,8 @@ const githubSearchRepositoriesProvider = GithubSearchRepositoriesFamily();
 /// 検索リクエストを管理するProvider
 ///
 /// Copied from [GithubSearchRepositories].
-class GithubSearchRepositoriesFamily extends Family<
-    AsyncValue<GithubItems<({String userName, String repositoryName})>>> {
+class GithubSearchRepositoriesFamily
+    extends Family<AsyncValue<GithubItems<(String, String)>>> {
   /// 検索リクエストを管理するProvider
   ///
   /// Copied from [GithubSearchRepositories].
@@ -209,10 +210,12 @@ class GithubSearchRepositoriesFamily extends Family<
   ///
   /// Copied from [GithubSearchRepositories].
   GithubSearchRepositoriesProvider call(
-    GithubSearchRepositoriesParam param,
+    String query,
+    SearchRepositoriesSortParam sort,
   ) {
     return GithubSearchRepositoriesProvider(
-      param,
+      query,
+      sort,
     );
   }
 
@@ -221,7 +224,8 @@ class GithubSearchRepositoriesFamily extends Family<
     covariant GithubSearchRepositoriesProvider provider,
   ) {
     return call(
-      provider.param,
+      provider.query,
+      provider.sort,
     );
   }
 
@@ -245,14 +249,17 @@ class GithubSearchRepositoriesFamily extends Family<
 /// Copied from [GithubSearchRepositories].
 class GithubSearchRepositoriesProvider
     extends AutoDisposeAsyncNotifierProviderImpl<GithubSearchRepositories,
-        GithubItems<({String userName, String repositoryName})>> {
+        GithubItems<(String, String)>> {
   /// 検索リクエストを管理するProvider
   ///
   /// Copied from [GithubSearchRepositories].
   GithubSearchRepositoriesProvider(
-    GithubSearchRepositoriesParam param,
+    String query,
+    SearchRepositoriesSortParam sort,
   ) : this._internal(
-          () => GithubSearchRepositories()..param = param,
+          () => GithubSearchRepositories()
+            ..query = query
+            ..sort = sort,
           from: githubSearchRepositoriesProvider,
           name: r'githubSearchRepositoriesProvider',
           debugGetCreateSourceHash:
@@ -262,7 +269,8 @@ class GithubSearchRepositoriesProvider
           dependencies: GithubSearchRepositoriesFamily._dependencies,
           allTransitiveDependencies:
               GithubSearchRepositoriesFamily._allTransitiveDependencies,
-          param: param,
+          query: query,
+          sort: sort,
         );
 
   GithubSearchRepositoriesProvider._internal(
@@ -272,18 +280,20 @@ class GithubSearchRepositoriesProvider
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.param,
+    required this.query,
+    required this.sort,
   }) : super.internal();
 
-  final GithubSearchRepositoriesParam param;
+  final String query;
+  final SearchRepositoriesSortParam sort;
 
   @override
-  FutureOr<GithubItems<({String userName, String repositoryName})>>
-      runNotifierBuild(
+  FutureOr<GithubItems<(String, String)>> runNotifierBuild(
     covariant GithubSearchRepositories notifier,
   ) {
     return notifier.build(
-      param,
+      query,
+      sort,
     );
   }
 
@@ -292,52 +302,62 @@ class GithubSearchRepositoriesProvider
     return ProviderOverride(
       origin: this,
       override: GithubSearchRepositoriesProvider._internal(
-        () => create()..param = param,
+        () => create()
+          ..query = query
+          ..sort = sort,
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        param: param,
+        query: query,
+        sort: sort,
       ),
     );
   }
 
   @override
   AutoDisposeAsyncNotifierProviderElement<GithubSearchRepositories,
-      GithubItems<({String userName, String repositoryName})>> createElement() {
+      GithubItems<(String, String)>> createElement() {
     return _GithubSearchRepositoriesProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is GithubSearchRepositoriesProvider && other.param == param;
+    return other is GithubSearchRepositoriesProvider &&
+        other.query == query &&
+        other.sort == sort;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, param.hashCode);
+    hash = _SystemHash.combine(hash, query.hashCode);
+    hash = _SystemHash.combine(hash, sort.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
-mixin GithubSearchRepositoriesRef on AutoDisposeAsyncNotifierProviderRef<
-    GithubItems<({String userName, String repositoryName})>> {
-  /// The parameter `param` of this provider.
-  GithubSearchRepositoriesParam get param;
+mixin GithubSearchRepositoriesRef
+    on AutoDisposeAsyncNotifierProviderRef<GithubItems<(String, String)>> {
+  /// The parameter `query` of this provider.
+  String get query;
+
+  /// The parameter `sort` of this provider.
+  SearchRepositoriesSortParam get sort;
 }
 
 class _GithubSearchRepositoriesProviderElement
     extends AutoDisposeAsyncNotifierProviderElement<GithubSearchRepositories,
-        GithubItems<({String userName, String repositoryName})>>
-    with GithubSearchRepositoriesRef {
+        GithubItems<(String, String)>> with GithubSearchRepositoriesRef {
   _GithubSearchRepositoriesProviderElement(super.provider);
 
   @override
-  GithubSearchRepositoriesParam get param =>
-      (origin as GithubSearchRepositoriesProvider).param;
+  String get query => (origin as GithubSearchRepositoriesProvider).query;
+  @override
+  SearchRepositoriesSortParam get sort =>
+      (origin as GithubSearchRepositoriesProvider).sort;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
