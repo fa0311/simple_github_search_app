@@ -1,6 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:simple_github_search_app/component/select_modal.dart';
+import 'package:simple_github_search_app/provider/shared_preferences.dart';
 
 @RoutePage()
 class SettingPage extends HookConsumerWidget {
@@ -17,13 +20,39 @@ class SettingPage extends HookConsumerWidget {
           ListTile(
             title: const Text('Language'),
             onTap: () {
-              // modal
+              SelectModalTile.show(context, [
+                for (final language in AppLocalizations.supportedLocales)
+                  Consumer(
+                    builder: (context, ref, _) {
+                      return ListTile(
+                        title: Text(lookupAppLocalizations(language).language),
+                        selected: ref.watch(languageSettingProvider).valueOrNull == language,
+                        onTap: () {
+                          ref.read(languageSettingProvider.notifier).set(language);
+                        },
+                      );
+                    },
+                  ),
+              ]);
             },
           ),
           ListTile(
             title: const Text('Theme'),
             onTap: () {
-              // modal
+              SelectModalTile.show(context, [
+                for (final theme in ThemeMode.values)
+                  Consumer(
+                    builder: (context, ref, _) {
+                      return ListTile(
+                        title: Text(theme.name),
+                        selected: ref.watch(themeSettingProvider).valueOrNull == theme,
+                        onTap: () {
+                          ref.read(themeSettingProvider.notifier).set(theme);
+                        },
+                      );
+                    },
+                  ),
+              ]);
             },
           ),
         ],
