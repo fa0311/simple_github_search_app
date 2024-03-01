@@ -21,6 +21,18 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const GithubSearchAppPage(),
       );
     },
+    InfoLicenseRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const InfoLicensePage(),
+      );
+    },
+    InfoRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const InfoPage(),
+      );
+    },
     RepositoryRoute.name: (routeData) {
       final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<RepositoryRouteArgs>(
@@ -58,6 +70,12 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
+    SettingRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const SettingPage(),
+      );
+    },
   };
 }
 
@@ -71,6 +89,34 @@ class GithubSearchAppRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'GithubSearchAppRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [InfoLicensePage]
+class InfoLicenseRoute extends PageRouteInfo<void> {
+  const InfoLicenseRoute({List<PageRouteInfo>? children})
+      : super(
+          InfoLicenseRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'InfoLicenseRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [InfoPage]
+class InfoRoute extends PageRouteInfo<void> {
+  const InfoRoute({List<PageRouteInfo>? children})
+      : super(
+          InfoRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'InfoRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
@@ -171,4 +217,18 @@ class SearchRouteArgs {
   String toString() {
     return 'SearchRouteArgs{key: $key, query: $query, sort: $sort}';
   }
+}
+
+/// generated route for
+/// [SettingPage]
+class SettingRoute extends PageRouteInfo<void> {
+  const SettingRoute({List<PageRouteInfo>? children})
+      : super(
+          SettingRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SettingRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }

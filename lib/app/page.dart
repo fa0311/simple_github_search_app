@@ -29,7 +29,41 @@ class GithubSearchAppPage extends HookConsumerWidget {
           ),
         ],
       ),
-      drawer: const Drawer(),
+      drawer: Drawer(
+        child: SafeArea(
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView(
+                  children: [
+                    ListTile(
+                      title: const Text('Home'),
+                      leading: const Icon(Icons.home_outlined),
+                      onTap: () {
+                        context.router.popUntilRoot();
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              ListTile(
+                title: const Text('Settings'),
+                leading: const Icon(Icons.settings_outlined),
+                onTap: () {
+                  context.router.push(const SettingRoute());
+                },
+              ),
+              ListTile(
+                title: const Text('Info'),
+                leading: const Icon(Icons.info_outline),
+                onTap: () {
+                  context.router.push(const InfoRoute());
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
