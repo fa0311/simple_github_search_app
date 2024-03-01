@@ -11,39 +11,23 @@ import 'package:simple_github_search_app/component/circle_cached_network_image.d
 import 'package:simple_github_search_app/component/color_ball.dart';
 import 'package:simple_github_search_app/component/custom_scroll_listener.dart';
 import 'package:simple_github_search_app/component/ink_well_card.dart';
-import 'package:simple_github_search_app/infrastructure/github/model/repository.dart';
 import 'package:simple_github_search_app/infrastructure/linguist/linguist.dart';
-import 'package:simple_github_search_app/provider/github.dart';
+import 'package:simple_github_search_app/provider/github/github.dart';
+import 'package:simple_github_search_app/provider/github/repository.dart';
 import 'package:simple_github_search_app/provider/http.dart';
 import 'package:simple_github_search_app/provider/linguist.dart';
 import 'package:simple_github_search_app/util/url_launch.dart';
 
 @RoutePage()
-class RepositoryPage extends HookConsumerWidget implements AutoRouteWrapper {
+class RepositoryPage extends HookConsumerWidget {
   const RepositoryPage({
     super.key,
     @pathParam required this.owner,
     @pathParam required this.name,
-    this.repository,
   });
 
   final String owner;
   final String name;
-  final GithubRepository? repository;
-
-  @override
-  Widget wrappedRoute(BuildContext context) {
-    if (repository == null) {
-      return this;
-    } else {
-      return ProviderScope(
-        overrides: [
-          githubRepositoriesProvider(owner, name).overrideWith((ref) async => repository!),
-        ],
-        child: this,
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -63,7 +47,7 @@ class RepositoryPage extends HookConsumerWidget implements AutoRouteWrapper {
             ],
           ),
           SliverToBoxAdapter(
-            child: ref.watch(githubRepositoriesProvider(owner, name)).when(
+            child: ref.watch(getGithubRepositoryProvider(owner, name)).when(
               data: (value) {
                 final lang = value.language;
                 final linguistValue = lang == null ? null : ref.watch(getLinguistLanguagesProvider(lang)).valueOrNull;

@@ -9,8 +9,9 @@ import 'package:simple_github_search_app/component/repository_card.dart';
 import 'package:simple_github_search_app/component/search_field_bar.dart';
 import 'package:simple_github_search_app/component/select_menu_button.dart';
 import 'package:simple_github_search_app/infrastructure/github/model/param.dart';
-import 'package:simple_github_search_app/infrastructure/linguist/linguist.dart';
-import 'package:simple_github_search_app/provider/github.dart';
+import 'package:simple_github_search_app/provider/github/repository.dart';
+import 'package:simple_github_search_app/provider/github/search.dart';
+import 'package:simple_github_search_app/provider/github/user.dart';
 import 'package:simple_github_search_app/provider/linguist.dart';
 import 'package:simple_github_search_app/util/enum.dart';
 
@@ -68,24 +69,24 @@ class SearchPage extends HookConsumerWidget {
               (BuildContext context, int index) {
                 final data = ref.watch(githubSearchRepositoriesProvider(param.value)).requireValue;
                 final item = data.items[index];
-                final lang = item.language;
-                final linguistValue = lang == null ? null : ref.watch(getLinguistLanguagesProvider(lang)).valueOrNull;
-                final langColor = linguistValue?.color == null ? null : Color(Linguist.toColor(linguistValue!.color!));
+                final repo = ref.watch(getGithubRepositoryProvider(item.userName, item.repositoryName)).requireValue;
+                final user = ref.watch(getGithubUserProvider(item.userName)).requireValue;
+                final lang = repo.language;
+                final langColor = lang == null ? null : ref.watch(getLinguistColorProvider(lang)).valueOrNull;
 
                 return RepositoryCard(
-                  title: Text(item.fullName),
-                  description: Text(item.description ?? ''),
-                  avatarUrl: item.owner!.avatarUrl,
-                  topics: item.topics ?? [],
+                  title: Text(repo.fullName),
+                  description: Text(repo.description ?? ''),
+                  avatarUrl: user.avatarUrl,
+                  topics: repo.topics ?? [],
                   onTopicTap: (topic) {
                     context.router.push(SearchRoute(query: 'topic:$topic'));
                   },
                   onTap: () {
                     context.router.push(
                       RepositoryRoute(
-                        owner: item.owner!.login,
-                        name: item.name,
-                        repository: item,
+                        owner: user.login,
+                        name: repo.name,
                       ),
                     );
                   },
@@ -96,7 +97,7 @@ class SearchPage extends HookConsumerWidget {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            if (langColor != null) ColorBall(color: langColor),
+                            if (langColor != null) ColorBall(color: Color(langColor)),
                             if (lang != null) Text(lang),
                           ],
                         ),
@@ -107,7 +108,7 @@ class SearchPage extends HookConsumerWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             const Icon(Icons.star_outline, size: 16),
-                            Text(item.stargazersCount.toString()),
+                            Text(repo.stargazersCount.toString()),
                           ],
                         ),
                       ),
@@ -117,7 +118,7 @@ class SearchPage extends HookConsumerWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             const Icon(Icons.remove_red_eye_outlined, size: 16),
-                            Text(item.watchersCount.toString()),
+                            Text(repo.watchersCount.toString()),
                           ],
                         ),
                       ),
@@ -127,7 +128,7 @@ class SearchPage extends HookConsumerWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             const Icon(Icons.call_split_outlined, size: 16),
-                            Text(item.forksCount.toString()),
+                            Text(repo.forksCount.toString()),
                           ],
                         ),
                       ),
@@ -137,7 +138,7 @@ class SearchPage extends HookConsumerWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             const Icon(Icons.error_outline, size: 16),
-                            Text(item.openIssuesCount.toString()),
+                            Text(repo.openIssuesCount.toString()),
                           ],
                         ),
                       ),

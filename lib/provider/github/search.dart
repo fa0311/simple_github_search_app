@@ -1,38 +1,16 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:simple_github_search_app/infrastructure/github/api.dart';
 import 'package:simple_github_search_app/infrastructure/github/model/param.dart';
 import 'package:simple_github_search_app/infrastructure/github/model/repository.dart';
 import 'package:simple_github_search_app/infrastructure/github/model/response.dart';
+import 'package:simple_github_search_app/provider/github/github.dart';
+import 'package:simple_github_search_app/provider/github/model/search.dart';
+import 'package:simple_github_search_app/provider/github/repository.dart';
+import 'package:simple_github_search_app/provider/github/user.dart';
 import 'package:simple_github_search_app/util/logger.dart';
 
-part 'github.g.dart';
+part 'search.g.dart';
 
-@riverpod
-GithubAPI getGithubAPIClient(GetGithubAPIClientRef ref) => GithubAPI();
-
-@riverpod
-Future<GithubRepository> githubRepositories(
-  GithubRepositoriesRef ref,
-  String owner,
-  String repositoryName,
-) async {
-  // TODO: owner, repository からリポジトリ情報を取得する
-  throw UnimplementedError();
-}
-
-@riverpod
-Future<String> getGithubReadme(
-  GetGithubReadmeRef ref,
-  String owner,
-  String repositoryName,
-  String branch,
-) async {
-  final client = ref.watch(getGithubAPIClientProvider);
-  final url = 'https://raw.githubusercontent.com/$owner/$repositoryName/$branch/README.md';
-  final response = await client.client.dio.get<String>(url);
-  return response.data!;
-}
-
+/// 検索リクエストのキャッシュを担うProvider
 @riverpod
 Future<GithubResponse<GithubRepository>> searchGithubRepositoriesRaw(
   SearchGithubRepositoriesRawRef ref,
@@ -44,10 +22,11 @@ Future<GithubResponse<GithubRepository>> searchGithubRepositoriesRaw(
   return response;
 }
 
+/// 検索リクエストを管理するProvider
 @riverpod
 class GithubSearchRepositories extends _$GithubSearchRepositories {
   @override
-  FutureOr<GithubResponse<GithubRepository>> build(GithubSearchRepositoriesParam param) {
+  FutureOr<GithubItems<({String userName, String repositoryName})>> build(GithubSearchRepositoriesParam param) {
     return fetch(1);
   }
 
@@ -58,10 +37,7 @@ class GithubSearchRepositories extends _$GithubSearchRepositories {
         return state.requireValue;
       } else {
         return res.copyWith(
-          items: [
-            ...state.requireValue.items,
-            ...res.items,
-          ],
+          items: [...state.requireValue.items, ...res.items],
         );
       }
     });
@@ -71,9 +47,24 @@ class GithubSearchRepositories extends _$GithubSearchRepositories {
     return (state.value?.items.length ?? 0) ~/ param.perPage + 1;
   }
 
-  Future<GithubResponse<GithubRepository>> fetch(int page) async {
+  Future<GithubItems<({String userName, String repositoryName})>> fetch(int page) async {
     final newParam = param.copyWith(page: page);
     final res = await ref.watch(searchGithubRepositoriesRawProvider(newParam).future);
-    return res;
+
+    for (final item in res.items) {
+      final repositoryName = item.name;
+      final userName = item.owner!.login;
+      await ref.watch(githubRepositoriesOrNullProvider(userName, repositoryName).notifier).update((_) => item);
+      await ref.watch(githubUserOrNullProvider(userName).notifier).update((_) => item.owner);
+    }
+
+    final items = res.items.map((e) => (owner: e.owner?.login, repositoryName: e.name));
+    final newItems = items.whereType<({String userName, String repositoryName})>();
+
+    return GithubItems(
+      totalCount: res.totalCount,
+      incompleteResults: res.incompleteResults,
+      items: newItems.toList(),
+    );
   }
 }

@@ -42,13 +42,11 @@ abstract class _$AppRouter extends RootStackRouter {
               ));
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: WrappedRoute(
-            child: RepositoryPage(
+        child: RepositoryPage(
           key: args.key,
           owner: args.owner,
           name: args.name,
-          repository: args.repository,
-        )),
+        ),
       );
     },
     SearchRoute.name: (routeData) {
@@ -128,7 +126,6 @@ class RepositoryRoute extends PageRouteInfo<RepositoryRouteArgs> {
     Key? key,
     required String owner,
     required String name,
-    GithubRepository? repository,
     List<PageRouteInfo>? children,
   }) : super(
           RepositoryRoute.name,
@@ -136,7 +133,6 @@ class RepositoryRoute extends PageRouteInfo<RepositoryRouteArgs> {
             key: key,
             owner: owner,
             name: name,
-            repository: repository,
           ),
           rawPathParams: {
             'owner': owner,
@@ -156,7 +152,6 @@ class RepositoryRouteArgs {
     this.key,
     required this.owner,
     required this.name,
-    this.repository,
   });
 
   final Key? key;
@@ -165,11 +160,9 @@ class RepositoryRouteArgs {
 
   final String name;
 
-  final GithubRepository? repository;
-
   @override
   String toString() {
-    return 'RepositoryRouteArgs{key: $key, owner: $owner, name: $name, repository: $repository}';
+    return 'RepositoryRouteArgs{key: $key, owner: $owner, name: $name}';
   }
 }
 
