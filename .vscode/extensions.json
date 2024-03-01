@@ -6,7 +6,6 @@
     "localizely.flutter-intl",
     "streetsidesoftware.code-spell-checker",
     "davidanson.vscode-markdownlint",
-    "esbenp.prettier-vscode",
-    "biomejs.biome"
+    "esbenp.prettier-vscode"
   ]
 }
