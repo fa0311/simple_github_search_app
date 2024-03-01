@@ -7,43 +7,26 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:markdown/markdown.dart' as md;
 import 'package:simple_github_search_app/app/router.dart';
-import 'package:simple_github_search_app/component/circle_cached_network_image.dart';
-import 'package:simple_github_search_app/component/color_ball.dart';
-import 'package:simple_github_search_app/component/custom_scroll_listener.dart';
-import 'package:simple_github_search_app/component/ink_well_card.dart';
-import 'package:simple_github_search_app/infrastructure/github/model/repository.dart';
-import 'package:simple_github_search_app/infrastructure/linguist/linguist.dart';
-import 'package:simple_github_search_app/provider/github.dart';
+import 'package:simple_github_search_app/component/part/anchor_link.dart';
+import 'package:simple_github_search_app/component/part/circle_cached_network_image.dart';
+import 'package:simple_github_search_app/component/part/custom_scroll_listener.dart';
+import 'package:simple_github_search_app/component/part/ink_well_card.dart';
+import 'package:simple_github_search_app/component/widget/repository_status.dart';
+import 'package:simple_github_search_app/provider/github/github.dart';
+import 'package:simple_github_search_app/provider/github/repository.dart';
 import 'package:simple_github_search_app/provider/http.dart';
-import 'package:simple_github_search_app/provider/linguist.dart';
 import 'package:simple_github_search_app/util/url_launch.dart';
 
 @RoutePage()
-class RepositoryPage extends HookConsumerWidget implements AutoRouteWrapper {
+class RepositoryPage extends HookConsumerWidget {
   const RepositoryPage({
     super.key,
     @pathParam required this.owner,
     @pathParam required this.name,
-    this.repository,
   });
 
   final String owner;
   final String name;
-  final GithubRepository? repository;
-
-  @override
-  Widget wrappedRoute(BuildContext context) {
-    if (repository == null) {
-      return this;
-    } else {
-      return ProviderScope(
-        overrides: [
-          githubRepositoriesProvider(owner, name).overrideWith((ref) async => repository!),
-        ],
-        child: this,
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -63,11 +46,9 @@ class RepositoryPage extends HookConsumerWidget implements AutoRouteWrapper {
             ],
           ),
           SliverToBoxAdapter(
-            child: ref.watch(githubRepositoriesProvider(owner, name)).when(
+            child: ref.watch(getGithubRepositoryProvider(owner, name)).when(
               data: (value) {
                 final lang = value.language;
-                final linguistValue = lang == null ? null : ref.watch(getLinguistLanguagesProvider(lang)).valueOrNull;
-                final langColor = linguistValue?.color == null ? null : Color(Linguist.toColor(linguistValue!.color!));
                 return Column(
                   children: [
                     Row(
@@ -75,112 +56,44 @@ class RepositoryPage extends HookConsumerWidget implements AutoRouteWrapper {
                         CircleCachedNetworkImage(
                           imageUrl: value.owner?.avatarUrl ?? '',
                         ),
-                        InkWell(
-                          onTap: () {
-                            context.router.push(SearchRoute(query: 'user:${value.owner?.login}'));
+                        AnchorLink(
+                          onTap: () async {
+                            await context.router.push(SearchRoute(query: 'user:${value.owner?.login}'));
                           },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                            child: Text(
-                              value.name,
-                              style: Theme.of(context).textTheme.headlineMedium?.merge(
-                                    const TextStyle(color: Colors.blue),
-                                  ),
-                            ),
-                          ),
+                          text: value.name,
+                          style: Theme.of(context).textTheme.headlineMedium,
                         ),
                         Text('/', style: Theme.of(context).textTheme.headlineMedium),
-                        InkWell(
-                          onTap: () {
-                            context.router.push(SearchRoute(query: 'repo:${value.owner?.login}/${value.name}'));
+                        AnchorLink(
+                          onTap: () async {
+                            await context.router.push(SearchRoute(query: 'repo:${value.owner?.login}/${value.name}'));
                           },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                            child: Text(
-                              value.owner?.login ?? '',
-                              style: Theme.of(context).textTheme.headlineMedium?.merge(
-                                    const TextStyle(color: Colors.blue),
-                                  ),
-                            ),
-                          ),
+                          text: value.owner?.login ?? '',
+                          style: Theme.of(context).textTheme.headlineMedium,
                         ),
                       ],
                     ),
                     Text(value.description ?? ''),
-                    Wrap(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 4),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              if (langColor != null) ColorBall(color: langColor),
-                              if (lang != null) Text(lang),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 4),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const Icon(Icons.star_outline, size: 16),
-                              Text(value.stargazersCount.toString()),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 4),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const Icon(Icons.remove_red_eye_outlined, size: 16),
-                              Text(value.watchersCount.toString()),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 4),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const Icon(Icons.call_split_outlined, size: 16),
-                              Text(value.forksCount.toString()),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 4),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const Icon(Icons.error_outline, size: 16),
-                              Text(value.openIssuesCount.toString()),
-                            ],
-                          ),
-                        ),
-                      ],
+                    RepositoryStatus(
+                      lang: lang,
+                      stargazersCount: value.stargazersCount,
+                      watchersCount: value.watchersCount,
+                      forksCount: value.forksCount,
+                      openIssuesCount: value.openIssuesCount,
                     ),
-                    if (value.homepage != null)
+                    if (value.homepage != null && value.homepage!.isNotEmpty)
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 4),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             const Icon(Icons.link_outlined, size: 16),
-                            InkWell(
+                            AnchorLink(
                               onTap: () async {
                                 await UrlLaunchUtil.github(owner, name);
                               },
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                child: Text(
-                                  value.homepage.toString(),
-                                  style: Theme.of(context).textTheme.bodyMedium?.merge(
-                                        const TextStyle(color: Colors.blue),
-                                      ),
-                                ),
-                              ),
+                              text: value.homepage.toString(),
+                              style: Theme.of(context).textTheme.bodyMedium,
                             ),
                           ],
                         ),
@@ -192,7 +105,9 @@ class RepositoryPage extends HookConsumerWidget implements AutoRouteWrapper {
                             color: Colors.lightBlue[100],
                             child: InkWell(
                               borderRadius: BorderRadius.circular(8),
-                              onTap: () => context.router.push(SearchRoute(query: 'topic:$topic')),
+                              onTap: () async {
+                                await context.router.push(SearchRoute(query: 'topic:$topic'));
+                              },
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                                 child: Text(topic, style: TextStyle(color: Colors.blue[800])),

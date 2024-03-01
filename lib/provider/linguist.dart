@@ -20,3 +20,12 @@ Future<LinguistLanguagesData?> getLinguistLanguages(
   final lang = linguist.where((element) => element.name == language);
   return lang.firstOrNull?.value;
 }
+
+@riverpod
+Future<int?> getLinguistColor(GetLinguistColorRef ref, String language) async {
+  final linguistValue = ref.watch(getLinguistLanguagesProvider(language)).valueOrNull;
+  return switch (linguistValue?.color) {
+    null => null,
+    (final e) => Linguist.toColor(e),
+  };
+}

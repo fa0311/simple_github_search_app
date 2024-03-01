@@ -1,0 +1,372 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'repository.dart';
+
+// **************************************************************************
+// RiverpodGenerator
+// **************************************************************************
+
+String _$getGithubRepositoryHash() =>
+    r'b3ad2bca814915fb483e8e20a79ce94a05172341';
+
+/// Copied from Dart SDK
+class _SystemHash {
+  _SystemHash._();
+
+  static int combine(int hash, int value) {
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + value);
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
+    return hash ^ (hash >> 6);
+  }
+
+  static int finish(int hash) {
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
+    // ignore: parameter_assignments
+    hash = hash ^ (hash >> 11);
+    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
+  }
+}
+
+/// 情報がなかったらリクエストを送るProvider
+///
+/// Copied from [getGithubRepository].
+@ProviderFor(getGithubRepository)
+const getGithubRepositoryProvider = GetGithubRepositoryFamily();
+
+/// 情報がなかったらリクエストを送るProvider
+///
+/// Copied from [getGithubRepository].
+class GetGithubRepositoryFamily extends Family<AsyncValue<GithubRepository>> {
+  /// 情報がなかったらリクエストを送るProvider
+  ///
+  /// Copied from [getGithubRepository].
+  const GetGithubRepositoryFamily();
+
+  /// 情報がなかったらリクエストを送るProvider
+  ///
+  /// Copied from [getGithubRepository].
+  GetGithubRepositoryProvider call(
+    String userName,
+    String repositoryName,
+  ) {
+    return GetGithubRepositoryProvider(
+      userName,
+      repositoryName,
+    );
+  }
+
+  @override
+  GetGithubRepositoryProvider getProviderOverride(
+    covariant GetGithubRepositoryProvider provider,
+  ) {
+    return call(
+      provider.userName,
+      provider.repositoryName,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'getGithubRepositoryProvider';
+}
+
+/// 情報がなかったらリクエストを送るProvider
+///
+/// Copied from [getGithubRepository].
+class GetGithubRepositoryProvider
+    extends AutoDisposeFutureProvider<GithubRepository> {
+  /// 情報がなかったらリクエストを送るProvider
+  ///
+  /// Copied from [getGithubRepository].
+  GetGithubRepositoryProvider(
+    String userName,
+    String repositoryName,
+  ) : this._internal(
+          (ref) => getGithubRepository(
+            ref as GetGithubRepositoryRef,
+            userName,
+            repositoryName,
+          ),
+          from: getGithubRepositoryProvider,
+          name: r'getGithubRepositoryProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$getGithubRepositoryHash,
+          dependencies: GetGithubRepositoryFamily._dependencies,
+          allTransitiveDependencies:
+              GetGithubRepositoryFamily._allTransitiveDependencies,
+          userName: userName,
+          repositoryName: repositoryName,
+        );
+
+  GetGithubRepositoryProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.userName,
+    required this.repositoryName,
+  }) : super.internal();
+
+  final String userName;
+  final String repositoryName;
+
+  @override
+  Override overrideWith(
+    FutureOr<GithubRepository> Function(GetGithubRepositoryRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: GetGithubRepositoryProvider._internal(
+        (ref) => create(ref as GetGithubRepositoryRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        userName: userName,
+        repositoryName: repositoryName,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<GithubRepository> createElement() {
+    return _GetGithubRepositoryProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is GetGithubRepositoryProvider &&
+        other.userName == userName &&
+        other.repositoryName == repositoryName;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, userName.hashCode);
+    hash = _SystemHash.combine(hash, repositoryName.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin GetGithubRepositoryRef on AutoDisposeFutureProviderRef<GithubRepository> {
+  /// The parameter `userName` of this provider.
+  String get userName;
+
+  /// The parameter `repositoryName` of this provider.
+  String get repositoryName;
+}
+
+class _GetGithubRepositoryProviderElement
+    extends AutoDisposeFutureProviderElement<GithubRepository>
+    with GetGithubRepositoryRef {
+  _GetGithubRepositoryProviderElement(super.provider);
+
+  @override
+  String get userName => (origin as GetGithubRepositoryProvider).userName;
+  @override
+  String get repositoryName =>
+      (origin as GetGithubRepositoryProvider).repositoryName;
+}
+
+String _$githubRepositoriesStateHash() =>
+    r'dcb2f305a7a2022159039d6a9bb87960ff0e42dd';
+
+abstract class _$GithubRepositoriesState
+    extends BuildlessNotifier<GithubRepository?> {
+  late final String userName;
+  late final String repositoryName;
+
+  GithubRepository? build(
+    String userName,
+    String repositoryName,
+  );
+}
+
+/// リポジトリの情報を管理するProvider
+///
+/// Copied from [GithubRepositoriesState].
+@ProviderFor(GithubRepositoriesState)
+const githubRepositoriesStateProvider = GithubRepositoriesStateFamily();
+
+/// リポジトリの情報を管理するProvider
+///
+/// Copied from [GithubRepositoriesState].
+class GithubRepositoriesStateFamily extends Family<GithubRepository?> {
+  /// リポジトリの情報を管理するProvider
+  ///
+  /// Copied from [GithubRepositoriesState].
+  const GithubRepositoriesStateFamily();
+
+  /// リポジトリの情報を管理するProvider
+  ///
+  /// Copied from [GithubRepositoriesState].
+  GithubRepositoriesStateProvider call(
+    String userName,
+    String repositoryName,
+  ) {
+    return GithubRepositoriesStateProvider(
+      userName,
+      repositoryName,
+    );
+  }
+
+  @override
+  GithubRepositoriesStateProvider getProviderOverride(
+    covariant GithubRepositoriesStateProvider provider,
+  ) {
+    return call(
+      provider.userName,
+      provider.repositoryName,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'githubRepositoriesStateProvider';
+}
+
+/// リポジトリの情報を管理するProvider
+///
+/// Copied from [GithubRepositoriesState].
+class GithubRepositoriesStateProvider
+    extends NotifierProviderImpl<GithubRepositoriesState, GithubRepository?> {
+  /// リポジトリの情報を管理するProvider
+  ///
+  /// Copied from [GithubRepositoriesState].
+  GithubRepositoriesStateProvider(
+    String userName,
+    String repositoryName,
+  ) : this._internal(
+          () => GithubRepositoriesState()
+            ..userName = userName
+            ..repositoryName = repositoryName,
+          from: githubRepositoriesStateProvider,
+          name: r'githubRepositoriesStateProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$githubRepositoriesStateHash,
+          dependencies: GithubRepositoriesStateFamily._dependencies,
+          allTransitiveDependencies:
+              GithubRepositoriesStateFamily._allTransitiveDependencies,
+          userName: userName,
+          repositoryName: repositoryName,
+        );
+
+  GithubRepositoriesStateProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.userName,
+    required this.repositoryName,
+  }) : super.internal();
+
+  final String userName;
+  final String repositoryName;
+
+  @override
+  GithubRepository? runNotifierBuild(
+    covariant GithubRepositoriesState notifier,
+  ) {
+    return notifier.build(
+      userName,
+      repositoryName,
+    );
+  }
+
+  @override
+  Override overrideWith(GithubRepositoriesState Function() create) {
+    return ProviderOverride(
+      origin: this,
+      override: GithubRepositoriesStateProvider._internal(
+        () => create()
+          ..userName = userName
+          ..repositoryName = repositoryName,
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        userName: userName,
+        repositoryName: repositoryName,
+      ),
+    );
+  }
+
+  @override
+  NotifierProviderElement<GithubRepositoriesState, GithubRepository?>
+      createElement() {
+    return _GithubRepositoriesStateProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is GithubRepositoriesStateProvider &&
+        other.userName == userName &&
+        other.repositoryName == repositoryName;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, userName.hashCode);
+    hash = _SystemHash.combine(hash, repositoryName.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin GithubRepositoriesStateRef on NotifierProviderRef<GithubRepository?> {
+  /// The parameter `userName` of this provider.
+  String get userName;
+
+  /// The parameter `repositoryName` of this provider.
+  String get repositoryName;
+}
+
+class _GithubRepositoriesStateProviderElement
+    extends NotifierProviderElement<GithubRepositoriesState, GithubRepository?>
+    with GithubRepositoriesStateRef {
+  _GithubRepositoriesStateProviderElement(super.provider);
+
+  @override
+  String get userName => (origin as GithubRepositoriesStateProvider).userName;
+  @override
+  String get repositoryName =>
+      (origin as GithubRepositoriesStateProvider).repositoryName;
+}
+// ignore_for_file: type=lint
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

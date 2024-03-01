@@ -6,7 +6,6 @@ import 'package:simple_github_search_app/app/page.dart';
 import 'package:simple_github_search_app/app/repository/page.dart';
 import 'package:simple_github_search_app/app/search/page.dart';
 import 'package:simple_github_search_app/app/setting/page.dart';
-import 'package:simple_github_search_app/infrastructure/github/model/repository.dart';
 
 part 'router.gr.dart';
 
