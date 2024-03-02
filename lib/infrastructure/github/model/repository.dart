@@ -30,7 +30,7 @@ class GithubRepository with _$GithubRepository {
     required int openIssuesCount,
     required String? masterBranch,
     required String defaultBranch,
-    required double score,
+    required double? score,
     required String forksUrl,
     required String keysUrl,
     required String collaboratorsUrl,

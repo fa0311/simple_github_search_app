@@ -62,20 +62,43 @@ v18.19.1
 ## ディレクトリ構成
 
 ```txt
-├─app                next.jsのapp routerを参考
+├─app                ページ
 │  ├─page.dart       ページ単位のウィジェット providerに依存する
 │  └─router.dart     ルーター
-├─component          依存しないコンポーネント
-├─infrastructure     インターフェースを担う 依存はしない
+├─component          コンポーネント
+│  ├─part            依存がない純粋なコンポーネント
+│  └─widget          providerなどに依存するコンポーネント
+├─infrastructure     インターフェースを担う
 │  └─**
 │     └─model        データのモデル
 ├─l10n               言語
 ├─provider           infrastructureに依存する
 │  └─**
-│    └─model         データのモデル
+│     └─model        データのモデル
 ├─util               appとproviderで利用するutil
 └─main.dart
 ```
+
+## ルーティング
+
+- `/` デフォルトのページ
+- `/search` 検索ページ
+- `/repository/:owner/:repo` レポジトリの詳細ページ
+- `/setting` 設定ページ
+- `/info` インフォページ
+- `/info/license` ライセンスページ
+
+### 検索
+
+`/search?query=flutter` のように検索クエリがクエリパラメータとして与えられます。
+
+例: <https://simple-github-search-app.pages.dev/search?query=flutter>
+
+### レポジトリの詳細
+
+`/repository/flutter/flutter` のようにパスパラメータとして与えられます。
+
+例: <https://simple-github-search-app.pages.dev/repository/flutter/flutter>
 
 ## フォーマッタ/リンター
 

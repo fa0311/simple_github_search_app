@@ -21,11 +21,11 @@ class RepositoryPage extends HookConsumerWidget {
   const RepositoryPage({
     super.key,
     @pathParam required this.owner,
-    @pathParam required this.name,
+    @pathParam required this.repo,
   });
 
   final String owner;
-  final String name;
+  final String repo;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -34,18 +34,18 @@ class RepositoryPage extends HookConsumerWidget {
         slivers: [
           SliverAppBar(
             floating: true,
-            title: Text(name),
+            title: Text(repo),
             actions: [
               IconButton(
                 icon: const Icon(Icons.open_in_browser),
                 onPressed: () async {
-                  await UrlLaunchUtil.github(owner, name);
+                  await UrlLaunchUtil.github(owner, repo);
                 },
               ),
             ],
           ),
           SliverToBoxAdapter(
-            child: ref.watch(getGithubRepositoryProvider(owner, name)).when(
+            child: ref.watch(getGithubRepositoryProvider(owner, repo)).when(
               data: (value) {
                 final lang = value.language;
                 return Padding(
@@ -92,7 +92,7 @@ class RepositoryPage extends HookConsumerWidget {
                               const Icon(Icons.link_outlined, size: 16),
                               AnchorLink(
                                 onTap: () async {
-                                  await UrlLaunchUtil.github(owner, name);
+                                  await UrlLaunchUtil.github(owner, repo);
                                 },
                                 text: value.homepage.toString(),
                                 style: Theme.of(context).textTheme.bodyMedium,
@@ -120,7 +120,7 @@ class RepositoryPage extends HookConsumerWidget {
                       ),
                       if (!kIsWeb) ...[
                         const Divider(),
-                        ref.watch(getGithubReadmeProvider(owner, name, value.defaultBranch)).when(
+                        ref.watch(getGithubReadmeProvider(owner, repo, value.defaultBranch)).when(
                           data: (value) {
                             return MarkdownBody(
                               data: value,

@@ -79,7 +79,7 @@ class SearchPage extends HookConsumerWidget {
                           context.router.push(
                             RepositoryRoute(
                               owner: user.login,
-                              name: repo.name,
+                              repo: repo.name,
                             ),
                           );
                         },

@@ -6,8 +6,23 @@ part of 'github.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+String _$getGitHubHttpHash() => r'ad9e00d16c2f2c7274085142bc22109b6c48dc48';
+
+/// See also [getGitHubHttp].
+@ProviderFor(getGitHubHttp)
+final getGitHubHttpProvider = AutoDisposeProvider<Dio>.internal(
+  getGitHubHttp,
+  name: r'getGitHubHttpProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$getGitHubHttpHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef GetGitHubHttpRef = AutoDisposeProviderRef<Dio>;
 String _$getGithubAPIClientHash() =>
-    r'281605d46a2da6b97e07412a824238dc5fe57aa9';
+    r'3218b6c3d460cec238e2bf3bc34ef6babd1cfb3e';
 
 /// See also [getGithubAPIClient].
 @ProviderFor(getGithubAPIClient)

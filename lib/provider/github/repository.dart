@@ -1,7 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:simple_github_search_app/infrastructure/github/model/repository.dart';
 import 'package:simple_github_search_app/provider/github/github.dart';
-import 'package:simple_github_search_app/util/logger.dart';
 
 part 'repository.g.dart';
 
@@ -12,7 +11,6 @@ Future<GithubRepository> getGithubRepositoryRaw(
   String userName,
   String repositoryName,
 ) async {
-  logger.d('send request: $userName/$repositoryName');
   final client = ref.watch(getGithubAPIClientProvider);
   final response = await client.getRepositories(userName, repositoryName);
   return response;
