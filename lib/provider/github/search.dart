@@ -6,7 +6,6 @@ import 'package:simple_github_search_app/provider/github/github.dart';
 import 'package:simple_github_search_app/provider/github/model/search.dart';
 import 'package:simple_github_search_app/provider/github/repository.dart';
 import 'package:simple_github_search_app/provider/github/user.dart';
-import 'package:simple_github_search_app/util/logger.dart';
 
 part 'search.g.dart';
 
@@ -16,7 +15,6 @@ Future<GithubResponse<GithubRepository>> searchGithubRepositoriesRaw(
   SearchGithubRepositoriesRawRef ref,
   GithubSearchRepositoriesParam param,
 ) async {
-  logger.d('send request: $param');
   final client = ref.watch(getGithubAPIClientProvider);
   final response = await client.searchRepositories(param);
   return response;

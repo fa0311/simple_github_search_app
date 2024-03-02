@@ -1,7 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:simple_github_search_app/infrastructure/github/model/user.dart';
 import 'package:simple_github_search_app/provider/github/github.dart';
-import 'package:simple_github_search_app/util/logger.dart';
 
 part 'user.g.dart';
 
@@ -11,7 +10,6 @@ Future<GithubUser> getGithubUserRaw(
   GetGithubUserRawRef ref,
   String userName,
 ) async {
-  logger.d('send request: $userName');
   final client = ref.watch(getGithubAPIClientProvider);
   final response = await client.getUser(userName);
   return response;

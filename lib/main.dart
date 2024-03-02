@@ -6,9 +6,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:simple_github_search_app/app/router.dart';
 import 'package:simple_github_search_app/provider/shared_preferences.dart';
 import 'package:simple_github_search_app/util/constant.dart';
+import 'package:simple_github_search_app/util/logger.dart';
 
 void main() {
-  runApp(const ProviderScope(child: GithubSearchApp()));
+  runApp(ProviderScope(observers: [ProviderLogger()], child: const GithubSearchApp()));
 }
 
 class GithubSearchApp extends HookConsumerWidget {
