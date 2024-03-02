@@ -66,13 +66,13 @@ class RepositoryCard extends StatelessWidget {
                   children: [
                     for (final topic in topics)
                       InkWellCard(
-                        color: Colors.lightBlue[100],
+                        color: Theme.of(context).colorScheme.primaryContainer,
                         child: InkWell(
                           borderRadius: BorderRadius.circular(8),
                           onTap: onTopicTap != null ? () => onTopicTap!(topic) : null,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                            child: Text(topic, style: TextStyle(color: Colors.blue[800])),
+                            child: Text(topic, style: TextStyle(color: Theme.of(context).colorScheme.primary)),
                           ),
                         ),
                       ),

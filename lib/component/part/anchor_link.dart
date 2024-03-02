@@ -19,6 +19,9 @@ class AnchorLink extends StatelessWidget {
   /// スタイル
   final TextStyle? style;
 
+  /// オーバーライドする色
+  static const Color color = Colors.blue;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -27,9 +30,7 @@ class AnchorLink extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         child: Text(
           text,
-          style: style?.merge(
-            const TextStyle(color: Colors.blue),
-          ),
+          style: style?.copyWith(color: color),
         ),
       ),
     );

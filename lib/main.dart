@@ -31,14 +31,24 @@ class GithubSearchApp extends HookConsumerWidget {
       ],
       supportedLocales: AppLocalizations.supportedLocales,
       locale: locale.valueOrNull,
-      theme: switch (theme.valueOrNull) {
-        ThemeMode.dark => ThemeData.dark(),
-        _ => ThemeData.light(),
-      },
-      darkTheme: switch (theme.valueOrNull) {
-        ThemeMode.light => ThemeData.light(),
-        _ => ThemeData.dark(),
-      },
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Constant.seedColor,
+          brightness: switch (theme.valueOrNull) {
+            ThemeMode.dark => Brightness.dark,
+            _ => Brightness.light,
+          },
+        ),
+      ),
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Constant.seedColor,
+          brightness: switch (theme.valueOrNull) {
+            ThemeMode.light => Brightness.light,
+            _ => Brightness.dark,
+          },
+        ),
+      ),
       routerConfig: appRouter.config(),
     );
   }
