@@ -177,7 +177,7 @@ class _SearchGithubRepositoriesRawProviderElement
 }
 
 String _$githubSearchRepositoriesHash() =>
-    r'e7cf194590fb62c77bdea62a826677f1e9d90aed';
+    r'e1ddf3beea05ff724524dbb86d3678db77966d3f';
 
 abstract class _$GithubSearchRepositories
     extends BuildlessAutoDisposeAsyncNotifier<GithubItems<(String, String)>> {
@@ -374,23 +374,23 @@ abstract class _$GithubSearchRepositoriesLoadingState
   );
 }
 
-/// 検索リクエストのロード状態を管理するProvider
+/// [GithubSearchRepositories] の [GithubSearchRepositories.nextPage] を呼び出す Provider
 ///
 /// Copied from [GithubSearchRepositoriesLoadingState].
 @ProviderFor(GithubSearchRepositoriesLoadingState)
 const githubSearchRepositoriesLoadingStateProvider =
     GithubSearchRepositoriesLoadingStateFamily();
 
-/// 検索リクエストのロード状態を管理するProvider
+/// [GithubSearchRepositories] の [GithubSearchRepositories.nextPage] を呼び出す Provider
 ///
 /// Copied from [GithubSearchRepositoriesLoadingState].
 class GithubSearchRepositoriesLoadingStateFamily extends Family<bool> {
-  /// 検索リクエストのロード状態を管理するProvider
+  /// [GithubSearchRepositories] の [GithubSearchRepositories.nextPage] を呼び出す Provider
   ///
   /// Copied from [GithubSearchRepositoriesLoadingState].
   const GithubSearchRepositoriesLoadingStateFamily();
 
-  /// 検索リクエストのロード状態を管理するProvider
+  /// [GithubSearchRepositories] の [GithubSearchRepositories.nextPage] を呼び出す Provider
   ///
   /// Copied from [GithubSearchRepositoriesLoadingState].
   GithubSearchRepositoriesLoadingStateProvider call(
@@ -428,12 +428,12 @@ class GithubSearchRepositoriesLoadingStateFamily extends Family<bool> {
   String? get name => r'githubSearchRepositoriesLoadingStateProvider';
 }
 
-/// 検索リクエストのロード状態を管理するProvider
+/// [GithubSearchRepositories] の [GithubSearchRepositories.nextPage] を呼び出す Provider
 ///
 /// Copied from [GithubSearchRepositoriesLoadingState].
 class GithubSearchRepositoriesLoadingStateProvider
     extends NotifierProviderImpl<GithubSearchRepositoriesLoadingState, bool> {
-  /// 検索リクエストのロード状態を管理するProvider
+  /// [GithubSearchRepositories] の [GithubSearchRepositories.nextPage] を呼び出す Provider
   ///
   /// Copied from [GithubSearchRepositoriesLoadingState].
   GithubSearchRepositoriesLoadingStateProvider(

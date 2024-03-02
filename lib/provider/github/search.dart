@@ -26,24 +26,29 @@ class GithubSearchRepositories extends _$GithubSearchRepositories {
   static const perPage = 30;
 
   @override
-  FutureOr<GithubItems<(String, String)>> build(String query, SearchRepositoriesSortParam sort) {
-    return fetch();
+  FutureOr<GithubItems<(String, String)>> build(String query, SearchRepositoriesSortParam sort) async {
+    return await fetch(1);
   }
 
   Future<void> nextPage() async {
     state = await AsyncValue.guard(() async {
-      final res = await fetch();
+      final res = await fetch(null);
       return res.copyWith(
         items: [...state.requireValue.items, ...res.items],
       );
     });
   }
 
-  Future<GithubItems<(String, String)>> fetch() async {
+  /// [state] からページ数を計算する
+  int getPage() {
+    return (state.value?.items.length ?? 0) ~/ perPage + 1;
+  }
+
+  Future<GithubItems<(String, String)>> fetch(int? page) async {
     final param = GithubSearchRepositoriesParam(
       q: query,
       sort: sort,
-      page: (state.value?.items.length ?? 0) ~/ perPage + 1,
+      page: page ?? getPage(),
     );
     final res = await ref.read(searchGithubRepositoriesRawProvider(param).future);
 
@@ -64,7 +69,7 @@ class GithubSearchRepositories extends _$GithubSearchRepositories {
   }
 }
 
-/// 検索リクエストのロード状態を管理するProvider
+/// [GithubSearchRepositories] の [GithubSearchRepositories.nextPage] を呼び出す Provider
 @Riverpod(keepAlive: true)
 class GithubSearchRepositoriesLoadingState extends _$GithubSearchRepositoriesLoadingState {
   @override

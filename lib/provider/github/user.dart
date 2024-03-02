@@ -15,7 +15,7 @@ Future<GithubUser> getGithubUserRaw(
   return response;
 }
 
-/// リポジトリの情報を管理するProvider
+/// [GithubUser] の情報を管理するProvider
 @Riverpod(keepAlive: true)
 class GithubUserState extends _$GithubUserState {
   @override
@@ -27,47 +27,49 @@ class GithubUserState extends _$GithubUserState {
   void change(GithubUser newState) {
     state = newState;
   }
-}
 
-/// 情報がなかったらリクエストを送るProvider
-@riverpod
-Future<GithubUser> getGithubUser(GetGithubUserRef ref, String userName) async {
-  final userOrNull = ref.watch(githubUserStateProvider(userName));
-  if (userOrNull == null) {
-    final response = await ref.read(getGithubUserRawProvider(userName).future);
-    ref.watch(githubUserStateProvider(userName).notifier).change(response);
-    throw UnimplementedError();
-  } else {
-    return userOrNull;
+  Future<void> reload() async {
+    state = await ref.refresh(getGithubUserRawProvider(userName).future);
+  }
+
+  Future<GithubUser> get() async {
+    state ??= await ref.refresh(getGithubUserRawProvider(userName).future);
+    return state!;
   }
 }
 
-// 情報がない場合のためにゴーストを返すProvider
+/// [GithubUserState] の [GithubUserState.get] を呼び出すProvider
 @riverpod
-Future<GithubUser> getGithubGhost(GetGithubGhostRef ref) async {
-  return const GithubUser(
-    // cspell: disable
-    name: null,
-    email: null,
-    login: 'ghost',
-    id: 10137,
-    nodeId: 'MDQ6VXNlcjEwMTM3',
-    avatarUrl: 'https://avatars.githubusercontent.com/u/10137?v=4',
-    gravatarId: '',
-    url: 'https://api.github.com/users/ghost',
-    htmlUrl: 'https://github.com/ghost',
-    followersUrl: 'https://api.github.com/users/ghost/followers',
-    followingUrl: 'https://api.github.com/users/ghost/following{/other_user}',
-    gistsUrl: 'https://api.github.com/users/ghost/gists{/gist_id}',
-    starredUrl: 'https://api.github.com/users/ghost/starred{/owner}{/repo}',
-    subscriptionsUrl: 'https://api.github.com/users/ghost/subscriptions',
-    organizationsUrl: 'https://api.github.com/users/ghost/orgs',
-    reposUrl: 'https://api.github.com/users/ghost/repos',
-    eventsUrl: 'https://api.github.com/users/ghost/events{/privacy}',
-    receivedEventsUrl: 'https://api.github.com/users/ghost/received_events',
-    type: 'User',
-    siteAdmin: false,
-    starredAt: null,
-    // cspell: enable
-  );
+Future<GithubUser> getGithubUser(GetGithubUserRef ref, String userName) async {
+  return ref.watch(githubUserStateProvider(userName).notifier).get();
 }
+
+// 情報がない場合のためにゴーストを返すProvider
+// @riverpod
+// Future<GithubUser> getGithubGhost(GetGithubGhostRef ref) async {
+//   return const GithubUser(
+//     // cspell: disable
+//     name: null,
+//     email: null,
+//     login: 'ghost',
+//     id: 10137,
+//     nodeId: 'MDQ6VXNlcjEwMTM3',
+//     avatarUrl: 'https://avatars.githubusercontent.com/u/10137?v=4',
+//     gravatarId: '',
+//     url: 'https://api.github.com/users/ghost',
+//     htmlUrl: 'https://github.com/ghost',
+//     followersUrl: 'https://api.github.com/users/ghost/followers',
+//     followingUrl: 'https://api.github.com/users/ghost/following{/other_user}',
+//     gistsUrl: 'https://api.github.com/users/ghost/gists{/gist_id}',
+//     starredUrl: 'https://api.github.com/users/ghost/starred{/owner}{/repo}',
+//     subscriptionsUrl: 'https://api.github.com/users/ghost/subscriptions',
+//     organizationsUrl: 'https://api.github.com/users/ghost/orgs',
+//     reposUrl: 'https://api.github.com/users/ghost/repos',
+//     eventsUrl: 'https://api.github.com/users/ghost/events{/privacy}',
+//     receivedEventsUrl: 'https://api.github.com/users/ghost/received_events',
+//     type: 'User',
+//     siteAdmin: false,
+//     starredAt: null,
+//     // cspell: enable
+//   );
+// }

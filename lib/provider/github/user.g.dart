@@ -168,24 +168,24 @@ class _GetGithubUserRawProviderElement
   String get userName => (origin as GetGithubUserRawProvider).userName;
 }
 
-String _$getGithubUserHash() => r'4729f15faa739160ab210dfcf1687a4c0808c518';
+String _$getGithubUserHash() => r'541d0a1578c21f43a1cbd3d15e18489de87e0263';
 
-/// 情報がなかったらリクエストを送るProvider
+/// [GithubUserState] の [GithubUserState.get] を呼び出すProvider
 ///
 /// Copied from [getGithubUser].
 @ProviderFor(getGithubUser)
 const getGithubUserProvider = GetGithubUserFamily();
 
-/// 情報がなかったらリクエストを送るProvider
+/// [GithubUserState] の [GithubUserState.get] を呼び出すProvider
 ///
 /// Copied from [getGithubUser].
 class GetGithubUserFamily extends Family<AsyncValue<GithubUser>> {
-  /// 情報がなかったらリクエストを送るProvider
+  /// [GithubUserState] の [GithubUserState.get] を呼び出すProvider
   ///
   /// Copied from [getGithubUser].
   const GetGithubUserFamily();
 
-  /// 情報がなかったらリクエストを送るProvider
+  /// [GithubUserState] の [GithubUserState.get] を呼び出すProvider
   ///
   /// Copied from [getGithubUser].
   GetGithubUserProvider call(
@@ -220,11 +220,11 @@ class GetGithubUserFamily extends Family<AsyncValue<GithubUser>> {
   String? get name => r'getGithubUserProvider';
 }
 
-/// 情報がなかったらリクエストを送るProvider
+/// [GithubUserState] の [GithubUserState.get] を呼び出すProvider
 ///
 /// Copied from [getGithubUser].
 class GetGithubUserProvider extends AutoDisposeFutureProvider<GithubUser> {
-  /// 情報がなかったらリクエストを送るProvider
+  /// [GithubUserState] の [GithubUserState.get] を呼び出すProvider
   ///
   /// Copied from [getGithubUser].
   GetGithubUserProvider(
@@ -308,22 +308,7 @@ class _GetGithubUserProviderElement
   String get userName => (origin as GetGithubUserProvider).userName;
 }
 
-String _$getGithubGhostHash() => r'738a238727021eddd8d1c9217d81dd9e75f540c6';
-
-/// See also [getGithubGhost].
-@ProviderFor(getGithubGhost)
-final getGithubGhostProvider = AutoDisposeFutureProvider<GithubUser>.internal(
-  getGithubGhost,
-  name: r'getGithubGhostProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$getGithubGhostHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef GetGithubGhostRef = AutoDisposeFutureProviderRef<GithubUser>;
-String _$githubUserStateHash() => r'8d94760f213c38d2bee9e8913f996f6ff869ab47';
+String _$githubUserStateHash() => r'42b314d8f6a854228db8da92c8796f04ed04c2f1';
 
 abstract class _$GithubUserState extends BuildlessNotifier<GithubUser?> {
   late final String userName;
@@ -333,22 +318,22 @@ abstract class _$GithubUserState extends BuildlessNotifier<GithubUser?> {
   );
 }
 
-/// リポジトリの情報を管理するProvider
+/// [GithubUser] の情報を管理するProvider
 ///
 /// Copied from [GithubUserState].
 @ProviderFor(GithubUserState)
 const githubUserStateProvider = GithubUserStateFamily();
 
-/// リポジトリの情報を管理するProvider
+/// [GithubUser] の情報を管理するProvider
 ///
 /// Copied from [GithubUserState].
 class GithubUserStateFamily extends Family<GithubUser?> {
-  /// リポジトリの情報を管理するProvider
+  /// [GithubUser] の情報を管理するProvider
   ///
   /// Copied from [GithubUserState].
   const GithubUserStateFamily();
 
-  /// リポジトリの情報を管理するProvider
+  /// [GithubUser] の情報を管理するProvider
   ///
   /// Copied from [GithubUserState].
   GithubUserStateProvider call(
@@ -383,12 +368,12 @@ class GithubUserStateFamily extends Family<GithubUser?> {
   String? get name => r'githubUserStateProvider';
 }
 
-/// リポジトリの情報を管理するProvider
+/// [GithubUser] の情報を管理するProvider
 ///
 /// Copied from [GithubUserState].
 class GithubUserStateProvider
     extends NotifierProviderImpl<GithubUserState, GithubUser?> {
-  /// リポジトリの情報を管理するProvider
+  /// [GithubUser] の情報を管理するProvider
   ///
   /// Copied from [GithubUserState].
   GithubUserStateProvider(
