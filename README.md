@@ -12,6 +12,26 @@ Flutterで制作されたシンプルなGithubレポジトリ検索アプリ
 
 [株式会社ゆめみ Flutter エンジニアコードチェック課題](https://github.com/yumemi-inc/flutter-engineer-codecheck) の要件を満たしています。
 
+## 試す
+
+- Android
+  - 最新の [releases/latest](https://github.com/fa0311/simple_github_search_app/releases/latest) から最新のリリースビルドを取得できます
+- Web
+  - <https://simple-github-search-app.pages.dev/> から確認できます
+
+## 動作環境
+
+- Web
+
+  - 最新版のChrome
+
+- Android
+  - Android 13
+
+Mac, iPhoneを持っていないのでiOSやSafariはサポートしていません。
+
+Web版はCORS制約によって一部の機能を制限しています。
+
 ## ビルド
 
 ```sh
@@ -21,7 +41,7 @@ flutter build apk --release
 flutter build web --release
 ```
 
-## 貢献
+## 開発
 
 VSCode の場合 [recommendations](.vscode/extensions.json) に含まれている拡張機能を全てインストールしてください。
 
@@ -29,6 +49,8 @@ VSCode の場合 [recommendations](.vscode/extensions.json) に含まれてい�
 git clone https://github.com/fa0311/simple_github_search_app
 npm i
 ```
+
+`npm i` を利用して最新版の prettier をインストールします。
 
 ## 環境
 
