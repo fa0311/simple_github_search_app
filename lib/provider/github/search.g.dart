@@ -7,7 +7,7 @@ part of 'search.dart';
 // **************************************************************************
 
 String _$searchGithubRepositoriesRawHash() =>
-    r'4768a5d90a35dbc694c8e5dcf02585be6462101f';
+    r'284b6f0ff71327da084839027e058de332bd5b52';
 
 /// Copied from Dart SDK
 class _SystemHash {

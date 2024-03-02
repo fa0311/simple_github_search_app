@@ -39,6 +39,14 @@ class GitHubHttp {
     );
   }
 
+  void setBearerToken(String? token) {
+    if (token == null) {
+      dio.options.headers.remove('Authorization');
+    } else {
+      dio.options.headers['Authorization'] = 'Bearer $token';
+    }
+  }
+
   Future<Response<Map<String, dynamic>>> get({
     required String path,
     Map<String, dynamic>? queryParameters,

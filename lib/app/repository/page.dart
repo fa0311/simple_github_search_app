@@ -104,7 +104,7 @@ class RepositoryPage extends HookConsumerWidget {
                                   onTap: () async {
                                     await UrlLaunchUtil.github(owner, repo);
                                   },
-                                  text: value.homepage.toString(),
+                                  text: value.homepage!,
                                   style: Theme.of(context).textTheme.bodyMedium,
                                 ),
                               ],

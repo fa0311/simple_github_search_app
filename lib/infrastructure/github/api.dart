@@ -8,6 +8,10 @@ class GithubAPI {
   GithubAPI({GitHubHttp? client}) : client = client ?? GitHubHttp();
   final GitHubHttp client;
 
+  void setBearerToken(String? token) {
+    client.setBearerToken(token);
+  }
+
   Future<GithubRepository> getRepositories(String owner, String repo) async {
     assert(owner.isNotEmpty);
     assert(repo.isNotEmpty);
