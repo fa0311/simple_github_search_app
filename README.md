@@ -15,7 +15,7 @@ Flutterで制作されたシンプルなGithubレポジトリ検索アプリ
 ## 試す
 
 - Android
-  - 最新の [releases/latest](https://github.com/fa0311/simple_github_search_app/releases/latest) から最新のリリースビルドを取得できます
+  - [releases/latest](https://github.com/fa0311/simple_github_search_app/releases/latest) から最新のビルドを取得できます
 - Web
   - <https://simple-github-search-app.pages.dev/> から確認できます
 
