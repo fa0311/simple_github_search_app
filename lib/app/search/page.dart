@@ -32,70 +32,89 @@ class SearchPage extends HookConsumerWidget {
         useState(SearchRepositoriesSortParam.values.byNameOrNull(sort) ?? SearchRepositoriesSortParam.bestMatch);
 
     return Scaffold(
-      body: CustomScrollListener(
-        onEndReached: () {
-          ref.read(githubSearchRepositoriesLoadingStateProvider(queryState.value, sortState.value).notifier).nextPage();
+      body: RefreshIndicator(
+        onRefresh: () {
+          return ref.refresh(githubSearchRepositoriesProvider(queryState.value, sortState.value).future);
         },
-        slivers: [
-          SliverAppBar(
-            floating: true,
-            actions: [
-              SelectMenuButton(
-                items: [
-                  for (final value in SearchRepositoriesSortParam.values)
-                    PopupMenuItem(
-                      child: Text(value.name),
-                      onTap: () => sortState.value = value,
-                    ),
-                ],
-              ),
-            ],
-            title: SearchFieldBar(
-              defaultText: query,
-              onSubmitted: (valueState) async {
-                await context.router.push(SearchRoute(query: valueState));
-              },
-            ),
-          ),
-          ...ref.watch(githubSearchRepositoriesProvider(queryState.value, sortState.value)).when(
-            data: (response) {
-              return [
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) {
-                      final (userName, repositoryName) = response.items[index];
-                      final repo = ref.watch(githubRepositoriesStateProvider(userName, repositoryName))!;
-                      final user = ref.watch(githubUserStateProvider(userName))!;
-                      final lang = repo.language;
-                      return RepositoryCard(
-                        title: Text(repo.fullName),
-                        description: Text(repo.description ?? ''),
-                        avatarUrl: user.avatarUrl,
-                        topics: repo.topics ?? [],
-                        onTopicTap: (topic) {
-                          context.router.push(SearchRoute(query: 'topic:$topic'));
-                        },
-                        onTap: () {
-                          context.router.push(
-                            RepositoryRoute(
-                              owner: user.login,
-                              repo: repo.name,
-                            ),
-                          );
-                        },
-                        child: RepositoryStatus(
-                          lang: lang,
-                          stargazersCount: repo.stargazersCount,
-                          watchersCount: repo.watchersCount,
-                          forksCount: repo.forksCount,
-                          openIssuesCount: repo.openIssuesCount,
-                        ),
-                      );
-                    },
-                    childCount: response.items.length,
-                  ),
+        child: CustomScrollListener(
+          onEndReached: () {
+            ref
+                .read(githubSearchRepositoriesLoadingStateProvider(queryState.value, sortState.value).notifier)
+                .nextPage();
+          },
+          slivers: [
+            SliverAppBar(
+              floating: true,
+              actions: [
+                SelectMenuButton(
+                  items: [
+                    for (final value in SearchRepositoriesSortParam.values)
+                      PopupMenuItem(
+                        child: Text(value.name),
+                        onTap: () => sortState.value = value,
+                      ),
+                  ],
                 ),
-                if (response.items.length != response.totalCount)
+              ],
+              title: SearchFieldBar(
+                defaultText: query,
+                onSubmitted: (valueState) async {
+                  await context.router.push(SearchRoute(query: valueState));
+                },
+              ),
+            ),
+            ...ref.watch(githubSearchRepositoriesProvider(queryState.value, sortState.value)).when(
+              data: (response) {
+                return [
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) {
+                        final (userName, repositoryName) = response.items[index];
+                        final repo = ref.watch(githubRepositoriesStateProvider(userName, repositoryName))!;
+                        final user = ref.watch(githubUserStateProvider(userName))!;
+
+                        final lang = repo.language;
+                        return RepositoryCard(
+                          title: Text(repo.fullName),
+                          description: Text(repo.description ?? ''),
+                          avatarUrl: user.avatarUrl,
+                          topics: repo.topics ?? [],
+                          onTopicTap: (topic) {
+                            context.router.push(SearchRoute(query: 'topic:$topic'));
+                          },
+                          onTap: () {
+                            context.router.push(
+                              RepositoryRoute(
+                                owner: user.login,
+                                repo: repo.name,
+                              ),
+                            );
+                          },
+                          child: RepositoryStatus(
+                            lang: lang,
+                            stargazersCount: repo.stargazersCount,
+                            watchersCount: repo.watchersCount,
+                            forksCount: repo.forksCount,
+                            openIssuesCount: repo.openIssuesCount,
+                          ),
+                        );
+                      },
+                      childCount: response.items.length,
+                    ),
+                  ),
+                  if (response.items.length != response.totalCount)
+                    const SliverToBoxAdapter(
+                      child: Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
+                    ),
+                ];
+              },
+              loading: () {
+                return [
                   const SliverToBoxAdapter(
                     child: Padding(
                       padding: EdgeInsets.all(8),
@@ -104,29 +123,18 @@ class SearchPage extends HookConsumerWidget {
                       ),
                     ),
                   ),
-              ];
-            },
-            loading: () {
-              return [
-                const SliverToBoxAdapter(
-                  child: Padding(
-                    padding: EdgeInsets.all(8),
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
+                ];
+              },
+              error: (Object error, StackTrace stackTrace) {
+                return [
+                  SliverToBoxAdapter(
+                    child: Center(child: Text('Error: $error')),
                   ),
-                ),
-              ];
-            },
-            error: (Object error, StackTrace stackTrace) {
-              return [
-                SliverToBoxAdapter(
-                  child: Center(child: Text('Error: $error')),
-                ),
-              ];
-            },
-          ),
-        ],
+                ];
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

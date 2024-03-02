@@ -5,13 +5,13 @@ import 'package:simple_github_search_app/infrastructure/linguist/model/linguist.
 
 part 'linguist.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<List<LinguistLanguages>> getLinguistClient(GetLinguistClientRef ref) async {
   final data = await rootBundle.loadString('assets/linguist/languages.yml');
   return Linguist.read(data);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<LinguistLanguagesData?> getLinguistLanguages(
   GetLinguistLanguagesRef ref,
   String language,

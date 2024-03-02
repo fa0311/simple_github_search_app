@@ -6,12 +6,12 @@ part of 'linguist.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$getLinguistClientHash() => r'f7f676ceb3cb292c6d7d1b3d90788f37dca432d1';
+String _$getLinguistClientHash() => r'ef3f3d19c10523da86e59737e2171fbb452a98f1';
 
 /// See also [getLinguistClient].
 @ProviderFor(getLinguistClient)
 final getLinguistClientProvider =
-    AutoDisposeFutureProvider<List<LinguistLanguages>>.internal(
+    FutureProvider<List<LinguistLanguages>>.internal(
   getLinguistClient,
   name: r'getLinguistClientProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -21,10 +21,9 @@ final getLinguistClientProvider =
   allTransitiveDependencies: null,
 );
 
-typedef GetLinguistClientRef
-    = AutoDisposeFutureProviderRef<List<LinguistLanguages>>;
+typedef GetLinguistClientRef = FutureProviderRef<List<LinguistLanguages>>;
 String _$getLinguistLanguagesHash() =>
-    r'c4108216d4fffcee965e48d4e9f6313616436c31';
+    r'001b4b9a101a61c90618a1867a9b121eb8fa7f9c';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -92,7 +91,7 @@ class GetLinguistLanguagesFamily
 
 /// See also [getLinguistLanguages].
 class GetLinguistLanguagesProvider
-    extends AutoDisposeFutureProvider<LinguistLanguagesData?> {
+    extends FutureProvider<LinguistLanguagesData?> {
   /// See also [getLinguistLanguages].
   GetLinguistLanguagesProvider(
     String language,
@@ -145,7 +144,7 @@ class GetLinguistLanguagesProvider
   }
 
   @override
-  AutoDisposeFutureProviderElement<LinguistLanguagesData?> createElement() {
+  FutureProviderElement<LinguistLanguagesData?> createElement() {
     return _GetLinguistLanguagesProviderElement(this);
   }
 
@@ -163,14 +162,13 @@ class GetLinguistLanguagesProvider
   }
 }
 
-mixin GetLinguistLanguagesRef
-    on AutoDisposeFutureProviderRef<LinguistLanguagesData?> {
+mixin GetLinguistLanguagesRef on FutureProviderRef<LinguistLanguagesData?> {
   /// The parameter `language` of this provider.
   String get language;
 }
 
 class _GetLinguistLanguagesProviderElement
-    extends AutoDisposeFutureProviderElement<LinguistLanguagesData?>
+    extends FutureProviderElement<LinguistLanguagesData?>
     with GetLinguistLanguagesRef {
   _GetLinguistLanguagesProviderElement(super.provider);
 

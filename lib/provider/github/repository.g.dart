@@ -192,24 +192,24 @@ class _GetGithubRepositoryRawProviderElement
 }
 
 String _$getGithubRepositoryHash() =>
-    r'a08692237d5c798a4e463dac8cebc239fc8ae66a';
+    r'943cc959898a2b282dc25aa5177e6639226191e9';
 
-/// 情報がなかったらリクエストを送るProvider
+/// [GithubRepositoriesState] の [GithubRepositoriesState.get] を呼び出すProvider
 ///
 /// Copied from [getGithubRepository].
 @ProviderFor(getGithubRepository)
 const getGithubRepositoryProvider = GetGithubRepositoryFamily();
 
-/// 情報がなかったらリクエストを送るProvider
+/// [GithubRepositoriesState] の [GithubRepositoriesState.get] を呼び出すProvider
 ///
 /// Copied from [getGithubRepository].
 class GetGithubRepositoryFamily extends Family<AsyncValue<GithubRepository>> {
-  /// 情報がなかったらリクエストを送るProvider
+  /// [GithubRepositoriesState] の [GithubRepositoriesState.get] を呼び出すProvider
   ///
   /// Copied from [getGithubRepository].
   const GetGithubRepositoryFamily();
 
-  /// 情報がなかったらリクエストを送るProvider
+  /// [GithubRepositoriesState] の [GithubRepositoriesState.get] を呼び出すProvider
   ///
   /// Copied from [getGithubRepository].
   GetGithubRepositoryProvider call(
@@ -247,12 +247,12 @@ class GetGithubRepositoryFamily extends Family<AsyncValue<GithubRepository>> {
   String? get name => r'getGithubRepositoryProvider';
 }
 
-/// 情報がなかったらリクエストを送るProvider
+/// [GithubRepositoriesState] の [GithubRepositoriesState.get] を呼び出すProvider
 ///
 /// Copied from [getGithubRepository].
 class GetGithubRepositoryProvider
     extends AutoDisposeFutureProvider<GithubRepository> {
-  /// 情報がなかったらリクエストを送るProvider
+  /// [GithubRepositoriesState] の [GithubRepositoriesState.get] を呼び出すProvider
   ///
   /// Copied from [getGithubRepository].
   GetGithubRepositoryProvider(
@@ -353,7 +353,7 @@ class _GetGithubRepositoryProviderElement
 }
 
 String _$githubRepositoriesStateHash() =>
-    r'dcb2f305a7a2022159039d6a9bb87960ff0e42dd';
+    r'32b93141641668ec25975049be6af9488ac1a567';
 
 abstract class _$GithubRepositoriesState
     extends BuildlessNotifier<GithubRepository?> {
@@ -366,22 +366,22 @@ abstract class _$GithubRepositoriesState
   );
 }
 
-/// リポジトリの情報を管理するProvider
+/// [GithubRepository] の情報を管理するProvider
 ///
 /// Copied from [GithubRepositoriesState].
 @ProviderFor(GithubRepositoriesState)
 const githubRepositoriesStateProvider = GithubRepositoriesStateFamily();
 
-/// リポジトリの情報を管理するProvider
+/// [GithubRepository] の情報を管理するProvider
 ///
 /// Copied from [GithubRepositoriesState].
 class GithubRepositoriesStateFamily extends Family<GithubRepository?> {
-  /// リポジトリの情報を管理するProvider
+  /// [GithubRepository] の情報を管理するProvider
   ///
   /// Copied from [GithubRepositoriesState].
   const GithubRepositoriesStateFamily();
 
-  /// リポジトリの情報を管理するProvider
+  /// [GithubRepository] の情報を管理するProvider
   ///
   /// Copied from [GithubRepositoriesState].
   GithubRepositoriesStateProvider call(
@@ -419,12 +419,12 @@ class GithubRepositoriesStateFamily extends Family<GithubRepository?> {
   String? get name => r'githubRepositoriesStateProvider';
 }
 
-/// リポジトリの情報を管理するProvider
+/// [GithubRepository] の情報を管理するProvider
 ///
 /// Copied from [GithubRepositoriesState].
 class GithubRepositoriesStateProvider
     extends NotifierProviderImpl<GithubRepositoriesState, GithubRepository?> {
-  /// リポジトリの情報を管理するProvider
+  /// [GithubRepository] の情報を管理するProvider
   ///
   /// Copied from [GithubRepositoriesState].
   GithubRepositoriesStateProvider(

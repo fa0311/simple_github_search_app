@@ -16,7 +16,7 @@ Future<GithubRepository> getGithubRepositoryRaw(
   return response;
 }
 
-/// リポジトリの情報を管理するProvider
+/// [GithubRepository] の情報を管理するProvider
 @Riverpod(keepAlive: true)
 class GithubRepositoriesState extends _$GithubRepositoriesState {
   @override
@@ -28,17 +28,19 @@ class GithubRepositoriesState extends _$GithubRepositoriesState {
   void change(GithubRepository newState) {
     state = newState;
   }
+
+  Future<void> reload() async {
+    state = await ref.refresh(getGithubRepositoryRawProvider(userName, repositoryName).future);
+  }
+
+  Future<GithubRepository> get() async {
+    state ??= await ref.refresh(getGithubRepositoryRawProvider(userName, repositoryName).future);
+    return state!;
+  }
 }
 
-/// 情報がなかったらリクエストを送るProvider
+/// [GithubRepositoriesState] の [GithubRepositoriesState.get] を呼び出すProvider
 @riverpod
 Future<GithubRepository> getGithubRepository(GetGithubRepositoryRef ref, String userName, String repositoryName) async {
-  final repoOrNull = ref.watch(githubRepositoriesStateProvider(userName, repositoryName));
-  if (repoOrNull == null) {
-    final response = await ref.read(getGithubRepositoryRawProvider(userName, repositoryName).future);
-    ref.watch(githubRepositoriesStateProvider(userName, repositoryName).notifier).change(response);
-    return response;
-  } else {
-    return repoOrNull;
-  }
+  return ref.watch(githubRepositoriesStateProvider(userName, repositoryName).notifier).get();
 }
