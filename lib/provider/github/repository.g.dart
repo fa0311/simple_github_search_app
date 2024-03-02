@@ -6,8 +6,8 @@ part of 'repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$getGithubRepositoryHash() =>
-    r'b3ad2bca814915fb483e8e20a79ce94a05172341';
+String _$getGithubRepositoryRawHash() =>
+    r'9a5a7bf0baf0926754cbc02ff2439f58ce0a50b4';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,6 +29,170 @@ class _SystemHash {
     return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
   }
 }
+
+/// リクエストのキャッシュを担うProvider
+///
+/// Copied from [getGithubRepositoryRaw].
+@ProviderFor(getGithubRepositoryRaw)
+const getGithubRepositoryRawProvider = GetGithubRepositoryRawFamily();
+
+/// リクエストのキャッシュを担うProvider
+///
+/// Copied from [getGithubRepositoryRaw].
+class GetGithubRepositoryRawFamily
+    extends Family<AsyncValue<GithubRepository>> {
+  /// リクエストのキャッシュを担うProvider
+  ///
+  /// Copied from [getGithubRepositoryRaw].
+  const GetGithubRepositoryRawFamily();
+
+  /// リクエストのキャッシュを担うProvider
+  ///
+  /// Copied from [getGithubRepositoryRaw].
+  GetGithubRepositoryRawProvider call(
+    String userName,
+    String repositoryName,
+  ) {
+    return GetGithubRepositoryRawProvider(
+      userName,
+      repositoryName,
+    );
+  }
+
+  @override
+  GetGithubRepositoryRawProvider getProviderOverride(
+    covariant GetGithubRepositoryRawProvider provider,
+  ) {
+    return call(
+      provider.userName,
+      provider.repositoryName,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'getGithubRepositoryRawProvider';
+}
+
+/// リクエストのキャッシュを担うProvider
+///
+/// Copied from [getGithubRepositoryRaw].
+class GetGithubRepositoryRawProvider
+    extends AutoDisposeFutureProvider<GithubRepository> {
+  /// リクエストのキャッシュを担うProvider
+  ///
+  /// Copied from [getGithubRepositoryRaw].
+  GetGithubRepositoryRawProvider(
+    String userName,
+    String repositoryName,
+  ) : this._internal(
+          (ref) => getGithubRepositoryRaw(
+            ref as GetGithubRepositoryRawRef,
+            userName,
+            repositoryName,
+          ),
+          from: getGithubRepositoryRawProvider,
+          name: r'getGithubRepositoryRawProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$getGithubRepositoryRawHash,
+          dependencies: GetGithubRepositoryRawFamily._dependencies,
+          allTransitiveDependencies:
+              GetGithubRepositoryRawFamily._allTransitiveDependencies,
+          userName: userName,
+          repositoryName: repositoryName,
+        );
+
+  GetGithubRepositoryRawProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.userName,
+    required this.repositoryName,
+  }) : super.internal();
+
+  final String userName;
+  final String repositoryName;
+
+  @override
+  Override overrideWith(
+    FutureOr<GithubRepository> Function(GetGithubRepositoryRawRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: GetGithubRepositoryRawProvider._internal(
+        (ref) => create(ref as GetGithubRepositoryRawRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        userName: userName,
+        repositoryName: repositoryName,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<GithubRepository> createElement() {
+    return _GetGithubRepositoryRawProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is GetGithubRepositoryRawProvider &&
+        other.userName == userName &&
+        other.repositoryName == repositoryName;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, userName.hashCode);
+    hash = _SystemHash.combine(hash, repositoryName.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin GetGithubRepositoryRawRef
+    on AutoDisposeFutureProviderRef<GithubRepository> {
+  /// The parameter `userName` of this provider.
+  String get userName;
+
+  /// The parameter `repositoryName` of this provider.
+  String get repositoryName;
+}
+
+class _GetGithubRepositoryRawProviderElement
+    extends AutoDisposeFutureProviderElement<GithubRepository>
+    with GetGithubRepositoryRawRef {
+  _GetGithubRepositoryRawProviderElement(super.provider);
+
+  @override
+  String get userName => (origin as GetGithubRepositoryRawProvider).userName;
+  @override
+  String get repositoryName =>
+      (origin as GetGithubRepositoryRawProvider).repositoryName;
+}
+
+String _$getGithubRepositoryHash() =>
+    r'a08692237d5c798a4e463dac8cebc239fc8ae66a';
 
 /// 情報がなかったらリクエストを送るProvider
 ///
