@@ -1,5 +1,13 @@
 # simple_github_search_app
 
+<!-- markdownlint-disable MD033 -->
+<h1 align="center">
+  <picture>
+    <img alt="icon" src="assets/icon/icon.png" width="300px">
+  </picture>
+</h1>
+<!-- markdownlint-enable MD033 -->
+
 Flutterで制作されたシンプルなGithubレポジトリ検索アプリ
 
 [株式会社ゆめみ Flutter エンジニアコードチェック課題](https://github.com/yumemi-inc/flutter-engineer-codecheck) の要件を満たしています。
