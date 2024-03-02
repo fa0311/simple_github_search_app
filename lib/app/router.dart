@@ -13,11 +13,22 @@ part 'router.gr.dart';
 class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [
-        AutoRoute(path: '/', page: GithubSearchAppRoute.page),
-        AutoRoute(path: '/search', page: SearchRoute.page),
-        AutoRoute(path: '/repository/:owner/:repo', page: RepositoryRoute.page),
-        AutoRoute(path: '/setting', page: SettingRoute.page),
-        AutoRoute(path: '/info', page: InfoRoute.page),
-        AutoRoute(path: '/info/license', page: InfoLicenseRoute.page),
+        AutoRoute(path: '/', page: GithubSearchAppRoute.page, initial: true),
+        AutoRoute(path: '/search', page: SearchRoute.page, guards: [AuthGuard()]),
+        AutoRoute(path: '/repository/:owner/:repo', page: RepositoryRoute.page, guards: [AuthGuard()]),
+        AutoRoute(path: '/setting', page: SettingRoute.page, guards: [AuthGuard()]),
+        AutoRoute(path: '/info', page: InfoRoute.page, guards: [AuthGuard()]),
+        AutoRoute(path: '/info/license', page: InfoLicenseRoute.page, guards: [AuthGuard()]),
       ];
+}
+
+/// Guard されているページに遷移する際にスタックが空の場合は初期ページを先にスタックに追加する
+class AuthGuard extends AutoRouteGuard {
+  @override
+  void onNavigation(NavigationResolver resolver, StackRouter router) {
+    if (router.stack.isEmpty) {
+      router.push(const GithubSearchAppRoute());
+    }
+    resolver.next();
+  }
 }

@@ -38,14 +38,14 @@ abstract class _$AppRouter extends RootStackRouter {
       final args = routeData.argsAs<RepositoryRouteArgs>(
           orElse: () => RepositoryRouteArgs(
                 owner: pathParams.getString('owner'),
-                name: pathParams.getString('name'),
+                repo: pathParams.getString('repo'),
               ));
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: RepositoryPage(
           key: args.key,
           owner: args.owner,
-          name: args.name,
+          repo: args.repo,
         ),
       );
     },
@@ -125,18 +125,18 @@ class RepositoryRoute extends PageRouteInfo<RepositoryRouteArgs> {
   RepositoryRoute({
     Key? key,
     required String owner,
-    required String name,
+    required String repo,
     List<PageRouteInfo>? children,
   }) : super(
           RepositoryRoute.name,
           args: RepositoryRouteArgs(
             key: key,
             owner: owner,
-            name: name,
+            repo: repo,
           ),
           rawPathParams: {
             'owner': owner,
-            'name': name,
+            'repo': repo,
           },
           initialChildren: children,
         );
@@ -151,18 +151,18 @@ class RepositoryRouteArgs {
   const RepositoryRouteArgs({
     this.key,
     required this.owner,
-    required this.name,
+    required this.repo,
   });
 
   final Key? key;
 
   final String owner;
 
-  final String name;
+  final String repo;
 
   @override
   String toString() {
-    return 'RepositoryRouteArgs{key: $key, owner: $owner, name: $name}';
+    return 'RepositoryRouteArgs{key: $key, owner: $owner, repo: $repo}';
   }
 }
 
