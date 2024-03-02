@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:markdown/markdown.dart' as md;
 import 'package:simple_github_search_app/app/router.dart';
@@ -13,7 +13,6 @@ import 'package:simple_github_search_app/component/part/ink_well_card.dart';
 import 'package:simple_github_search_app/component/widget/repository_status.dart';
 import 'package:simple_github_search_app/provider/github/github.dart';
 import 'package:simple_github_search_app/provider/github/repository.dart';
-import 'package:simple_github_search_app/provider/http.dart';
 import 'package:simple_github_search_app/util/url_launch.dart';
 
 @RoutePage()
@@ -122,32 +121,28 @@ class RepositoryPage extends HookConsumerWidget {
                         const Divider(),
                         ref.watch(getGithubReadmeProvider(owner, repo, value.defaultBranch)).when(
                           data: (value) {
-                            return MarkdownBody(
-                              data: value,
-                              extensionSet: md.ExtensionSet(
-                                md.ExtensionSet.gitHubFlavored.blockSyntaxes,
-                                <md.InlineSyntax>[md.EmojiSyntax(), ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes],
-                              ),
-                              imageBuilder: (uri, _, __) {
-                                return Consumer(
-                                  builder: (context, ref, child) {
-                                    return ref.watch(sendGetRequestProvider(uri)).maybeWhen(
-                                          data: (value) {
-                                            if (value.headers.value('content-type')?.startsWith('image/svg') == true) {
-                                              return SvgPicture.string(value.data!);
-                                            } else if (value.headers.value('content-type')?.startsWith('image/') ==
-                                                true) {
-                                              return Image.memory(Uint8List.fromList(value.data!.codeUnits));
-                                            } else {
-                                              return const SizedBox();
-                                            }
-                                          },
-                                          orElse: () => const SizedBox(),
-                                        );
-                                  },
-                                );
-                              },
-                            );
+                            if (value == null) {
+                              return const SizedBox();
+                            } else {
+                              return MarkdownBody(
+                                data: value,
+                                onTapLink: (text, href, title) async {
+                                  if (href != null) {
+                                    await UrlLaunchUtil.uri(Uri.parse(href));
+                                  }
+                                },
+                                extensionSet: md.ExtensionSet(
+                                  md.ExtensionSet.gitHubFlavored.blockSyntaxes,
+                                  <md.InlineSyntax>[md.EmojiSyntax(), ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes],
+                                ),
+                                imageBuilder: (uri, _, __) {
+                                  return CachedNetworkImage(
+                                    imageUrl: uri.toString(),
+                                    errorWidget: (_, __, ___) => const SizedBox(),
+                                  );
+                                },
+                              );
+                            }
                           },
                           loading: () {
                             return const Padding(

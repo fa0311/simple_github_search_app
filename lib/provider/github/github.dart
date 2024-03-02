@@ -17,14 +17,18 @@ GithubAPI getGithubAPIClient(GetGithubAPIClientRef ref) {
 }
 
 @riverpod
-Future<String> getGithubReadme(
+Future<String?> getGithubReadme(
   GetGithubReadmeRef ref,
   String owner,
   String repositoryName,
   String branch,
 ) async {
-  final client = ref.watch(getGithubAPIClientProvider);
+  final client = ref.watch(getGitHubHttpProvider);
   final url = 'https://raw.githubusercontent.com/$owner/$repositoryName/$branch/README.md';
-  final response = await client.client.dio.get<String>(url);
-  return response.data!;
+  try {
+    final response = await client.getUri<String>(Uri.parse(url));
+    return response.data;
+  } on DioException catch (_) {
+    return null;
+  }
 }

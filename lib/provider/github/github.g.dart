@@ -37,7 +37,7 @@ final getGithubAPIClientProvider = AutoDisposeProvider<GithubAPI>.internal(
 );
 
 typedef GetGithubAPIClientRef = AutoDisposeProviderRef<GithubAPI>;
-String _$getGithubReadmeHash() => r'7495da313f3c1f0472a0fbde9810ab078126a521';
+String _$getGithubReadmeHash() => r'464b6399667f67da7b93ee8a7a3b53a8b71f676b';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -65,7 +65,7 @@ class _SystemHash {
 const getGithubReadmeProvider = GetGithubReadmeFamily();
 
 /// See also [getGithubReadme].
-class GetGithubReadmeFamily extends Family<AsyncValue<String>> {
+class GetGithubReadmeFamily extends Family<AsyncValue<String?>> {
   /// See also [getGithubReadme].
   const GetGithubReadmeFamily();
 
@@ -109,7 +109,7 @@ class GetGithubReadmeFamily extends Family<AsyncValue<String>> {
 }
 
 /// See also [getGithubReadme].
-class GetGithubReadmeProvider extends AutoDisposeFutureProvider<String> {
+class GetGithubReadmeProvider extends AutoDisposeFutureProvider<String?> {
   /// See also [getGithubReadme].
   GetGithubReadmeProvider(
     String owner,
@@ -154,7 +154,7 @@ class GetGithubReadmeProvider extends AutoDisposeFutureProvider<String> {
 
   @override
   Override overrideWith(
-    FutureOr<String> Function(GetGithubReadmeRef provider) create,
+    FutureOr<String?> Function(GetGithubReadmeRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -173,7 +173,7 @@ class GetGithubReadmeProvider extends AutoDisposeFutureProvider<String> {
   }
 
   @override
-  AutoDisposeFutureProviderElement<String> createElement() {
+  AutoDisposeFutureProviderElement<String?> createElement() {
     return _GetGithubReadmeProviderElement(this);
   }
 
@@ -196,7 +196,7 @@ class GetGithubReadmeProvider extends AutoDisposeFutureProvider<String> {
   }
 }
 
-mixin GetGithubReadmeRef on AutoDisposeFutureProviderRef<String> {
+mixin GetGithubReadmeRef on AutoDisposeFutureProviderRef<String?> {
   /// The parameter `owner` of this provider.
   String get owner;
 
@@ -208,7 +208,7 @@ mixin GetGithubReadmeRef on AutoDisposeFutureProviderRef<String> {
 }
 
 class _GetGithubReadmeProviderElement
-    extends AutoDisposeFutureProviderElement<String> with GetGithubReadmeRef {
+    extends AutoDisposeFutureProviderElement<String?> with GetGithubReadmeRef {
   _GetGithubReadmeProviderElement(super.provider);
 
   @override
