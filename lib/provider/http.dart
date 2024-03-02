@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:dio/dio.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:simple_github_search_app/util/logger.dart';
@@ -10,8 +12,8 @@ Dio httpRequest(HttpRequestRef ref) {
 }
 
 @riverpod
-Future<Response<String>> sendGetRequest(SendGetRequestRef ref, Uri url) async {
+Future<Response<Uint8List>> getImage(GetImageRef ref, Uri url) async {
   final client = ref.watch(httpRequestProvider);
-  final response = await client.getUri<String>(url);
+  final response = await client.getUri<Uint8List>(url, options: Options(responseType: ResponseType.bytes));
   return response;
 }

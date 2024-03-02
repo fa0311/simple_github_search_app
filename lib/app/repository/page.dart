@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:markdown/markdown.dart' as md;
 import 'package:simple_github_search_app/app/router.dart';
@@ -13,6 +15,7 @@ import 'package:simple_github_search_app/component/part/ink_well_card.dart';
 import 'package:simple_github_search_app/component/widget/repository_status.dart';
 import 'package:simple_github_search_app/provider/github/github.dart';
 import 'package:simple_github_search_app/provider/github/repository.dart';
+import 'package:simple_github_search_app/provider/http.dart';
 import 'package:simple_github_search_app/util/url_launch.dart';
 
 @RoutePage()
@@ -28,6 +31,7 @@ class RepositoryPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final options = useMemoized(() => Options(responseType: ResponseType.bytes), []);
     return Scaffold(
       body: CustomScrollListener(
         slivers: [
@@ -52,27 +56,31 @@ class RepositoryPage extends HookConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          CircleCachedNetworkImage(
-                            imageUrl: value.owner?.avatarUrl ?? '',
-                          ),
-                          AnchorLink(
-                            onTap: () async {
-                              await context.router.push(SearchRoute(query: 'user:${value.owner?.login}'));
-                            },
-                            text: value.name,
-                            style: Theme.of(context).textTheme.headlineMedium,
-                          ),
-                          Text('/', style: Theme.of(context).textTheme.headlineMedium),
-                          AnchorLink(
-                            onTap: () async {
-                              await context.router.push(SearchRoute(query: 'repo:${value.owner?.login}/${value.name}'));
-                            },
-                            text: value.owner?.login ?? '',
-                            style: Theme.of(context).textTheme.headlineMedium,
-                          ),
-                        ],
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            CircleCachedNetworkImage(
+                              imageUrl: value.owner?.avatarUrl ?? '',
+                            ),
+                            AnchorLink(
+                              onTap: () async {
+                                await context.router.push(SearchRoute(query: 'user:${value.owner?.login}'));
+                              },
+                              text: value.name,
+                              style: Theme.of(context).textTheme.headlineMedium,
+                            ),
+                            Text('/', style: Theme.of(context).textTheme.headlineMedium),
+                            AnchorLink(
+                              onTap: () async {
+                                await context.router
+                                    .push(SearchRoute(query: 'repo:${value.owner?.login}/${value.name}'));
+                              },
+                              text: value.owner?.login ?? '',
+                              style: Theme.of(context).textTheme.headlineMedium,
+                            ),
+                          ],
+                        ),
                       ),
                       if (value.description != null && value.description!.isNotEmpty) Text(value.description!),
                       RepositoryStatus(
@@ -136,9 +144,22 @@ class RepositoryPage extends HookConsumerWidget {
                                   <md.InlineSyntax>[md.EmojiSyntax(), ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes],
                                 ),
                                 imageBuilder: (uri, _, __) {
-                                  return CachedNetworkImage(
-                                    imageUrl: uri.toString(),
-                                    errorWidget: (_, __, ___) => const SizedBox(),
+                                  return Consumer(
+                                    builder: (context, ref, child) {
+                                      return ref.watch(getImageProvider(uri)).maybeWhen(
+                                            data: (value) {
+                                              final contentType = value.headers.value('content-type');
+                                              if (contentType?.startsWith('image/svg') == true) {
+                                                return SvgPicture.memory(value.data!);
+                                              } else if (contentType?.startsWith('image/') == true) {
+                                                return Image.memory(value.data!);
+                                              } else {
+                                                return const SizedBox();
+                                              }
+                                            },
+                                            orElse: () => const SizedBox(),
+                                          );
+                                    },
                                   );
                                 },
                               );

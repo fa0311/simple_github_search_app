@@ -20,7 +20,7 @@ final httpRequestProvider = AutoDisposeProvider<Dio>.internal(
 );
 
 typedef HttpRequestRef = AutoDisposeProviderRef<Dio>;
-String _$sendGetRequestHash() => r'52df2c13d8dc32db2e8521db279d346d46f30019';
+String _$getImageHash() => r'f7098f24a3304acaca5f7db808bc3cec637a5196';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -43,27 +43,27 @@ class _SystemHash {
   }
 }
 
-/// See also [sendGetRequest].
-@ProviderFor(sendGetRequest)
-const sendGetRequestProvider = SendGetRequestFamily();
+/// See also [getImage].
+@ProviderFor(getImage)
+const getImageProvider = GetImageFamily();
 
-/// See also [sendGetRequest].
-class SendGetRequestFamily extends Family<AsyncValue<Response<String>>> {
-  /// See also [sendGetRequest].
-  const SendGetRequestFamily();
+/// See also [getImage].
+class GetImageFamily extends Family<AsyncValue<Response<Uint8List>>> {
+  /// See also [getImage].
+  const GetImageFamily();
 
-  /// See also [sendGetRequest].
-  SendGetRequestProvider call(
+  /// See also [getImage].
+  GetImageProvider call(
     Uri url,
   ) {
-    return SendGetRequestProvider(
+    return GetImageProvider(
       url,
     );
   }
 
   @override
-  SendGetRequestProvider getProviderOverride(
-    covariant SendGetRequestProvider provider,
+  GetImageProvider getProviderOverride(
+    covariant GetImageProvider provider,
   ) {
     return call(
       provider.url,
@@ -82,33 +82,31 @@ class SendGetRequestFamily extends Family<AsyncValue<Response<String>>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'sendGetRequestProvider';
+  String? get name => r'getImageProvider';
 }
 
-/// See also [sendGetRequest].
-class SendGetRequestProvider
-    extends AutoDisposeFutureProvider<Response<String>> {
-  /// See also [sendGetRequest].
-  SendGetRequestProvider(
+/// See also [getImage].
+class GetImageProvider extends AutoDisposeFutureProvider<Response<Uint8List>> {
+  /// See also [getImage].
+  GetImageProvider(
     Uri url,
   ) : this._internal(
-          (ref) => sendGetRequest(
-            ref as SendGetRequestRef,
+          (ref) => getImage(
+            ref as GetImageRef,
             url,
           ),
-          from: sendGetRequestProvider,
-          name: r'sendGetRequestProvider',
+          from: getImageProvider,
+          name: r'getImageProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$sendGetRequestHash,
-          dependencies: SendGetRequestFamily._dependencies,
-          allTransitiveDependencies:
-              SendGetRequestFamily._allTransitiveDependencies,
+                  : _$getImageHash,
+          dependencies: GetImageFamily._dependencies,
+          allTransitiveDependencies: GetImageFamily._allTransitiveDependencies,
           url: url,
         );
 
-  SendGetRequestProvider._internal(
+  GetImageProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -122,12 +120,12 @@ class SendGetRequestProvider
 
   @override
   Override overrideWith(
-    FutureOr<Response<String>> Function(SendGetRequestRef provider) create,
+    FutureOr<Response<Uint8List>> Function(GetImageRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: SendGetRequestProvider._internal(
-        (ref) => create(ref as SendGetRequestRef),
+      override: GetImageProvider._internal(
+        (ref) => create(ref as GetImageRef),
         from: from,
         name: null,
         dependencies: null,
@@ -139,13 +137,13 @@ class SendGetRequestProvider
   }
 
   @override
-  AutoDisposeFutureProviderElement<Response<String>> createElement() {
-    return _SendGetRequestProviderElement(this);
+  AutoDisposeFutureProviderElement<Response<Uint8List>> createElement() {
+    return _GetImageProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is SendGetRequestProvider && other.url == url;
+    return other is GetImageProvider && other.url == url;
   }
 
   @override
@@ -157,18 +155,18 @@ class SendGetRequestProvider
   }
 }
 
-mixin SendGetRequestRef on AutoDisposeFutureProviderRef<Response<String>> {
+mixin GetImageRef on AutoDisposeFutureProviderRef<Response<Uint8List>> {
   /// The parameter `url` of this provider.
   Uri get url;
 }
 
-class _SendGetRequestProviderElement
-    extends AutoDisposeFutureProviderElement<Response<String>>
-    with SendGetRequestRef {
-  _SendGetRequestProviderElement(super.provider);
+class _GetImageProviderElement
+    extends AutoDisposeFutureProviderElement<Response<Uint8List>>
+    with GetImageRef {
+  _GetImageProviderElement(super.provider);
 
   @override
-  Uri get url => (origin as SendGetRequestProvider).url;
+  Uri get url => (origin as GetImageProvider).url;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
