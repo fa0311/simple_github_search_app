@@ -24,13 +24,13 @@ final getGitHubHttpProvider = Provider<Dio>.internal(
 
 typedef GetGitHubHttpRef = ProviderRef<Dio>;
 String _$getGithubAPIClientHash() =>
-    r'791b3512666a3f1de7026faf30b013dc065ad30f';
+    r'ab894a03e8bc2f94ae6a4b05080cc346f632e46f';
 
 /// Github API クライアント
 ///
 /// Copied from [getGithubAPIClient].
 @ProviderFor(getGithubAPIClient)
-final getGithubAPIClientProvider = Provider<GithubAPI>.internal(
+final getGithubAPIClientProvider = FutureProvider<GithubAPI>.internal(
   getGithubAPIClient,
   name: r'getGithubAPIClientProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -40,6 +40,6 @@ final getGithubAPIClientProvider = Provider<GithubAPI>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef GetGithubAPIClientRef = ProviderRef<GithubAPI>;
+typedef GetGithubAPIClientRef = FutureProviderRef<GithubAPI>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

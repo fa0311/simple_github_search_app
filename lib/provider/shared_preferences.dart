@@ -39,6 +39,7 @@ class LanguageSetting extends _$LanguageSetting {
     return languageCode != null && countryCode != null ? Locale(languageCode, countryCode) : defaultValue();
   }
 
+  /// 端末の設定に合わせたデフォルトの言語を返す
   Locale defaultValue() {
     final locale = WidgetsBinding.instance.platformDispatcher.locale;
     for (final language in AppLocalizations.supportedLocales) {

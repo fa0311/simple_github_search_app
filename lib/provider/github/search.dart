@@ -15,7 +15,7 @@ Future<GithubResponse<GithubRepository>> searchGithubRepositoriesRaw(
   SearchGithubRepositoriesRawRef ref,
   GithubSearchRepositoriesParam param,
 ) async {
-  final client = ref.watch(getGithubAPIClientProvider);
+  final client = await ref.watch(getGithubAPIClientProvider.future);
   final response = await client.searchRepositories(param);
   return response;
 }

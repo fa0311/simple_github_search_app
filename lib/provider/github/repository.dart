@@ -11,7 +11,7 @@ Future<GithubRepository> getGithubRepositoryRaw(
   String userName,
   String repositoryName,
 ) async {
-  final client = ref.watch(getGithubAPIClientProvider);
+  final client = await ref.watch(getGithubAPIClientProvider.future);
   final response = await client.getRepositories(userName, repositoryName);
   return response;
 }

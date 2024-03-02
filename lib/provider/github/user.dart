@@ -10,7 +10,7 @@ Future<GithubUser> getGithubUserRaw(
   GetGithubUserRawRef ref,
   String userName,
 ) async {
-  final client = ref.watch(getGithubAPIClientProvider);
+  final client = await ref.watch(getGithubAPIClientProvider.future);
   final response = await client.getUser(userName);
   return response;
 }
