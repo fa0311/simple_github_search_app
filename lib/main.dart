@@ -33,7 +33,7 @@ class GithubSearchApp extends HookConsumerWidget {
       locale: locale.valueOrNull,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blue,
+          seedColor: Constant.seedColor,
           brightness: switch (theme.valueOrNull) {
             ThemeMode.dark => Brightness.dark,
             _ => Brightness.light,
@@ -42,7 +42,7 @@ class GithubSearchApp extends HookConsumerWidget {
       ),
       darkTheme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blue,
+          seedColor: Constant.seedColor,
           brightness: switch (theme.valueOrNull) {
             ThemeMode.light => Brightness.light,
             _ => Brightness.dark,
