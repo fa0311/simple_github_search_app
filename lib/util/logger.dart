@@ -8,7 +8,7 @@ final logger = Logger(
   ),
 );
 
-final dioLogger = PrettyDioLogger();
+final dioLogger = PrettyDioLogger(responseBody: false);
 
 class ProviderLogger extends ProviderObserver {
   static bool common = false;
