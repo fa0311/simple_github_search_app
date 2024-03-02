@@ -1,12 +1,12 @@
 # simple_github_search_app
 
-<!-- markdownlint-disable -->
+<!-- markdownlint-disable MD033 -->
 <h1 align="center">
   <picture>
     <img alt="icon" src="assets/icon/icon.png" width="300px">
   </picture>
 </h1>
-<!-- markdownlint-enable -->
+<!-- markdownlint-enable MD033 -->
 
 Flutterで制作されたシンプルなGithubレポジトリ検索アプリ
 

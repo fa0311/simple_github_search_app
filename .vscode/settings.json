@@ -28,10 +28,6 @@
     // "editor.rulers": [
     //     120
     // ],
-  },
-  "markdownlint.config": {
-    "default": true,
-    "MD013": false
   }
 }
 // "files.exclude": {
