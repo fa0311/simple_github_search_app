@@ -16,6 +16,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_markdown: ^0.6.20+1
+  flutter_native_splash: ^2.3.13
   flutter_svg: ^2.0.10+1
   freezed_annotation: ^2.4.1
   hooks_riverpod: ^2.4.10
@@ -59,3 +60,9 @@ flutter_launcher_icons:
   adaptive_icon_foreground: "assets/icon/foreground_icon.png"
   web:
     generate: true
+
+flutter_native_splash:
+  color: "#fcfcf0"
+  image: "assets/icon/foreground_icon.png"
+  android: true
+  web: true
