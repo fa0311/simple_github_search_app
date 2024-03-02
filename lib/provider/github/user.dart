@@ -1,7 +1,21 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:simple_github_search_app/infrastructure/github/model/user.dart';
+import 'package:simple_github_search_app/provider/github/github.dart';
+import 'package:simple_github_search_app/util/logger.dart';
 
 part 'user.g.dart';
+
+/// リクエストのキャッシュを担うProvider
+@riverpod
+Future<GithubUser> getGithubUserRaw(
+  GetGithubUserRawRef ref,
+  String userName,
+) async {
+  logger.d('send request: $userName');
+  final client = ref.watch(getGithubAPIClientProvider);
+  final response = await client.getUser(userName);
+  return response;
+}
 
 /// リポジトリの情報を管理するProvider
 @Riverpod(keepAlive: true)
@@ -22,9 +36,8 @@ class GithubUserState extends _$GithubUserState {
 Future<GithubUser> getGithubUser(GetGithubUserRef ref, String userName) async {
   final userOrNull = ref.watch(githubUserStateProvider(userName));
   if (userOrNull == null) {
-    // todo: ここでリクエストを送る
-    // 今のところ、ユーザー情報はリポジトリ情報を取得する際に取得しているため、ここでリクエストを送る必要はない
-    // ref.watch(githubUserStateProvider(userName, repositoryName).notifier).change(_);
+    final response = await ref.read(getGithubUserRawProvider(userName).future);
+    ref.watch(githubUserStateProvider(userName).notifier).change(response);
     throw UnimplementedError();
   } else {
     return userOrNull;

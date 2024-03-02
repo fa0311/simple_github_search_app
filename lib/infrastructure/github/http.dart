@@ -39,7 +39,7 @@ class GitHubHttp {
     );
   }
 
-  Future<Map<String, dynamic>> get({
+  Future<Response<Map<String, dynamic>>> get({
     required String path,
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers,
@@ -52,7 +52,7 @@ class GitHubHttp {
           headers: headers,
         ),
       );
-      return res.data!;
+      return res;
     } on DioException catch (e) {
       final k = e.response?.data;
       if (k is Map<String, dynamic>) {
