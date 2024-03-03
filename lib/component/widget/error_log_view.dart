@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:simple_github_search_app/infrastructure/github/http.dart';
+import 'package:simple_github_search_app/util/constant.dart';
+import 'package:simple_github_search_app/util/url_launch.dart';
 
 /// エラーの扱いを決めるクラス
 /// [title] エラーのタイトル
@@ -13,31 +16,31 @@ class ErrorData {
     this.isReport = false,
   });
 
-  factory ErrorData.fromObject(Object error) {
+  factory ErrorData.fromObject(AppLocalizations localizations, Object error) {
     return switch (error) {
       final GitHubHttpException e => switch (e.statusCode) {
           // >= 0 && < 100 => const ErrorData(title: '通信エラーが発生しました'),
           // >= 100 && < 200 => const ErrorData(title: '情報を取得できませんでした'),
           // >= 200 && < 300 => const ErrorData(title: '情報を取得できませんでした'),
           // >= 300 && < 400 => const ErrorData(title: 'リダイレクトが発生しました'),
-          == 401 => ErrorData('認証エラーが発生しました', message: e.data.message),
-          == 403 => ErrorData('アクセス権限がありません', message: e.data.message),
-          == 404 => ErrorData('情報が見つかりませんでした', message: e.data.message),
-          >= 400 && < 500 => ErrorData('クライアントエラーが発生しました', message: e.data.message, isReport: true),
-          >= 500 && < 600 => ErrorData('サーバーエラーが発生しました', message: e.data.message),
-          _ => ErrorData('エラーが発生しました', message: e.data.message, isReport: true),
+          == 401 => ErrorData(localizations.errorAuthMessage, message: e.data.message),
+          == 403 => ErrorData(localizations.errorAccessMessage, message: e.data.message),
+          == 404 => ErrorData(localizations.errorNotFoundMessage, message: e.data.message),
+          >= 400 && < 500 => ErrorData(localizations.errorClientMessage, message: e.data.message, isReport: true),
+          >= 500 && < 600 => ErrorData(localizations.errorServerMessage, message: e.data.message),
+          _ => ErrorData(localizations.errorUnknownMessage, message: e.data.message, isReport: true),
         },
       final DioException e => switch (e.type) {
-          DioExceptionType.cancel => const ErrorData('通信がキャンセルされました'),
-          DioExceptionType.receiveTimeout => const ErrorData('通信がタイムアウトしました'),
-          DioExceptionType.sendTimeout => const ErrorData('通信がタイムアウトしました'),
-          DioExceptionType.unknown => const ErrorData('エラーが発生しました'),
-          DioExceptionType.connectionTimeout => const ErrorData('通信がタイムアウトしました'),
-          DioExceptionType.badCertificate => const ErrorData('証明書のエラーが発生しました'),
-          DioExceptionType.badResponse => const ErrorData('エラーが発生しました'),
-          DioExceptionType.connectionError => const ErrorData('通信エラーが発生しました'),
+          DioExceptionType.cancel => ErrorData(localizations.errorCancelMessage),
+          DioExceptionType.receiveTimeout => ErrorData(localizations.errorReceiveTimeoutMessage),
+          DioExceptionType.sendTimeout => ErrorData(localizations.errorSendTimeoutMessage),
+          DioExceptionType.unknown => ErrorData(localizations.errorUnknownMessage),
+          DioExceptionType.connectionTimeout => ErrorData(localizations.errorConnectionTimeoutMessage),
+          DioExceptionType.badCertificate => ErrorData(localizations.errorBadCertificateMessage),
+          DioExceptionType.badResponse => ErrorData(localizations.errorBadResponseMessage),
+          DioExceptionType.connectionError => ErrorData(localizations.errorConnectionErrorMessage),
         },
-      _ => const ErrorData('エラーが発生しました'),
+      _ => ErrorData(localizations.errorUnknownMessage, isReport: true),
     };
   }
 
@@ -58,7 +61,7 @@ class ErrorLogView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final errorData = ErrorData.fromObject(error);
+    final errorData = ErrorData.fromObject(AppLocalizations.of(context)!, error);
 
     return Center(
       child: InkWell(
@@ -85,10 +88,22 @@ class ErrorLogView extends StatelessWidget {
                   if (errorData.isReport)
                     TextButton(
                       onPressed: () {
-                        /// Github の Issue にエラーを報告する
-                        // Navigator.of(context).pop();
+                        final markdown = [
+                          '```log',
+                          'Error: $error',
+                          '```',
+                          '```log',
+                          'StackTrace: $stackTrace',
+                          '```',
+                        ].join('\n');
+                        UrlLaunchUtil.githubOpenIssues(
+                          Constant.githubUser,
+                          Constant.githubRepository,
+                          error.toString(),
+                          markdown,
+                        );
                       },
-                      child: const Text('問題を報告'),
+                      child: Text(AppLocalizations.of(context)!.errorReportButton),
                     ),
                 ],
               );

@@ -9,6 +9,18 @@ class UrlLaunchUtil {
     await uri(githubBaseUri.replace(path: '/$name/$repo'));
   }
 
+  static Future<void> githubOpenIssues(String name, String repo, String title, String body) async {
+    await uri(
+      githubBaseUri.replace(
+        path: '/$name/$repo/issues/new',
+        queryParameters: {
+          'title': title,
+          'body': body,
+        },
+      ),
+    );
+  }
+
   static Future<void> uri(Uri uri) async {
     if (!await canLaunchUrl(uri)) {
       await launchUrl(uri);
