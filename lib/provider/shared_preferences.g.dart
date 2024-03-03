@@ -7,11 +7,11 @@ part of 'shared_preferences.dart';
 // **************************************************************************
 
 String _$getSharedPreferencesHash() =>
-    r'47285dab981cfe03d288e8f195e3f27254cd20e4';
+    r'7ce8e20683e3fac7696b33cef4254ae2fcb5b634';
 
 /// See also [getSharedPreferences].
 @ProviderFor(getSharedPreferences)
-final getSharedPreferencesProvider = FutureProvider<SharedPreferences>.internal(
+final getSharedPreferencesProvider = FutureProvider<KeyValueStorage>.internal(
   getSharedPreferences,
   name: r'getSharedPreferencesProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -21,8 +21,8 @@ final getSharedPreferencesProvider = FutureProvider<SharedPreferences>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef GetSharedPreferencesRef = FutureProviderRef<SharedPreferences>;
-String _$themeSettingHash() => r'd4ec8fa75ba2ed6365eeba4889434b3dbe3cde5f';
+typedef GetSharedPreferencesRef = FutureProviderRef<KeyValueStorage>;
+String _$themeSettingHash() => r'c49c3a3bc228ae1595f9f241a270f3d18165827f';
 
 /// See also [ThemeSetting].
 @ProviderFor(ThemeSetting)
@@ -37,7 +37,7 @@ final themeSettingProvider =
 );
 
 typedef _$ThemeSetting = AsyncNotifier<ThemeMode>;
-String _$languageSettingHash() => r'ea5f793b70450493e1611538fe037bba21160fd2';
+String _$languageSettingHash() => r'6741e1eaefce5949b7ac5f5d8b3179b1c8abb3ee';
 
 /// See also [LanguageSetting].
 @ProviderFor(LanguageSetting)

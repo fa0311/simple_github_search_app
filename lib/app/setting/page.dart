@@ -73,7 +73,7 @@ class SettingPage extends HookConsumerWidget {
                   context,
                   onSubmitted: (value) async {
                     if (value.isEmpty) {
-                      await ref.read(githubTokenSettingProvider.notifier).delete();
+                      await ref.read(githubTokenSettingProvider.notifier).remove();
                       if (context.mounted) {
                         await context.router.pop();
                       }
