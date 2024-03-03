@@ -55,6 +55,7 @@ flutter:
   generate: true
 
   assets:
+    - assets/icon/
     - assets/linguist/
 
 flutter_launcher_icons:
