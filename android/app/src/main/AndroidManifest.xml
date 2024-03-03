@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:label="simple_github_search_app"
+        android:label="GitHub Search"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
