@@ -33,7 +33,7 @@ _$GithubRepositoryImpl _$$GithubRepositoryImplFromJson(
       openIssuesCount: json['open_issues_count'] as int,
       masterBranch: json['master_branch'] as String?,
       defaultBranch: json['default_branch'] as String,
-      score: (json['score'] as num).toDouble(),
+      score: (json['score'] as num?)?.toDouble(),
       forksUrl: json['forks_url'] as String,
       keysUrl: json['keys_url'] as String,
       collaboratorsUrl: json['collaborators_url'] as String,

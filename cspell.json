@@ -2,10 +2,12 @@
   "version": "0.2",
   "language": "en",
   "words": [
+    "autofocus",
     "codemirror",
     "cupertino",
     "Goldens",
     "LTRB",
+    "pubspec",
     "riverpod",
     "Signoff"
   ],
@@ -13,6 +15,8 @@
     "android/**",
     "ios/**",
     "windows/**",
+    "build/**",
+    "node_modules/**",
     ".metadata",
     "cspell.json",
     "pubspec.lock",

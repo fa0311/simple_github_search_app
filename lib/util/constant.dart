@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Constant {
   Constant._();
 
@@ -6,4 +8,6 @@ class Constant {
   static String githubRepository = 'simple_github_search_app';
 
   static bool debugShowCheckedModeBanner = false;
+
+  static MaterialColor seedColor = Colors.blue;
 }

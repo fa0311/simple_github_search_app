@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:simple_github_search_app/component/circle_cached_network_image.dart';
-import 'package:simple_github_search_app/component/ink_well_card.dart';
+import 'package:simple_github_search_app/component/part/circle_cached_network_image.dart';
+import 'package:simple_github_search_app/component/part/ink_well_card.dart';
 
 /// リポジトリの情報を表示するカード
 class RepositoryCard extends StatelessWidget {
@@ -66,13 +66,13 @@ class RepositoryCard extends StatelessWidget {
                   children: [
                     for (final topic in topics)
                       InkWellCard(
-                        color: Colors.lightBlue[100],
+                        color: Theme.of(context).colorScheme.primaryContainer,
                         child: InkWell(
                           borderRadius: BorderRadius.circular(8),
                           onTap: onTopicTap != null ? () => onTopicTap!(topic) : null,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                            child: Text(topic, style: TextStyle(color: Colors.blue[800])),
+                            child: Text(topic, style: TextStyle(color: Theme.of(context).colorScheme.primary)),
                           ),
                         ),
                       ),

@@ -8,7 +8,10 @@ class SelectModalTile extends StatelessWidget {
 
   final List<Widget> items;
 
-  static void show(BuildContext context, List<Widget> items) {
+  static void show(
+    BuildContext context, {
+    required List<Widget> items,
+  }) {
     showModalBottomSheet<void>(
       isScrollControlled: true,
       context: context,

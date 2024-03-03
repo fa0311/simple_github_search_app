@@ -48,3 +48,6 @@ test/**/failures/
 
 # フォーマッタ関連で必要なファイル
 node_modules
+
+# krita の一時ファイル
+assets/**/*.*~

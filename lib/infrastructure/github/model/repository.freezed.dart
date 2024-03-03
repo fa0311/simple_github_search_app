@@ -42,7 +42,7 @@ mixin _$GithubRepository {
   int get openIssuesCount => throw _privateConstructorUsedError;
   String? get masterBranch => throw _privateConstructorUsedError;
   String get defaultBranch => throw _privateConstructorUsedError;
-  double get score => throw _privateConstructorUsedError;
+  double? get score => throw _privateConstructorUsedError;
   String get forksUrl => throw _privateConstructorUsedError;
   String get keysUrl => throw _privateConstructorUsedError;
   String get collaboratorsUrl => throw _privateConstructorUsedError;
@@ -145,7 +145,7 @@ abstract class $GithubRepositoryCopyWith<$Res> {
       int openIssuesCount,
       String? masterBranch,
       String defaultBranch,
-      double score,
+      double? score,
       String forksUrl,
       String keysUrl,
       String collaboratorsUrl,
@@ -254,7 +254,7 @@ class _$GithubRepositoryCopyWithImpl<$Res, $Val extends GithubRepository>
     Object? openIssuesCount = null,
     Object? masterBranch = freezed,
     Object? defaultBranch = null,
-    Object? score = null,
+    Object? score = freezed,
     Object? forksUrl = null,
     Object? keysUrl = null,
     Object? collaboratorsUrl = null,
@@ -411,10 +411,10 @@ class _$GithubRepositoryCopyWithImpl<$Res, $Val extends GithubRepository>
           ? _value.defaultBranch
           : defaultBranch // ignore: cast_nullable_to_non_nullable
               as String,
-      score: null == score
+      score: freezed == score
           ? _value.score
           : score // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
       forksUrl: null == forksUrl
           ? _value.forksUrl
           : forksUrl // ignore: cast_nullable_to_non_nullable
@@ -762,7 +762,7 @@ abstract class _$$GithubRepositoryImplCopyWith<$Res>
       int openIssuesCount,
       String? masterBranch,
       String defaultBranch,
-      double score,
+      double? score,
       String forksUrl,
       String keysUrl,
       String collaboratorsUrl,
@@ -873,7 +873,7 @@ class __$$GithubRepositoryImplCopyWithImpl<$Res>
     Object? openIssuesCount = null,
     Object? masterBranch = freezed,
     Object? defaultBranch = null,
-    Object? score = null,
+    Object? score = freezed,
     Object? forksUrl = null,
     Object? keysUrl = null,
     Object? collaboratorsUrl = null,
@@ -1030,10 +1030,10 @@ class __$$GithubRepositoryImplCopyWithImpl<$Res>
           ? _value.defaultBranch
           : defaultBranch // ignore: cast_nullable_to_non_nullable
               as String,
-      score: null == score
+      score: freezed == score
           ? _value.score
           : score // ignore: cast_nullable_to_non_nullable
-              as double,
+              as double?,
       forksUrl: null == forksUrl
           ? _value.forksUrl
           : forksUrl // ignore: cast_nullable_to_non_nullable
@@ -1446,7 +1446,7 @@ class _$GithubRepositoryImpl implements _GithubRepository {
   @override
   final String defaultBranch;
   @override
-  final double score;
+  final double? score;
   @override
   final String forksUrl;
   @override
@@ -1866,7 +1866,7 @@ abstract class _GithubRepository implements GithubRepository {
       required final int openIssuesCount,
       required final String? masterBranch,
       required final String defaultBranch,
-      required final double score,
+      required final double? score,
       required final String forksUrl,
       required final String keysUrl,
       required final String collaboratorsUrl,
@@ -1982,7 +1982,7 @@ abstract class _GithubRepository implements GithubRepository {
   @override
   String get defaultBranch;
   @override
-  double get score;
+  double? get score;
   @override
   String get forksUrl;
   @override
