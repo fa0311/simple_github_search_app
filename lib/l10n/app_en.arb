@@ -26,5 +26,20 @@
   "infoPageTitle": "Information",
   "infoHomePage": "Home Page",
   "infoLicenses": "Open Source Licenses",
-  "infoVersion": "Version"
+  "infoVersion": "Version",
+  "@____________________error____________________": "",
+  "errorAuthMessage": "Authentication error occurred",
+  "errorAccessMessage": "Access denied",
+  "errorNotFoundMessage": "Information not found",
+  "errorClientMessage": "Client error occurred",
+  "errorServerMessage": "Server error occurred",
+  "errorUnknownMessage": "An error occurred",
+  "errorCancelMessage": "Communication canceled",
+  "errorReceiveTimeoutMessage": "Communication timed out (receive)",
+  "errorSendTimeoutMessage": "Communication timed out (send)",
+  "errorConnectionTimeoutMessage": "Communication timed out (connection)",
+  "errorBadCertificateMessage": "Certificate error occurred",
+  "errorBadResponseMessage": "Error response received",
+  "errorConnectionErrorMessage": "Communication error occurred",
+  "errorReportButton": "Report Error"
 }

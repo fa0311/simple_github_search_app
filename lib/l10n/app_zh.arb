@@ -26,5 +26,20 @@
   "infoPageTitle": "信息",
   "infoHomePage": "主页",
   "infoLicenses": "开源许可",
-  "infoVersion": "版本"
+  "infoVersion": "版本",
+  "@____________________error____________________": "",
+  "errorAuthMessage": "发生了认证错误",
+  "errorAccessMessage": "没有访问权限",
+  "errorNotFoundMessage": "未找到信息",
+  "errorClientMessage": "发生了客户端错误",
+  "errorServerMessage": "发生了服务器错误",
+  "errorUnknownMessage": "发生了错误",
+  "errorCancelMessage": "通信已取消",
+  "errorReceiveTimeoutMessage": "通信超时（接收）",
+  "errorSendTimeoutMessage": "通信超时（发送）",
+  "errorConnectionTimeoutMessage": "通信超时（连接）",
+  "errorBadCertificateMessage": "发生了证书错误",
+  "errorBadResponseMessage": "收到错误响应",
+  "errorConnectionErrorMessage": "通信错误",
+  "errorReportButton": "报告错误"
 }
