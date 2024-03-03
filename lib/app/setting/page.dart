@@ -7,6 +7,16 @@ import 'package:simple_github_search_app/component/part/text_field_dialog.dart';
 import 'package:simple_github_search_app/provider/flutter_secure_storage.dart';
 import 'package:simple_github_search_app/provider/shared_preferences.dart';
 
+extension on ThemeMode {
+  String localizations(AppLocalizations localizations) {
+    return switch (this) {
+      ThemeMode.system => localizations.settingThemeSystem,
+      ThemeMode.light => localizations.settingThemeLight,
+      ThemeMode.dark => localizations.settingThemeDark,
+    };
+  }
+}
+
 @RoutePage()
 class SettingPage extends HookConsumerWidget {
   const SettingPage({super.key});
@@ -15,12 +25,12 @@ class SettingPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
+        title: Text(AppLocalizations.of(context)!.settingPageTitle),
       ),
       body: ListView(
         children: [
           ListTile(
-            title: const Text('Language'),
+            title: Text(AppLocalizations.of(context)!.settingLanguage),
             onTap: () {
               SelectModalTile.show(
                 context,
@@ -42,7 +52,7 @@ class SettingPage extends HookConsumerWidget {
             },
           ),
           ListTile(
-            title: const Text('Theme'),
+            title: Text(AppLocalizations.of(context)!.settingTheme),
             onTap: () {
               SelectModalTile.show(
                 context,
@@ -51,7 +61,7 @@ class SettingPage extends HookConsumerWidget {
                     Consumer(
                       builder: (context, ref, _) {
                         return ListTile(
-                          title: Text(theme.name),
+                          title: Text(theme.localizations(AppLocalizations.of(context)!)),
                           selected: ref.watch(themeSettingProvider).valueOrNull == theme,
                           onTap: () {
                             ref.read(themeSettingProvider.notifier).set(theme);
@@ -64,13 +74,14 @@ class SettingPage extends HookConsumerWidget {
             },
           ),
           ListTile(
-            title: const Text('Token の登録'),
+            title: Text(AppLocalizations.of(context)!.settingGithubToken),
             onTap: () async {
-              final data = await ref.read(githubTokenSettingProvider.notifier).read();
+              final data = await ref.read(githubTokenSettingProvider.future);
               if (context.mounted) {
                 TextFieldDialog.show(
-                  title: const Text('Token の登録'),
+                  title: Text(AppLocalizations.of(context)!.settingGithubToken),
                   context,
+                  obscureText: true,
                   onSubmitted: (value) async {
                     if (value.isEmpty) {
                       await ref.read(githubTokenSettingProvider.notifier).remove();
@@ -80,10 +91,10 @@ class SettingPage extends HookConsumerWidget {
                       return null;
                     }
                     if (!value.startsWith('ghp_')) {
-                      return 'Token の形式が正しくありません';
+                      return AppLocalizations.of(context)!.settingGithubTokenInvalid;
                     }
                     if (value.length != 40) {
-                      return 'Token の形式が正しくありません';
+                      return AppLocalizations.of(context)!.settingGithubTokenInvalid;
                     }
                     await ref.read(githubTokenSettingProvider.notifier).set(value);
                     if (context.mounted) {
@@ -92,7 +103,8 @@ class SettingPage extends HookConsumerWidget {
                     return null;
                   },
                   defaultText: data ?? '',
-                  button: const Text('登録'),
+                  label: Text(AppLocalizations.of(context)!.settingGithubTokenLabel),
+                  button: Text(AppLocalizations.of(context)!.settingGithubTokenSave),
                 );
               }
             },

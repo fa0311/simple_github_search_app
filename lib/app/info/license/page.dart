@@ -10,6 +10,8 @@ import 'package:simple_github_search_app/util/constant.dart';
 class InfoLicensePage extends HookConsumerWidget {
   const InfoLicensePage({super.key});
 
+  static const copyRight = '©';
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final year = DateTime.now().year;
@@ -26,7 +28,7 @@ class InfoLicensePage extends HookConsumerWidget {
                     size: 50,
                   ),
                 ),
-                applicationLegalese: '© $year ${Constant.appName}',
+                applicationLegalese: '$copyRight $year ${Constant.appName}',
               );
             },
             loading: () => const Center(child: CircularProgressIndicator()),

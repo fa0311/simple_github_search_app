@@ -40,23 +40,30 @@ class LanguageSetting extends _$LanguageSetting {
     final client = await ref.read(getSharedPreferencesProvider.future);
     final languageCode = await client.getString(languageCodeKey);
     final countryCode = await client.getString(countyCodeKey);
-    return countryCode == null && countryCode == null ? defaultValue() : Locale(languageCode!, countryCode);
+    return countryCode == null && countryCode == null ? defaultLocale() : Locale(languageCode!, countryCode);
   }
 
   /// 端末の設定に合わせたデフォルトの言語を返す
-  Locale defaultValue() {
+  Locale defaultLocale() {
     final locale = WidgetsBinding.instance.platformDispatcher.locale;
+    return nearestLocale(locale) ?? nearestLocale(const Locale('en', 'US'))!;
+  }
+
+  /// 一番近い言語を返す
+  Locale? nearestLocale(Locale locale) {
+    // 言語と地域が一致するものがあればそれを返す
     for (final language in AppLocalizations.supportedLocales) {
-      if (language.languageCode == locale.languageCode) {
-        if (language.countryCode == null) {
-          return language;
-        }
-        if (language.countryCode == locale.countryCode) {
-          return language;
-        }
+      if (language.languageCode == locale.languageCode && language.countryCode == locale.countryCode) {
+        return language;
       }
     }
-    return const Locale('en', 'US');
+    // 言語が一致するものがあればそれを返す
+    for (final language in AppLocalizations.supportedLocales) {
+      if (language.languageCode == locale.languageCode) {
+        return language;
+      }
+    }
+    return null;
   }
 
   Future<void> set(Locale value) async {
