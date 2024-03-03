@@ -2,10 +2,11 @@
   "recommendations": [
     "dart-code.dart-code",
     "dart-code.flutter",
-    "jeroen-meijer.pubspec-assist",
+    // "jeroen-meijer.pubspec-assist",
     "localizely.flutter-intl",
     "streetsidesoftware.code-spell-checker",
     "davidanson.vscode-markdownlint",
     "esbenp.prettier-vscode"
+    // "flutterando.flutter-coverage"
   ]
 }
