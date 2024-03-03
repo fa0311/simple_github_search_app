@@ -28,17 +28,6 @@ class GithubTokenSetting extends _$GithubTokenSetting {
     return token;
   }
 
-  Future<String?> read() async {
-    final client = await ref.watch(getSecureStorageProvider.future);
-    final token = await client.getString(key);
-
-    if (token == null) {
-      return null;
-    } else {
-      return '*' * token.length;
-    }
-  }
-
   Future<void> set(String value) async {
     state = AsyncValue.data(value);
     final client = await ref.watch(getSecureStorageProvider.future);

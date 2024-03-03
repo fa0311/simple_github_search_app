@@ -22,7 +22,7 @@ final getSecureStorageProvider = FutureProvider<KeyValueStorage>.internal(
 
 typedef GetSecureStorageRef = FutureProviderRef<KeyValueStorage>;
 String _$githubTokenSettingHash() =>
-    r'f62c21b210365e010194afde1edc479414df9c0a';
+    r'074eb3f29cbc3d30d18853303c0c9b20ceb24e26';
 
 /// See also [GithubTokenSetting].
 @ProviderFor(GithubTokenSetting)

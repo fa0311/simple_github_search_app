@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:simple_github_search_app/app/router.dart';
 import 'package:simple_github_search_app/component/part/app_icon.dart';
@@ -60,7 +61,7 @@ class GithubSearchAppPage extends HookConsumerWidget {
                 child: ListView(
                   children: [
                     ListTile(
-                      title: const Text('Home'),
+                      title: Text(AppLocalizations.of(context)!.homeTitle),
                       leading: const Icon(Icons.home_outlined),
                       onTap: () {
                         context.router.popUntilRoot();
@@ -70,14 +71,14 @@ class GithubSearchAppPage extends HookConsumerWidget {
                 ),
               ),
               ListTile(
-                title: const Text('Settings'),
+                title: Text(AppLocalizations.of(context)!.settingPageTitle),
                 leading: const Icon(Icons.settings_outlined),
                 onTap: () {
                   context.router.push(const SettingRoute());
                 },
               ),
               ListTile(
-                title: const Text('Info'),
+                title: Text(AppLocalizations.of(context)!.infoPageTitle),
                 leading: const Icon(Icons.info_outline),
                 onTap: () {
                   context.router.push(const InfoRoute());

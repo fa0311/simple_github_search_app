@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:simple_github_search_app/app/router.dart';
@@ -14,6 +15,18 @@ import 'package:simple_github_search_app/provider/github/repository.dart';
 import 'package:simple_github_search_app/provider/github/search.dart';
 import 'package:simple_github_search_app/provider/github/user.dart';
 import 'package:simple_github_search_app/util/enum.dart';
+
+extension on SearchRepositoriesSortParam {
+  String localizations(AppLocalizations localizations) {
+    return switch (this) {
+      SearchRepositoriesSortParam.bestMatch => localizations.searchSortBestMatch,
+      SearchRepositoriesSortParam.stars => localizations.searchSortStars,
+      SearchRepositoriesSortParam.forks => localizations.searchSortForks,
+      SearchRepositoriesSortParam.updated => localizations.searchSortUpdated,
+      SearchRepositoriesSortParam.helpWantedIssues => localizations.searchSortHelpWantedIssues,
+    };
+  }
+}
 
 @RoutePage()
 class SearchPage extends HookConsumerWidget {
@@ -51,7 +64,7 @@ class SearchPage extends HookConsumerWidget {
                   items: [
                     for (final value in SearchRepositoriesSortParam.values)
                       PopupMenuItem(
-                        child: Text(value.name),
+                        child: Text(value.localizations(AppLocalizations.of(context)!)),
                         onTap: () => sortState.value = value,
                       ),
                   ],

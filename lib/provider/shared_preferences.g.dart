@@ -37,7 +37,7 @@ final themeSettingProvider =
 );
 
 typedef _$ThemeSetting = AsyncNotifier<ThemeMode>;
-String _$languageSettingHash() => r'bddb52c42d012cd7ac27f74a6999aa2f58858812';
+String _$languageSettingHash() => r'be208a52eb6624c9eb9e868573eb745be9aeb356';
 
 /// See also [LanguageSetting].
 @ProviderFor(LanguageSetting)
