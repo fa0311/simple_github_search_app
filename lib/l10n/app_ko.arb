@@ -26,5 +26,20 @@
   "infoPageTitle": "정보",
   "infoHomePage": "홈페이지",
   "infoLicenses": "오픈 소스 라이선스",
-  "infoVersion": "버전"
+  "infoVersion": "버전",
+  "@____________________error____________________": "",
+  "errorAuthMessage": "인증 오류가 발생했습니다",
+  "errorAccessMessage": "접근 권한이 없습니다",
+  "errorNotFoundMessage": "정보를 찾을 수 없습니다",
+  "errorClientMessage": "클라이언트 오류가 발생했습니다",
+  "errorServerMessage": "서버 오류가 발생했습니다",
+  "errorUnknownMessage": "오류가 발생했습니다",
+  "errorCancelMessage": "통신이 취소되었습니다",
+  "errorReceiveTimeoutMessage": "통신이 시간 초과되었습니다 (수신)",
+  "errorSendTimeoutMessage": "통신이 시간 초과되었습니다 (송신)",
+  "errorConnectionTimeoutMessage": "통신이 시간 초과되었습니다 (연결)",
+  "errorBadCertificateMessage": "인증서 오류가 발생했습니다",
+  "errorBadResponseMessage": "오류 응답을 받았습니다",
+  "errorConnectionErrorMessage": "통신 오류가 발생했습니다",
+  "errorReportButton": "오류 보고"
 }

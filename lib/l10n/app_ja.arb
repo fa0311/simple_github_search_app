@@ -26,5 +26,20 @@
   "infoPageTitle": "情報",
   "infoHomePage": "ホームページ",
   "infoLicenses": "オープンソースライセンス",
-  "infoVersion": "バージョン"
+  "infoVersion": "バージョン",
+  "@____________________error____________________": "",
+  "errorAuthMessage": "認証エラーが発生しました",
+  "errorAccessMessage": "アクセス権限がありません",
+  "errorNotFoundMessage": "情報が見つかりませんでした",
+  "errorClientMessage": "クライアントエラーが発生しました",
+  "errorServerMessage": "サーバーエラーが発生しました",
+  "errorUnknownMessage": "エラーが発生しました",
+  "errorCancelMessage": "通信がキャンセルされました",
+  "errorReceiveTimeoutMessage": "通信がタイムアウトしました",
+  "errorSendTimeoutMessage": "通信がタイムアウトしました",
+  "errorConnectionTimeoutMessage": "通信がタイムアウトしました",
+  "errorBadCertificateMessage": "証明書のエラーが発生しました",
+  "errorBadResponseMessage": "エラーが発生しました",
+  "errorConnectionErrorMessage": "通信エラーが発生しました",
+  "errorReportButton": "エラーを報告する"
 }

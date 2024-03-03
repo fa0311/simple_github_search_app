@@ -26,5 +26,20 @@
   "infoPageTitle": "資訊",
   "infoHomePage": "首頁",
   "infoLicenses": "開源許可",
-  "infoVersion": "版本"
+  "infoVersion": "版本",
+  "@____________________error____________________": "",
+  "errorAuthMessage": "發生了認證錯誤",
+  "errorAccessMessage": "沒有訪問權限",
+  "errorNotFoundMessage": "未找到資訊",
+  "errorClientMessage": "發生了客戶端錯誤",
+  "errorServerMessage": "發生了伺服器錯誤",
+  "errorUnknownMessage": "發生了錯誤",
+  "errorCancelMessage": "通訊已取消",
+  "errorReceiveTimeoutMessage": "通訊逾時（接收）",
+  "errorSendTimeoutMessage": "通訊逾時（發送）",
+  "errorConnectionTimeoutMessage": "通訊逾時（連接）",
+  "errorBadCertificateMessage": "發生了證書錯誤",
+  "errorBadResponseMessage": "收到錯誤響應",
+  "errorConnectionErrorMessage": "通訊錯誤",
+  "errorReportButton": "報告錯誤"
 }
