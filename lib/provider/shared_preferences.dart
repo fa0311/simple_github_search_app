@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:simple_github_search_app/infrastructure/key_value_storage/key_value_storage.dart';
+import 'package:simple_github_search_app/infrastructure/key_value_storage/shared_preferences.dart';
 import 'package:simple_github_search_app/util/enum.dart';
 
 part 'shared_preferences.g.dart';
 
 @Riverpod(keepAlive: true)
-Future<SharedPreferences> getSharedPreferences(GetSharedPreferencesRef ref) => SharedPreferences.getInstance();
+Future<KeyValueStorage> getSharedPreferences(GetSharedPreferencesRef ref) async {
+  return SharedKeyValue(await SharedPreferences.getInstance());
+}
 
 @Riverpod(keepAlive: true)
 class ThemeSetting extends _$ThemeSetting {
@@ -15,7 +19,7 @@ class ThemeSetting extends _$ThemeSetting {
   @override
   FutureOr<ThemeMode> build() async {
     final client = await ref.read(getSharedPreferencesProvider.future);
-    final theme = client.getString(key);
+    final theme = await client.getString(key);
     return ThemeMode.values.byNameOrNull(theme) ?? ThemeMode.system;
   }
 
@@ -34,9 +38,9 @@ class LanguageSetting extends _$LanguageSetting {
   @override
   FutureOr<Locale> build() async {
     final client = await ref.read(getSharedPreferencesProvider.future);
-    final languageCode = client.getString(languageCodeKey);
-    final countryCode = client.getString(countyCodeKey);
-    return languageCode != null && countryCode != null ? Locale(languageCode, countryCode) : defaultValue();
+    final languageCode = await client.getString(languageCodeKey);
+    final countryCode = await client.getString(countyCodeKey);
+    return countryCode == null && countryCode == null ? defaultValue() : Locale(languageCode!, countryCode);
   }
 
   /// 端末の設定に合わせたデフォルトの言語を返す

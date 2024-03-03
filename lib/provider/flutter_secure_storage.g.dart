@@ -6,11 +6,11 @@ part of 'flutter_secure_storage.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$getSecureStorageHash() => r'2ce1f7c55719299d5b9a29e805b56edcc7dae3f7';
+String _$getSecureStorageHash() => r'0680b678f5e30fbd2fdc58534e8f6e6f2e79d388';
 
 /// See also [getSecureStorage].
 @ProviderFor(getSecureStorage)
-final getSecureStorageProvider = Provider<FlutterSecureStorage>.internal(
+final getSecureStorageProvider = FutureProvider<KeyValueStorage>.internal(
   getSecureStorage,
   name: r'getSecureStorageProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -20,9 +20,9 @@ final getSecureStorageProvider = Provider<FlutterSecureStorage>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef GetSecureStorageRef = ProviderRef<FlutterSecureStorage>;
+typedef GetSecureStorageRef = FutureProviderRef<KeyValueStorage>;
 String _$githubTokenSettingHash() =>
-    r'0a88ab1daf4d888cfe50a37ff1fe8ff76e09f473';
+    r'f62c21b210365e010194afde1edc479414df9c0a';
 
 /// See also [GithubTokenSetting].
 @ProviderFor(GithubTokenSetting)
