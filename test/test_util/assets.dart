@@ -8,7 +8,7 @@ class TestUtilAssets {
 
   static const mockUrl = 'https://localhost:8080';
 
-  static Future<Map<String, dynamic>> readJson(String path) async {
+  static Map<String, dynamic> readJson(String path) {
     final jsonString = File('$basePath/$path').readAsStringSync();
     final data = json.decode(jsonString);
     return data as Map<String, dynamic>;

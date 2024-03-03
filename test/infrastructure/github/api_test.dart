@@ -12,7 +12,7 @@ import '../../test_util/dio.dart';
 void main() {
   test('GitHub Search Repositories', () async {
     final (adapter, client) = TestUtilDio.getGithubAPIMock();
-    final file = await TestUtilAssets.readJson('github/search_repositories.json');
+    final file = TestUtilAssets.readJson('github/search_repositories.json');
 
     // モックの設定
     adapter.onGet('/search/repositories', (request) => request.reply(200, file));
@@ -27,7 +27,7 @@ void main() {
   });
   test('GitHub Get User', () async {
     final (adapter, client) = TestUtilDio.getGithubAPIMock();
-    final file = await TestUtilAssets.readJson('github/search_repositories.json');
+    final file = TestUtilAssets.readJson('github/search_repositories.json');
 
     // 変数の設定
     final items = file['items'] as List;
@@ -48,7 +48,7 @@ void main() {
 
   test('GitHub Get Repositories', () async {
     final (adapter, client) = TestUtilDio.getGithubAPIMock();
-    final file = await TestUtilAssets.readJson('github/search_repositories.json');
+    final file = TestUtilAssets.readJson('github/search_repositories.json');
 
     // 変数の設定
     final items = file['items'] as List;
@@ -68,7 +68,7 @@ void main() {
 
   test('Github Exception', () async {
     final (adapter, client) = TestUtilDio.getGithubAPIMock();
-    final file = await TestUtilAssets.readJson('github/exception.json');
+    final file = TestUtilAssets.readJson('github/exception.json');
 
     // モックの設定
     adapter.onGet('/search/repositories', (request) => request.reply(400, file));

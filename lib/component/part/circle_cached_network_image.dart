@@ -9,6 +9,8 @@ class CircleCachedNetworkImage extends StatelessWidget {
     this.size = 40,
   });
 
+  static bool enableHttpRequests = true;
+
   /// URL
   final String imageUrl;
 
@@ -17,16 +19,23 @@ class CircleCachedNetworkImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CachedNetworkImage(
-      imageUrl: imageUrl,
-      width: size,
-      height: size,
-      imageBuilder: (context, imageProvider) {
-        return CircleAvatar(
-          backgroundImage: imageProvider,
-          backgroundColor: Colors.transparent,
-        );
-      },
-    );
+    if (enableHttpRequests) {
+      return CircleAvatar(
+        backgroundColor: Colors.grey,
+        radius: size / 2,
+      );
+    } else {
+      return CachedNetworkImage(
+        imageUrl: imageUrl,
+        width: size,
+        height: size,
+        imageBuilder: (context, imageProvider) {
+          return CircleAvatar(
+            backgroundImage: imageProvider,
+            backgroundColor: Colors.transparent,
+          );
+        },
+      );
+    }
   }
 }

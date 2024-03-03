@@ -9,7 +9,7 @@ import '../../test_util/assets.dart';
 
 void main() {
   test('GitHub API のモデルの検証', () async {
-    final file = await TestUtilAssets.readJson('github/search_repositories.json');
+    final file = TestUtilAssets.readJson('github/search_repositories.json');
 
     final items = file['items'] as List;
     final item = items.first as Map<String, dynamic>;
