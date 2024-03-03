@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:simple_github_search_app/app/router.dart';
+import 'package:simple_github_search_app/component/part/app_icon.dart';
 import 'package:simple_github_search_app/component/part/search_field_bar.dart';
 import 'package:simple_github_search_app/util/constant.dart';
 
@@ -31,21 +32,9 @@ class GithubSearchAppPage extends HookConsumerWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    width: 200,
-                    height: 200,
-                    decoration: BoxDecoration(
-                      color: switch (Theme.of(context).brightness) {
-                        Brightness.light => Colors.transparent,
-                        Brightness.dark => Colors.grey,
-                      },
-                      shape: BoxShape.circle,
-                    ),
-                    child: Image.asset(
-                      Constant.appForegroundIcon,
-                      width: 100,
-                      height: 100,
-                    ),
+                  AppIcon(
+                    name: Constant.appForegroundIcon,
+                    size: 200,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 30),
