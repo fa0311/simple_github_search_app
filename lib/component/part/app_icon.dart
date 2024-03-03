@@ -22,7 +22,7 @@ class AppIcon extends StatelessWidget {
       height: size,
       decoration: BoxDecoration(
         color: switch (Theme.of(context).brightness) {
-          Brightness.light => Colors.transparent,
+          Brightness.light => Colors.grey[300],
           Brightness.dark => Colors.grey,
         },
         shape: BoxShape.circle,
