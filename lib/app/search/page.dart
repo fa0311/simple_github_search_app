@@ -90,7 +90,11 @@ class SearchPage extends HookConsumerWidget {
                             final lang = repo.language;
                             return RepositoryCard(
                               title: Text(repo.fullName),
-                              description: Text(repo.description ?? ''),
+                              description: Text(
+                                repo.description ?? '',
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                               avatarUrl: user.avatarUrl,
                               topics: repo.topics ?? [],
                               onTopicTap: (topic) {
