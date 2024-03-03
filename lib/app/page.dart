@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:simple_github_search_app/app/router.dart';
 import 'package:simple_github_search_app/component/part/search_field_bar.dart';
+import 'package:simple_github_search_app/util/constant.dart';
 
 @RoutePage()
 class GithubSearchAppPage extends HookConsumerWidget {
@@ -24,9 +25,40 @@ class GithubSearchAppPage extends HookConsumerWidget {
             ),
             actions: const [],
           ),
-          const SliverFillRemaining(
+          SliverFillRemaining(
+            hasScrollBody: false,
             child: Center(
-              child: Text('Hello, World!'),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 200,
+                    height: 200,
+                    decoration: BoxDecoration(
+                      color: switch (Theme.of(context).brightness) {
+                        Brightness.light => Colors.transparent,
+                        Brightness.dark => Colors.grey,
+                      },
+                      shape: BoxShape.circle,
+                    ),
+                    child: Image.asset(
+                      Constant.appForegroundIcon,
+                      width: 100,
+                      height: 100,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 30),
+                    child: Text(
+                      Constant.appName,
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],

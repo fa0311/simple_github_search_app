@@ -47,8 +47,13 @@ class LanguageSetting extends _$LanguageSetting {
   Locale defaultValue() {
     final locale = WidgetsBinding.instance.platformDispatcher.locale;
     for (final language in AppLocalizations.supportedLocales) {
-      if (language.languageCode == locale.languageCode && language.countryCode == locale.countryCode) {
-        return language;
+      if (language.languageCode == locale.languageCode) {
+        if (language.countryCode == null) {
+          return language;
+        }
+        if (language.countryCode == locale.countryCode) {
+          return language;
+        }
       }
     }
     return const Locale('en', 'US');
