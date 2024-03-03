@@ -8,7 +8,7 @@ class GitHubException with _$GitHubException {
   @JsonSerializable(fieldRename: FieldRename.snake)
   const factory GitHubException({
     required String message,
-    required String errors,
+    required String? errors,
     required String documentationUrl,
   }) = _GitHubException;
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:simple_github_search_app/component/part/color_ball.dart';
+import 'package:simple_github_search_app/component/widget/error_log_view.dart';
 import 'package:simple_github_search_app/provider/linguist.dart';
 
 class RepositoryStatus extends HookConsumerWidget {
@@ -45,7 +46,7 @@ class RepositoryStatus extends HookConsumerWidget {
                 ...ref.watch(getLinguistColorProvider(lang!)).when(
                       data: (color) => [if (color != null) ColorBall(color: Color(color))],
                       loading: () => [],
-                      error: (error, stackTrace) => [Text(error.toString())],
+                      error: (error, stackTrace) => [ErrorLogView(error, stackTrace)],
                     ),
                 Text(lang!),
               ],

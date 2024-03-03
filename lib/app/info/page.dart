@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:simple_github_search_app/app/router.dart';
+import 'package:simple_github_search_app/component/widget/error_log_view.dart';
 import 'package:simple_github_search_app/provider/package_info.dart';
 import 'package:simple_github_search_app/util/constant.dart';
 import 'package:simple_github_search_app/util/url_launch.dart';
@@ -35,7 +36,7 @@ class InfoPage extends HookConsumerWidget {
             subtitle: ref.watch(getPackageInfoProvider).when(
                   data: (data) => Text(data.version),
                   loading: () => const Text('Loading...'),
-                  error: (e, s) => const Text('Error'),
+                  error: ErrorLogView.new,
                 ),
           ),
         ],

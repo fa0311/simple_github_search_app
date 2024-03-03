@@ -21,7 +21,7 @@ GitHubException _$GitHubExceptionFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$GitHubException {
   String get message => throw _privateConstructorUsedError;
-  String get errors => throw _privateConstructorUsedError;
+  String? get errors => throw _privateConstructorUsedError;
   String get documentationUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ abstract class $GitHubExceptionCopyWith<$Res> {
           GitHubException value, $Res Function(GitHubException) then) =
       _$GitHubExceptionCopyWithImpl<$Res, GitHubException>;
   @useResult
-  $Res call({String message, String errors, String documentationUrl});
+  $Res call({String message, String? errors, String documentationUrl});
 }
 
 /// @nodoc
@@ -53,7 +53,7 @@ class _$GitHubExceptionCopyWithImpl<$Res, $Val extends GitHubException>
   @override
   $Res call({
     Object? message = null,
-    Object? errors = null,
+    Object? errors = freezed,
     Object? documentationUrl = null,
   }) {
     return _then(_value.copyWith(
@@ -61,10 +61,10 @@ class _$GitHubExceptionCopyWithImpl<$Res, $Val extends GitHubException>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
-      errors: null == errors
+      errors: freezed == errors
           ? _value.errors
           : errors // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       documentationUrl: null == documentationUrl
           ? _value.documentationUrl
           : documentationUrl // ignore: cast_nullable_to_non_nullable
@@ -81,7 +81,7 @@ abstract class _$$GitHubExceptionImplCopyWith<$Res>
       __$$GitHubExceptionImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String message, String errors, String documentationUrl});
+  $Res call({String message, String? errors, String documentationUrl});
 }
 
 /// @nodoc
@@ -96,7 +96,7 @@ class __$$GitHubExceptionImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? message = null,
-    Object? errors = null,
+    Object? errors = freezed,
     Object? documentationUrl = null,
   }) {
     return _then(_$GitHubExceptionImpl(
@@ -104,10 +104,10 @@ class __$$GitHubExceptionImplCopyWithImpl<$Res>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
-      errors: null == errors
+      errors: freezed == errors
           ? _value.errors
           : errors // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       documentationUrl: null == documentationUrl
           ? _value.documentationUrl
           : documentationUrl // ignore: cast_nullable_to_non_nullable
@@ -131,7 +131,7 @@ class _$GitHubExceptionImpl implements _GitHubException {
   @override
   final String message;
   @override
-  final String errors;
+  final String? errors;
   @override
   final String documentationUrl;
 
@@ -174,7 +174,7 @@ class _$GitHubExceptionImpl implements _GitHubException {
 abstract class _GitHubException implements GitHubException {
   const factory _GitHubException(
       {required final String message,
-      required final String errors,
+      required final String? errors,
       required final String documentationUrl}) = _$GitHubExceptionImpl;
 
   factory _GitHubException.fromJson(Map<String, dynamic> json) =
@@ -183,7 +183,7 @@ abstract class _GitHubException implements GitHubException {
   @override
   String get message;
   @override
-  String get errors;
+  String? get errors;
   @override
   String get documentationUrl;
   @override
