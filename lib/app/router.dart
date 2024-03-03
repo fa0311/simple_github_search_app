@@ -14,7 +14,7 @@ class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [
         AutoRoute(path: '/', page: GithubSearchAppRoute.page, initial: true),
-        AutoRoute(path: '/search', page: SearchRoute.page, guards: [AuthGuard()]),
+        AutoRoute(path: '/search', page: SearchRoute.page, guards: [SearchGuard(), AuthGuard()]),
         AutoRoute(path: '/repository/:owner/:repo', page: RepositoryRoute.page, guards: [AuthGuard()]),
         AutoRoute(path: '/setting', page: SettingRoute.page, guards: [AuthGuard()]),
         AutoRoute(path: '/info', page: InfoRoute.page, guards: [AuthGuard()]),
@@ -30,5 +30,17 @@ class AuthGuard extends AutoRouteGuard {
       router.push(const GithubSearchAppRoute());
     }
     resolver.next();
+  }
+}
+
+/// 検索する際に query が空の場合は初期ページに遷移する
+class SearchGuard extends AutoRouteGuard {
+  @override
+  void onNavigation(NavigationResolver resolver, StackRouter router) {
+    if (resolver.route.queryParams.optString('query')?.isEmpty ?? true) {
+      resolver.redirect(const GithubSearchAppRoute());
+    } else {
+      resolver.next();
+    }
   }
 }

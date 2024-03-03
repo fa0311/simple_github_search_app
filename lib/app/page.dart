@@ -17,7 +17,9 @@ class GithubSearchAppPage extends HookConsumerWidget {
             floating: true,
             title: SearchFieldBar(
               onSubmitted: (value) async {
-                await context.router.push(SearchRoute(query: value));
+                if (value.isNotEmpty) {
+                  await context.router.push(SearchRoute(query: value));
+                }
               },
             ),
             actions: const [],
