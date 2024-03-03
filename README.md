@@ -165,15 +165,26 @@ git diff --name-only --exit-code
 
 ### Flutter Android CI
 
+- `main` `release` にPushがあった場合に発火します
+- `main` `release` 宛にPull Requestがあった場合に発火します
 - `android/**` ファイルにコミットがあった場合に発火します
 
 1. Androidのビルドが成功するかチェックします
 
 ### Flutter Web CI
 
+- `main` `release` にPushがあった場合に発火します
+- `main` `release` 宛にPull Requestがあった場合に発火します
 - `web/**` ファイルにコミットがあった場合に発火します
 
 1. Webのビルドが成功するかチェックします
+
+### Version CI
+
+- `release` にPushがあった場合に発火します
+- `release` 宛にPull Requestがあった場合に発火します
+
+1. バージョンが変更されているかチェックします
 
 ## CD
 
