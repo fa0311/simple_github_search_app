@@ -156,8 +156,8 @@ flutter pub run build_runner build --delete-conflicting-outputs
 npx cspell **
 npx prettier --check --write "{**/*,*}.{json,yaml,yml,md,html,css}"
 npx markdownlint-cli "*.{md,markdown}"
-dart format $(find lib -name "*.dart" -not \( -name "*.freezed.dart" -o -name "*.g.dart" -o -name "*.gr.dart" \) ) --set-exit-if-changed -l 120
-dart format $(find test -name "*.dart" -not \( -name "*.freezed.dart" -o -name "*.g.dart" -o -name "*.gr.dart" \) ) --set-exit-if-changed -l 120
+dart format $(find lib -name "*.dart" -not \( -name "*.freezed.dart" -o -name "*.g.dart" -o -name "*.gr.dart" -o -name "*.mocks.dart" \) ) --set-exit-if-changed -l 120
+dart format $(find test -name "*.dart" -not \( -name "*.freezed.dart" -o -name "*.g.dart" -o -name "*.gr.dart" -o -name "*.mocks.dart" \) ) --set-exit-if-changed -l 120
 flutter analyze --no-fatal-infos
 flutter test --exclude-tags github_api_test,golden
 git diff --name-only --exit-code
