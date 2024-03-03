@@ -10,7 +10,7 @@ _$GitHubExceptionImpl _$$GitHubExceptionImplFromJson(
         Map<String, dynamic> json) =>
     _$GitHubExceptionImpl(
       message: json['message'] as String,
-      errors: json['errors'] as String,
+      errors: json['errors'] as String?,
       documentationUrl: json['documentation_url'] as String,
     );
 

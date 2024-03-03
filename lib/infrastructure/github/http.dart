@@ -7,12 +7,14 @@ class GitHubHttpException implements Exception {
     required this.type,
     required this.response,
     required this.message,
+    required this.statusCode,
   });
 
   final GitHubException data;
   final DioExceptionType type;
   final Response<dynamic>? response;
   final String? message;
+  final int statusCode;
 }
 
 class GitHubHttp {
@@ -62,13 +64,14 @@ class GitHubHttp {
       );
       return res;
     } on DioException catch (e) {
-      final k = e.response?.data;
-      if (k is Map<String, dynamic>) {
+      final data = e.response?.data;
+      if (data is Map<String, dynamic>) {
         throw GitHubHttpException(
           type: e.type,
           response: e.response,
           message: e.message,
-          data: GitHubException.fromJson(k),
+          data: GitHubException.fromJson(data),
+          statusCode: e.response!.statusCode!,
         );
       } else {
         rethrow;
