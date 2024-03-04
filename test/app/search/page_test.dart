@@ -53,5 +53,6 @@ void main() {
 
     // 下にスクロール
     await tester.drag(find.byType(CustomScrollListener), const Offset(0, -300));
+    CircleCachedNetworkImage.enableHttpRequests = true;
   });
 }

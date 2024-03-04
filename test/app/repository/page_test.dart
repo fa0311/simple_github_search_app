@@ -39,5 +39,6 @@ void main() {
     expect(find.text(GitHubUtil.getRepository().description ?? ''), findsOneWidget);
 
     expect(find.text('It is a readme test'), findsOneWidget);
+    CircleCachedNetworkImage.enableHttpRequests = true;
   });
 }
