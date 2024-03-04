@@ -35,6 +35,7 @@ Future<Response<Uint8List>> getGithubImage(
   String repositoryName,
   String branch,
 ) async {
+  // 画像の URL が相対パスの場合は絶対パスに変換する
   final newUrl = url.isAbsolute ? url : Uri.parse('$_baseURl/$owner/$repositoryName/$branch/').resolveUri(url);
 
   final client = ref.watch(httpRequestProvider);

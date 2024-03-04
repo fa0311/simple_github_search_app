@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'flutter_secure_storage.dart';
+part of 'secure_storage.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -8,7 +8,9 @@ part of 'flutter_secure_storage.dart';
 
 String _$getSecureStorageHash() => r'0680b678f5e30fbd2fdc58534e8f6e6f2e79d388';
 
-/// See also [getSecureStorage].
+/// セキュアなキーバリューストレージを取得する
+///
+/// Copied from [getSecureStorage].
 @ProviderFor(getSecureStorage)
 final getSecureStorageProvider = FutureProvider<KeyValueStorage>.internal(
   getSecureStorage,
@@ -22,9 +24,11 @@ final getSecureStorageProvider = FutureProvider<KeyValueStorage>.internal(
 
 typedef GetSecureStorageRef = FutureProviderRef<KeyValueStorage>;
 String _$githubTokenSettingHash() =>
-    r'f62c21b210365e010194afde1edc479414df9c0a';
+    r'074eb3f29cbc3d30d18853303c0c9b20ceb24e26';
 
-/// See also [GithubTokenSetting].
+/// セキュアなキーバリューストレーからGitHubのトークンを取得する
+///
+/// Copied from [GithubTokenSetting].
 @ProviderFor(GithubTokenSetting)
 final githubTokenSettingProvider =
     AsyncNotifierProvider<GithubTokenSetting, String?>.internal(

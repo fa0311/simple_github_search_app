@@ -30,6 +30,7 @@ class GithubSearchRepositories extends _$GithubSearchRepositories {
     return await fetch(1);
   }
 
+  /// 次のページを取得する
   Future<void> nextPage() async {
     state = await AsyncValue.guard(() async {
       final res = await fetch(null);
@@ -39,11 +40,22 @@ class GithubSearchRepositories extends _$GithubSearchRepositories {
     });
   }
 
+  /// 依存関係を更新する
+  void updateDependencies(GithubResponse<GithubRepository> res) {
+    for (final item in res.items) {
+      final repositoryName = item.name;
+      final userName = item.owner!.login;
+      ref.read(githubRepositoriesStateProvider(userName, repositoryName).notifier).change(item);
+      ref.read(githubUserStateProvider(userName).notifier).change(item.owner!);
+    }
+  }
+
   /// [state] からページ数を計算する
   int getPage() {
     return (state.value?.items.length ?? 0) ~/ perPage + 1;
   }
 
+  /// 検索リクエストを実行する
   Future<GithubItems<(String, String)>> fetch(int? page) async {
     final param = GithubSearchRepositoriesParam(
       q: query,
@@ -52,13 +64,7 @@ class GithubSearchRepositories extends _$GithubSearchRepositories {
     );
     final res = await ref.read(searchGithubRepositoriesRawProvider(param).future);
 
-    for (final item in res.items) {
-      final repositoryName = item.name;
-      final userName = item.owner!.login;
-      ref.read(githubRepositoriesStateProvider(userName, repositoryName).notifier).change(item);
-      ref.read(githubUserStateProvider(userName).notifier).change(item.owner!);
-    }
-
+    updateDependencies(res);
     final items = res.items.map((e) => (e.owner!.login, e.name));
 
     return GithubItems(

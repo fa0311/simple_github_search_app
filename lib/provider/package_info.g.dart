@@ -8,7 +8,9 @@ part of 'package_info.dart';
 
 String _$getPackageInfoHash() => r'93f36f094f685c8e526e3d609cc31b8d9ba31426';
 
-/// See also [getPackageInfo].
+/// パッケージ情報を取得する
+///
+/// Copied from [getPackageInfo].
 @ProviderFor(getPackageInfo)
 final getPackageInfoProvider = FutureProvider<PackageInfo>.internal(
   getPackageInfo,

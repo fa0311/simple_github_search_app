@@ -8,7 +8,7 @@
 </h1>
 <!-- markdownlint-enable MD033 -->
 
-Flutterで制作されたシンプルなGithubレポジトリ検索アプリ
+Flutterで制作されたシンプルなGitHubリポジトリ検索アプリ
 
 [株式会社ゆめみ Flutter エンジニアコードチェック課題](https://github.com/yumemi-inc/flutter-engineer-codecheck) の要件を満たしています。
 
@@ -71,6 +71,30 @@ node -v
 v18.19.1
 ```
 
+### テスト
+
+#### ユニットテスト
+
+ユニットテストのカバレッジは70%くらい
+
+```sh
+flutter test --exclude-tags github_api_test,golden
+```
+
+#### インテグレーションテスト
+
+```sh
+flutter test integration_test
+```
+
+#### ゴールデンテスト
+
+(途中で消しました)
+
+```sh
+flutter test --exclude-tags golden
+```
+
 ## ライブラリ
 
 主な物を列挙
@@ -105,7 +129,7 @@ v18.19.1
 
 - `/` デフォルトのページ
 - `/search` 検索ページ
-- `/repository/:owner/:repo` レポジトリの詳細ページ
+- `/repository/:owner/:repo` リポジトリの詳細ページ
 - `/setting` 設定ページ
 - `/info` インフォページ
 - `/info/license` ライセンスページ
@@ -116,7 +140,7 @@ v18.19.1
 
 例: <https://simple-github-search-app.pages.dev/search?query=flutter>
 
-### レポジトリの詳細
+### リポジトリの詳細
 
 `/repository/flutter/flutter` のようにパスパラメータとして与えられます。
 
@@ -156,8 +180,8 @@ flutter pub run build_runner build --delete-conflicting-outputs
 npx cspell **
 npx prettier --check --write "{**/*,*}.{json,yaml,yml,md,html,css}"
 npx markdownlint-cli "*.{md,markdown}"
-dart format $(find lib -name "*.dart" -not \( -name "*.freezed.dart" -o -name "*.g.dart" -o -name "*.gr.dart" \) ) --set-exit-if-changed -l 120
-dart format $(find test -name "*.dart" -not \( -name "*.freezed.dart" -o -name "*.g.dart" -o -name "*.gr.dart" \) ) --set-exit-if-changed -l 120
+dart format $(find lib -name "*.dart" -not \( -name "*.freezed.dart" -o -name "*.g.dart" -o -name "*.gr.dart" -o -name "*.mocks.dart" \) ) --set-exit-if-changed -l 120
+dart format $(find test -name "*.dart" -not \( -name "*.freezed.dart" -o -name "*.g.dart" -o -name "*.gr.dart" -o -name "*.mocks.dart" \) ) --set-exit-if-changed -l 120
 flutter analyze --no-fatal-infos
 flutter test --exclude-tags github_api_test,golden
 git diff --name-only --exit-code
@@ -165,15 +189,26 @@ git diff --name-only --exit-code
 
 ### Flutter Android CI
 
+- `main` `release` にPushがあった場合に発火します
+- `main` `release` 宛にPull Requestがあった場合に発火します
 - `android/**` ファイルにコミットがあった場合に発火します
 
 1. Androidのビルドが成功するかチェックします
 
 ### Flutter Web CI
 
+- `main` `release` にPushがあった場合に発火します
+- `main` `release` 宛にPull Requestがあった場合に発火します
 - `web/**` ファイルにコミットがあった場合に発火します
 
 1. Webのビルドが成功するかチェックします
+
+### Version CI
+
+- `release` にPushがあった場合に発火します
+- `release` 宛にPull Requestがあった場合に発火します
+
+1. バージョンが変更されているかチェックします
 
 ## CD
 
@@ -209,7 +244,7 @@ git diff --name-only --exit-code
   - 設計についてはずっと曖昧なまま行っておりベストプラクティスがいまいちわからない
   - フロントエンドではLayer型よりもFuture型というのが流行ってるらしい
 
-- テストの粒度、カバレッジ
+- テストのカバレッジ
 - lineLength
   - 個人開発やOSSではlineLengthを無制限や120にすることが多い
   - FHDを超える高解像度モニターを利用している人の割合

@@ -177,7 +177,7 @@ class _SearchGithubRepositoriesRawProviderElement
 }
 
 String _$githubSearchRepositoriesHash() =>
-    r'e1ddf3beea05ff724524dbb86d3678db77966d3f';
+    r'8234c63a67192a797fa80cb51e1d393247b76b26';
 
 abstract class _$GithubSearchRepositories
     extends BuildlessAutoDisposeAsyncNotifier<GithubItems<(String, String)>> {

@@ -21,9 +21,10 @@
     "cspell.json",
     "pubspec.lock",
     "pubspec.yaml",
-    "lib/**/*.g.dart",
-    "lib/**/*.freezed.dart",
-    "lib/**/*.gr.dart",
+    "**/*.g.dart",
+    "**/*.freezed.dart",
+    "**/*.gr.dart",
+    "**/*.mocks.dart",
     "**/assets/**"
   ]
 }

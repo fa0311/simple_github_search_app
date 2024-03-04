@@ -1,0 +1,32 @@
+name: Version CI
+on:
+  push:
+    branches:
+      - release
+  pull_request:
+    branches:
+      - release
+
+jobs:
+  create-release:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: mikefarah/yq@master
+        id: release-version
+        with:
+          cmd: yq '.version' pubspec.yaml
+
+      - id: get-latest-release
+        run: echo ::set-output name=latest_tag::$(git describe --tags --abbrev=0)
+
+      - id: check-version
+        run: |
+          latest_tag=${{ steps.get-latest-release.outputs.latest_tag }}
+          current_version=v${{ steps.release-version.outputs.result }}
+          if [ "$latest_tag" = "$current_version" ]; then
+            echo "Version is not incremented"
+            exit 1
+          fi

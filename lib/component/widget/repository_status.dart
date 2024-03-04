@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:simple_github_search_app/component/part/color_ball.dart';
+import 'package:simple_github_search_app/component/widget/error_log_view.dart';
 import 'package:simple_github_search_app/provider/linguist.dart';
 
+/// リポジトリのステータスを表示する
 class RepositoryStatus extends HookConsumerWidget {
   const RepositoryStatus({
     super.key,
@@ -17,19 +19,15 @@ class RepositoryStatus extends HookConsumerWidget {
   final String? lang;
 
   /// スター数
-
   final int stargazersCount;
 
   /// ウォッチ数
-
   final int watchersCount;
 
   /// フォーク数
-
   final int forksCount;
 
   /// オープンイシュー数
-
   final int openIssuesCount;
 
   @override
@@ -45,7 +43,7 @@ class RepositoryStatus extends HookConsumerWidget {
                 ...ref.watch(getLinguistColorProvider(lang!)).when(
                       data: (color) => [if (color != null) ColorBall(color: Color(color))],
                       loading: () => [],
-                      error: (error, stackTrace) => [Text(error.toString())],
+                      error: (error, stackTrace) => [ErrorLogView(error, stackTrace)],
                     ),
                 Text(lang!),
               ],

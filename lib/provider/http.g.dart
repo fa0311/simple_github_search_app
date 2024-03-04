@@ -8,7 +8,9 @@ part of 'http.dart';
 
 String _$httpRequestHash() => r'4156766866211b0827dc9c58f1b2b5b288d914bd';
 
-/// See also [httpRequest].
+/// HTTP リクエストを取得する
+///
+/// Copied from [httpRequest].
 @ProviderFor(httpRequest)
 final httpRequestProvider = Provider<Dio>.internal(
   httpRequest,

@@ -51,3 +51,6 @@ node_modules
 
 # krita の一時ファイル
 assets/**/*.*~
+
+# テストのカバレッジ
+coverage/

@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:simple_github_search_app/infrastructure/github/api.dart';
 import 'package:simple_github_search_app/infrastructure/github/http.dart';
-import 'package:simple_github_search_app/provider/flutter_secure_storage.dart';
+import 'package:simple_github_search_app/provider/key_value_storage/secure_storage.dart';
 import 'package:simple_github_search_app/util/logger.dart';
 
 part 'github.g.dart';

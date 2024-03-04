@@ -10,6 +10,7 @@ void main() {
       TestComponentUtil.setApp(
         const ColorBall(
           color: Colors.red,
+          size: 20,
         ),
       ),
     );

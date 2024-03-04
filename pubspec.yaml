@@ -1,7 +1,7 @@
 name: simple_github_search_app
 description: "A new Flutter project."
 publish_to: "none"
-version: 0.0.3+3
+version: 0.0.4+4
 
 environment:
   sdk: ">=3.3.0 <4.0.0"
@@ -10,8 +10,10 @@ dependencies:
   cached_network_image: ^3.3.1
   cupertino_icons: ^1.0.6
   dio: ^5.4.1
+  file: ^7.0.0
   flutter:
     sdk: flutter
+  flutter_cache_manager: ^3.3.1
   flutter_hooks: ^0.20.5
   flutter_localizations:
     sdk: flutter
@@ -44,6 +46,8 @@ dev_dependencies:
   freezed: ^2.4.7
   golden_toolkit: ^0.15.0
   http_mock_adapter: ^0.6.1
+  integration_test:
+    sdk: flutter
   json_serializable: ^6.7.1
   mockito: ^5.4.4
   pedantic_mono: any
@@ -55,6 +59,7 @@ flutter:
   generate: true
 
   assets:
+    - assets/icon/
     - assets/linguist/
 
 flutter_launcher_icons:

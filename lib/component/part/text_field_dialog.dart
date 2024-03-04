@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
+/// テキストフィールドを表示するダイアログ
 class TextFieldDialog extends HookWidget {
   const TextFieldDialog({
     super.key,
@@ -8,14 +9,21 @@ class TextFieldDialog extends HookWidget {
     required this.defaultText,
     required this.title,
     required this.button,
+    this.autofillHints,
+    this.label,
+    this.obscureText = false,
   });
 
+  /// ダイアログを表示する
   static void show(
     BuildContext context, {
     required Future<String?> Function(String) onSubmitted,
     required String defaultText,
     required Widget title,
     required Widget button,
+    Iterable<String>? autofillHints,
+    Widget? label,
+    bool obscureText = false,
   }) {
     showDialog<void>(
       context: context,
@@ -25,6 +33,9 @@ class TextFieldDialog extends HookWidget {
           defaultText: defaultText,
           title: title,
           button: button,
+          autofillHints: autofillHints,
+          label: label,
+          obscureText: obscureText,
         );
       },
     );
@@ -34,6 +45,9 @@ class TextFieldDialog extends HookWidget {
   final String defaultText;
   final Widget title;
   final Widget button;
+  final Iterable<String>? autofillHints;
+  final Widget? label;
+  final bool obscureText;
 
   @override
   Widget build(BuildContext context) {
@@ -58,14 +72,17 @@ class TextFieldDialog extends HookWidget {
     return AlertDialog(
       title: title,
       content: TextField(
+        autofillHints: autofillHints,
         focusNode: focusNode,
         autofocus: true,
         controller: controller,
+        obscureText: obscureText,
         onSubmitted: (text) async {
           errorMessage.value = await onSubmitted(text);
         },
         decoration: InputDecoration(
           errorText: errorMessage.value,
+          label: label,
         ),
       ),
       actions: [

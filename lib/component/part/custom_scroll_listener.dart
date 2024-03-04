@@ -44,6 +44,7 @@ class CustomScrollListener extends HookWidget {
     );
 
     return CustomScrollView(
+      physics: const AlwaysScrollableScrollPhysics(),
       controller: controller,
       slivers: slivers,
     );
