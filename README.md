@@ -8,7 +8,7 @@
 </h1>
 <!-- markdownlint-enable MD033 -->
 
-Flutterで制作されたシンプルなGithubレポジトリ検索アプリ
+Flutterで制作されたシンプルなGitHubリポジトリ検索アプリ
 
 [株式会社ゆめみ Flutter エンジニアコードチェック課題](https://github.com/yumemi-inc/flutter-engineer-codecheck) の要件を満たしています。
 
@@ -73,19 +73,21 @@ v18.19.1
 
 ### テスト
 
-ユニットテスト
+#### ユニットテスト
+
+ユニットテストのカバレッジは70%くらい
 
 ```sh
 flutter test --exclude-tags github_api_test,golden
 ```
 
-インテグレーションテスト
+#### インテグレーションテスト
 
 ```sh
 flutter test integration_test
 ```
 
-ゴールデンテスト
+#### ゴールデンテスト
 
 (途中で消しました)
 
@@ -127,7 +129,7 @@ flutter test --exclude-tags golden
 
 - `/` デフォルトのページ
 - `/search` 検索ページ
-- `/repository/:owner/:repo` レポジトリの詳細ページ
+- `/repository/:owner/:repo` リポジトリの詳細ページ
 - `/setting` 設定ページ
 - `/info` インフォページ
 - `/info/license` ライセンスページ
@@ -138,7 +140,7 @@ flutter test --exclude-tags golden
 
 例: <https://simple-github-search-app.pages.dev/search?query=flutter>
 
-### レポジトリの詳細
+### リポジトリの詳細
 
 `/repository/flutter/flutter` のようにパスパラメータとして与えられます。
 
@@ -242,7 +244,7 @@ git diff --name-only --exit-code
   - 設計についてはずっと曖昧なまま行っておりベストプラクティスがいまいちわからない
   - フロントエンドではLayer型よりもFuture型というのが流行ってるらしい
 
-- テストの粒度、カバレッジ
+- テストのカバレッジ
 - lineLength
   - 個人開発やOSSではlineLengthを無制限や120にすることが多い
   - FHDを超える高解像度モニターを利用している人の割合

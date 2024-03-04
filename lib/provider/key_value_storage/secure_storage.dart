@@ -7,6 +7,7 @@ import 'package:simple_github_search_app/infrastructure/key_value_storage/memory
 
 part 'secure_storage.g.dart';
 
+/// セキュアなキーバリューストレージを取得する
 @Riverpod(keepAlive: true)
 Future<KeyValueStorage> getSecureStorage(GetSecureStorageRef ref) async {
   if (kIsWeb) {
@@ -17,6 +18,7 @@ Future<KeyValueStorage> getSecureStorage(GetSecureStorageRef ref) async {
   }
 }
 
+/// セキュアなキーバリューストレーからGitHubのトークンを取得する
 @Riverpod(keepAlive: true)
 class GithubTokenSetting extends _$GithubTokenSetting {
   static const key = 'githubToken';

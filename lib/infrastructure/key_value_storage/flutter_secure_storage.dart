@@ -1,6 +1,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:simple_github_search_app/infrastructure/key_value_storage/key_value_storage.dart';
 
+/// セキュアなキーバリューストレージ
 class SecureKeyValue extends KeyValueStorage {
   SecureKeyValue(this._storage);
   final FlutterSecureStorage _storage;

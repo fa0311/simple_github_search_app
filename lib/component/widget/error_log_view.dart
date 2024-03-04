@@ -49,6 +49,7 @@ class ErrorData {
   final bool isReport;
 }
 
+/// エラーを表示する
 class ErrorLogView extends StatelessWidget {
   const ErrorLogView(
     this.error,
@@ -56,7 +57,10 @@ class ErrorLogView extends StatelessWidget {
     super.key,
   });
 
+  /// エラー
   final Object error;
+
+  /// スタックトレース
   final StackTrace? stackTrace;
 
   @override

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:simple_github_search_app/infrastructure/github/model/exception.dart';
 
+/// GitHub の API の例外を管理する
 class GitHubHttpException implements Exception {
   GitHubHttpException({
     required this.data,
@@ -17,6 +18,7 @@ class GitHubHttpException implements Exception {
   final int statusCode;
 }
 
+/// GitHub の API クライアント の HTTP クライアント
 class GitHubHttp {
   GitHubHttp({Dio? dio}) : dio = dio ?? getDio();
   static const String baseUrl = 'https://api.github.com';
@@ -27,6 +29,7 @@ class GitHubHttp {
 
   final Dio dio;
 
+  /// Dio のデフォルト設定を取得する
   static Dio getDio() {
     return Dio(
       BaseOptions(
@@ -41,6 +44,7 @@ class GitHubHttp {
     );
   }
 
+  /// 認証トークンを設定する
   void setBearerToken(String? token) {
     if (token == null) {
       dio.options.headers.remove('Authorization');
@@ -49,6 +53,7 @@ class GitHubHttp {
     }
   }
 
+  /// GET リクエストを送信する
   Future<Response<Map<String, dynamic>>> get({
     required String path,
     Map<String, dynamic>? queryParameters,
@@ -64,6 +69,7 @@ class GitHubHttp {
       );
       return res;
     } on DioException catch (e) {
+      // エラーでレスポンスボディがある場合は GitHubHttpException に変換する
       final data = e.response?.data;
       if (data is Map<String, dynamic>) {
         throw GitHubHttpException(

@@ -30,6 +30,7 @@ class GithubSearchRepositories extends _$GithubSearchRepositories {
     return await fetch(1);
   }
 
+  /// 次のページを取得する
   Future<void> nextPage() async {
     state = await AsyncValue.guard(() async {
       final res = await fetch(null);
@@ -39,6 +40,7 @@ class GithubSearchRepositories extends _$GithubSearchRepositories {
     });
   }
 
+  /// 依存関係を更新する
   void updateDependencies(GithubResponse<GithubRepository> res) {
     for (final item in res.items) {
       final repositoryName = item.name;
@@ -53,6 +55,7 @@ class GithubSearchRepositories extends _$GithubSearchRepositories {
     return (state.value?.items.length ?? 0) ~/ perPage + 1;
   }
 
+  /// 検索リクエストを実行する
   Future<GithubItems<(String, String)>> fetch(int? page) async {
     final param = GithubSearchRepositoriesParam(
       q: query,

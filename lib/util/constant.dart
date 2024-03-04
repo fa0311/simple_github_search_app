@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// 定数
 class Constant {
   Constant._();
 

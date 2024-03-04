@@ -10,7 +10,9 @@ import 'package:simple_github_search_app/util/constant.dart';
 import 'package:simple_github_search_app/util/logger.dart';
 
 void main() {
+  // Web の URL にハッシュを使わない
   usePathUrlStrategy();
+
   runApp(ProviderScope(observers: [ProviderLogger()], child: const GithubSearchApp()));
 }
 
