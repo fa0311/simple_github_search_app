@@ -25,7 +25,7 @@ class UrlLaunchUtil {
 
   /// URL を開く
   static Future<void> uri(Uri uri) async {
-    if (!await canLaunchUrl(uri)) {
+    if (await canLaunchUrl(uri)) {
       await launchUrl(uri);
     } else {
       throw Exception('Could not launch $uri');
