@@ -177,7 +177,7 @@ class _SearchGithubRepositoriesRawProviderElement
 }
 
 String _$githubSearchRepositoriesHash() =>
-    r'8234c63a67192a797fa80cb51e1d393247b76b26';
+    r'ba24536fd492da66d3821f1fe712414cd33bd8a9';
 
 abstract class _$GithubSearchRepositories
     extends BuildlessAutoDisposeAsyncNotifier<GithubItems<(String, String)>> {
@@ -361,7 +361,7 @@ class _GithubSearchRepositoriesProviderElement
 }
 
 String _$githubSearchRepositoriesLoadingStateHash() =>
-    r'91151f15dc46417124dbc0c22135ac4cc9ccafa5';
+    r'8a8b0a2347e5dc451b8603f72cac589d7cb8480e';
 
 abstract class _$GithubSearchRepositoriesLoadingState
     extends BuildlessNotifier<bool> {

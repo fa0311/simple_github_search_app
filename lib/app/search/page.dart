@@ -120,7 +120,9 @@ class SearchPage extends HookConsumerWidget {
                           childCount: response.items.length,
                         ),
                       ),
-                      if (response.items.length != response.totalCount)
+                      if (ref
+                          .watch(githubSearchRepositoriesProvider(queryState.value, sortState.value).notifier)
+                          .hasNext())
                         const SliverToBoxAdapter(
                           child: Padding(
                             padding: EdgeInsets.all(8),

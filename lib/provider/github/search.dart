@@ -73,6 +73,11 @@ class GithubSearchRepositories extends _$GithubSearchRepositories {
       items: items.toList(),
     );
   }
+
+  /// 続きのページがあるかどうかを判定する
+  bool hasNext() {
+    return (state.value?.items.length ?? 0) < (state.value?.totalCount ?? 0);
+  }
 }
 
 /// [GithubSearchRepositories] の [GithubSearchRepositories.nextPage] を呼び出す Provider
@@ -85,6 +90,10 @@ class GithubSearchRepositoriesLoadingState extends _$GithubSearchRepositoriesLoa
 
   Future<void> nextPage() async {
     if (state) {
+      return;
+    }
+    final hasNext = ref.read(githubSearchRepositoriesProvider(query, sort).notifier).hasNext();
+    if (!hasNext) {
       return;
     }
     state = true;
