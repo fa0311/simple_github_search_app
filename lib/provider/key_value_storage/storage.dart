@@ -8,14 +8,18 @@ import 'package:simple_github_search_app/util/enum.dart';
 
 part 'storage.g.dart';
 
+/// キーバリューストレージを取得する
 @Riverpod(keepAlive: true)
 Future<KeyValueStorage> getSharedPreferences(GetSharedPreferencesRef ref) async {
   return SharedKeyValue(await SharedPreferences.getInstance());
 }
 
+/// キーバリューストレージからテーマを取得する
 @Riverpod(keepAlive: true)
 class ThemeSetting extends _$ThemeSetting {
+  /// テーマのキー
   static const key = 'theme';
+
   @override
   FutureOr<ThemeMode> build() async {
     final client = await ref.read(getSharedPreferencesProvider.future);
@@ -30,9 +34,14 @@ class ThemeSetting extends _$ThemeSetting {
   }
 }
 
+/// キーバリューストレージから言語を取得する
+/// 2つのキーから一つのロケールを取得する
 @Riverpod(keepAlive: true)
 class LanguageSetting extends _$LanguageSetting {
+  /// 国のコードのキー
   static const countyCodeKey = 'countryCode';
+
+  /// 言語のコードのキー
   static const languageCodeKey = 'language';
 
   @override

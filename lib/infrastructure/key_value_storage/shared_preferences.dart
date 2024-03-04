@@ -1,6 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_github_search_app/infrastructure/key_value_storage/key_value_storage.dart';
 
+/// キーバリューストレージ
 class SharedKeyValue extends KeyValueStorage {
   SharedKeyValue(this._storage);
   final SharedPreferences _storage;

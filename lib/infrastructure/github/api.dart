@@ -4,14 +4,17 @@ import 'package:simple_github_search_app/infrastructure/github/model/repository.
 import 'package:simple_github_search_app/infrastructure/github/model/response.dart';
 import 'package:simple_github_search_app/infrastructure/github/model/user.dart';
 
+/// GitHub の API クライアント
 class GithubAPI {
   GithubAPI({GitHubHttp? client}) : client = client ?? GitHubHttp();
   final GitHubHttp client;
 
+  /// 認証トークンを設定する
   void setBearerToken(String? token) {
     client.setBearerToken(token);
   }
 
+  /// リポジトリを取得するAPIを叩く
   Future<GithubRepository> getRepositories(String owner, String repo) async {
     assert(owner.isNotEmpty);
     assert(repo.isNotEmpty);
@@ -22,6 +25,7 @@ class GithubAPI {
     return data;
   }
 
+  /// ユーザーを取得するAPIを叩く
   Future<GithubUser> getUser(String user) async {
     assert(user.isNotEmpty);
 
@@ -31,6 +35,7 @@ class GithubAPI {
     return data;
   }
 
+  /// リポジトリを検索するAPIを叩く
   Future<GithubResponse<GithubRepository>> searchRepositories(GithubSearchRepositoriesParam param) async {
     assert(param.q.isNotEmpty);
     assert(param.perPage <= 100);

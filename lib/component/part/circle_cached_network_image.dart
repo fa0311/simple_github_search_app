@@ -9,6 +9,7 @@ class CircleCachedNetworkImage extends StatelessWidget {
     this.size = 40,
   });
 
+  /// HTTPリクエストを有効にするか
   static bool enableHttpRequests = true;
 
   /// URL

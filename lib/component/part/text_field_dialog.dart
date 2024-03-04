@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
+/// テキストフィールドを表示するダイアログ
 class TextFieldDialog extends HookWidget {
   const TextFieldDialog({
     super.key,
@@ -13,6 +14,7 @@ class TextFieldDialog extends HookWidget {
     this.obscureText = false,
   });
 
+  /// ダイアログを表示する
   static void show(
     BuildContext context, {
     required Future<String?> Function(String) onSubmitted,
