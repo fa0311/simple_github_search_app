@@ -8,7 +8,7 @@
 </h1>
 <!-- markdownlint-enable MD033 -->
 
-Flutterで制作されたシンプルなGithubレポジトリ検索アプリ
+Flutterで制作されたシンプルなGitHubリポジトリ検索アプリ
 
 [株式会社ゆめみ Flutter エンジニアコードチェック課題](https://github.com/yumemi-inc/flutter-engineer-codecheck) の要件を満たしています。
 
@@ -127,7 +127,7 @@ flutter test --exclude-tags golden
 
 - `/` デフォルトのページ
 - `/search` 検索ページ
-- `/repository/:owner/:repo` レポジトリの詳細ページ
+- `/repository/:owner/:repo` リポジトリの詳細ページ
 - `/setting` 設定ページ
 - `/info` インフォページ
 - `/info/license` ライセンスページ
@@ -138,7 +138,7 @@ flutter test --exclude-tags golden
 
 例: <https://simple-github-search-app.pages.dev/search?query=flutter>
 
-### レポジトリの詳細
+### リポジトリの詳細
 
 `/repository/flutter/flutter` のようにパスパラメータとして与えられます。
 
