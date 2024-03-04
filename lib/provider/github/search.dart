@@ -39,6 +39,15 @@ class GithubSearchRepositories extends _$GithubSearchRepositories {
     });
   }
 
+  void updateDependencies(GithubResponse<GithubRepository> res) {
+    for (final item in res.items) {
+      final repositoryName = item.name;
+      final userName = item.owner!.login;
+      ref.read(githubRepositoriesStateProvider(userName, repositoryName).notifier).change(item);
+      ref.read(githubUserStateProvider(userName).notifier).change(item.owner!);
+    }
+  }
+
   /// [state] からページ数を計算する
   int getPage() {
     return (state.value?.items.length ?? 0) ~/ perPage + 1;
@@ -52,13 +61,7 @@ class GithubSearchRepositories extends _$GithubSearchRepositories {
     );
     final res = await ref.read(searchGithubRepositoriesRawProvider(param).future);
 
-    for (final item in res.items) {
-      final repositoryName = item.name;
-      final userName = item.owner!.login;
-      ref.read(githubRepositoriesStateProvider(userName, repositoryName).notifier).change(item);
-      ref.read(githubUserStateProvider(userName).notifier).change(item.owner!);
-    }
-
+    updateDependencies(res);
     final items = res.items.map((e) => (e.owner!.login, e.name));
 
     return GithubItems(

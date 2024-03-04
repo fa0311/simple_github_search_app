@@ -6,7 +6,7 @@ import 'package:simple_github_search_app/infrastructure/key_value_storage/key_va
 import 'package:simple_github_search_app/infrastructure/key_value_storage/shared_preferences.dart';
 import 'package:simple_github_search_app/util/enum.dart';
 
-part 'shared_preferences.g.dart';
+part 'storage.g.dart';
 
 @Riverpod(keepAlive: true)
 Future<KeyValueStorage> getSharedPreferences(GetSharedPreferencesRef ref) async {

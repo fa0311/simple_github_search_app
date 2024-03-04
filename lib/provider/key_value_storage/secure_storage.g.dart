@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'flutter_secure_storage.dart';
+part of 'secure_storage.dart';
 
 // **************************************************************************
 // RiverpodGenerator

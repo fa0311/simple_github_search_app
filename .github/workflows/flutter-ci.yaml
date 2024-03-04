@@ -53,8 +53,9 @@ jobs:
 
       # テスト
       # https://github.com/dart-lang/dart_style/issues/864#issuecomment-1233176900
-      - run: dart format $(find lib -name "*.dart" -not \( -name "*.freezed.dart" -o -name "*.g.dart" -o -name "*.gr.dart" \) ) --set-exit-if-changed -l 120
-      - run: dart format $(find test -name "*.dart" -not \( -name "*.freezed.dart" -o -name "*.g.dart" -o -name "*.gr.dart" \) ) --set-exit-if-changed -l 120
+      # ignore: *.freezed.dart, *.g.dart, *.gr.dart *.mocks.dart
+      - run: dart format $(find lib -name "*.dart" -not \( -name "*.freezed.dart" -o -name "*.g.dart" -o -name "*.gr.dart" -o -name "*.mocks.dart" \) ) --set-exit-if-changed -l 120
+      - run: dart format $(find test -name "*.dart" -not \( -name "*.freezed.dart" -o -name "*.g.dart" -o -name "*.gr.dart" -o -name "*.mocks.dart" \) ) --set-exit-if-changed -l 120
       - run: flutter analyze --no-fatal-infos
 
       - run: flutter test --exclude-tags github_api_test,golden

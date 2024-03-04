@@ -31,7 +31,8 @@
   }
 }
 // "files.exclude": {
-//     "lib/**/*.g.dart": true,
-//     "lib/**/*.freezed.dart": true,
-//     "lib/**/*.gr.dart": true,
-// },
+//     "**/*.g.dart": true,
+//     "**/*.freezed.dart": true,
+//     "**/*.gr.dart": true,
+//     "**/*.mocks.dart": true,
+// }

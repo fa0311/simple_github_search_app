@@ -6,46 +6,84 @@ import 'package:simple_github_search_app/infrastructure/github/model/repository.
 import 'package:simple_github_search_app/infrastructure/github/model/response.dart';
 import 'package:simple_github_search_app/infrastructure/github/model/user.dart';
 
+import '../../test_util/assets.dart';
+import '../../test_util/dio.dart';
+
 void main() {
-  test('GetRepositories API', tags: ['github_api_test'], () async {
-    final client = GithubAPI();
-    final res1 = await client.getRepositories('flutter', 'flutter');
+  test('GitHub Search Repositories', () async {
+    final (adapter, client) = TestUtilDio.getGithubAPIMock();
+    final file = TestUtilAssets.readJson('github/search_repositories.json');
 
-    expect(res1, isA<GithubRepository>());
-    expect(res1.owner!.login, 'flutter');
-    expect(res1.name, 'flutter');
-  });
+    // モックの設定
+    adapter.onGet('/search/repositories', (request) => request.reply(200, file));
 
-  test('GetUser API', tags: ['github_api_test'], () async {
-    final client = GithubAPI();
-    final res1 = await client.getUser('flutter');
-
-    expect(res1, isA<GithubUser>());
-    expect(res1.login, 'flutter');
-  });
-
-  test('SearchRepositories API', tags: ['github_api_test'], () async {
-    final client = GithubAPI();
-    final res1 = await client.searchRepositories(
+    // APIの実行
+    final res = await client.searchRepositories(
       const GithubSearchRepositoriesParam(q: 'flutter'),
     );
-    expect(res1, isA<GithubResponse<GithubRepository>>());
-    final res2 = await client.searchRepositories(
-      const GithubSearchRepositoriesParam(q: 'flutter', sort: SearchRepositoriesSortParam.stars),
+
+    // レスポンスの検証
+    expect(res, isA<GithubResponse<GithubRepository>>());
+  });
+  test('GitHub Get User', () async {
+    final (adapter, client) = TestUtilDio.getGithubAPIMock();
+    final file = TestUtilAssets.readJson('github/search_repositories.json');
+
+    // 変数の設定
+    final items = file['items'] as List;
+    final item = items.first as Map<String, dynamic>;
+    final owner = item['owner'] as Map<String, dynamic>;
+
+    // モックの設定
+    adapter.onGet('/users/${owner['login']}', (request) => request.reply(200, owner));
+
+    // APIの実行
+    final res = await client.getUser(
+      owner['login'] as String,
     );
-    expect(res2, isA<GithubResponse<GithubRepository>>());
+
+    // レスポンスの検証
+    expect(res, isA<GithubUser>());
   });
 
-  test('GitHubHttpException Test', tags: ['github_api_test'], () async {
-    final dio = GitHubHttp.getDio()..options.headers.update('X-GitHub-Api-Version', (_) => '1');
-    final client = GithubAPI(client: GitHubHttp(dio: dio));
-    final res1 = client.searchRepositories(
-      const GithubSearchRepositoriesParam(q: 'flutter', page: 0),
+  test('GitHub Get Repositories', () async {
+    final (adapter, client) = TestUtilDio.getGithubAPIMock();
+    final file = TestUtilAssets.readJson('github/search_repositories.json');
+
+    // 変数の設定
+    final items = file['items'] as List;
+    final item = items.first as Map<String, dynamic>;
+    final owner = item['owner'] as Map<String, dynamic>;
+
+    // モックの設定
+    adapter.onGet('/repos/${owner['login']}/${item['name']}', (request) => request.reply(200, item));
+    final res = await client.getRepositories(
+      item['name'] as String,
+      owner['login'] as String,
     );
-    expect(res1, throwsA(isA<GitHubHttpException>()));
-    final res2 = client.searchRepositories(
-      const GithubSearchRepositoriesParam(q: 'flutter', sort: SearchRepositoriesSortParam.stars, page: 0),
+
+    // レスポンスの検証
+    expect(res, isA<GithubRepository>());
+  });
+
+  test('Github Exception', () async {
+    final (adapter, client) = TestUtilDio.getGithubAPIMock();
+    final file = TestUtilAssets.readJson('github/exception.json');
+
+    // モックの設定
+    adapter.onGet('/search/repositories', (request) => request.reply(400, file));
+    final res = client.searchRepositories(
+      const GithubSearchRepositoriesParam(q: 'flutter'),
     );
-    expect(res2, throwsA(isA<GitHubHttpException>()));
+
+    // レスポンスの検証
+    expect(res, throwsA(isA<GitHubHttpException>()));
+  });
+
+  test('GithubAPI.setBearerToken でヘッダーが書き換わる ', () async {
+    final dio = GitHubHttp.getDio();
+    GithubAPI(client: GitHubHttp(dio: dio)).setBearerToken('token');
+
+    expect(dio.options.headers['Authorization'], 'Bearer token');
   });
 }

@@ -19,7 +19,7 @@ class InfoLicensePage extends HookConsumerWidget {
       body: ref.watch(getPackageInfoProvider).when(
             data: (info) {
               return LicensePage(
-                applicationName: Constant.appName,
+                applicationName: info.appName,
                 applicationVersion: info.version,
                 applicationIcon: Padding(
                   padding: const EdgeInsets.all(10),
