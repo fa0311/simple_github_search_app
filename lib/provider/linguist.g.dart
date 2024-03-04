@@ -8,7 +8,9 @@ part of 'linguist.dart';
 
 String _$getLinguistClientHash() => r'ef3f3d19c10523da86e59737e2171fbb452a98f1';
 
-/// See also [getLinguistClient].
+/// Linguist のクライアントを取得する
+///
+/// Copied from [getLinguistClient].
 @ProviderFor(getLinguistClient)
 final getLinguistClientProvider =
     FutureProvider<List<LinguistLanguages>>.internal(
@@ -46,17 +48,25 @@ class _SystemHash {
   }
 }
 
-/// See also [getLinguistLanguages].
+/// Linguist を使用して言語の名前から言語のデータを取得する
+///
+/// Copied from [getLinguistLanguages].
 @ProviderFor(getLinguistLanguages)
 const getLinguistLanguagesProvider = GetLinguistLanguagesFamily();
 
-/// See also [getLinguistLanguages].
+/// Linguist を使用して言語の名前から言語のデータを取得する
+///
+/// Copied from [getLinguistLanguages].
 class GetLinguistLanguagesFamily
     extends Family<AsyncValue<LinguistLanguagesData?>> {
-  /// See also [getLinguistLanguages].
+  /// Linguist を使用して言語の名前から言語のデータを取得する
+  ///
+  /// Copied from [getLinguistLanguages].
   const GetLinguistLanguagesFamily();
 
-  /// See also [getLinguistLanguages].
+  /// Linguist を使用して言語の名前から言語のデータを取得する
+  ///
+  /// Copied from [getLinguistLanguages].
   GetLinguistLanguagesProvider call(
     String language,
   ) {
@@ -89,10 +99,14 @@ class GetLinguistLanguagesFamily
   String? get name => r'getLinguistLanguagesProvider';
 }
 
-/// See also [getLinguistLanguages].
+/// Linguist を使用して言語の名前から言語のデータを取得する
+///
+/// Copied from [getLinguistLanguages].
 class GetLinguistLanguagesProvider
     extends FutureProvider<LinguistLanguagesData?> {
-  /// See also [getLinguistLanguages].
+  /// Linguist を使用して言語の名前から言語のデータを取得する
+  ///
+  /// Copied from [getLinguistLanguages].
   GetLinguistLanguagesProvider(
     String language,
   ) : this._internal(
@@ -178,16 +192,24 @@ class _GetLinguistLanguagesProviderElement
 
 String _$getLinguistColorHash() => r'26d5472d969f77834fed0b16e16bf61fa8250190';
 
-/// See also [getLinguistColor].
+/// Linguist を使用して言語の名前から言語の色を取得する
+///
+/// Copied from [getLinguistColor].
 @ProviderFor(getLinguistColor)
 const getLinguistColorProvider = GetLinguistColorFamily();
 
-/// See also [getLinguistColor].
+/// Linguist を使用して言語の名前から言語の色を取得する
+///
+/// Copied from [getLinguistColor].
 class GetLinguistColorFamily extends Family<AsyncValue<int?>> {
-  /// See also [getLinguistColor].
+  /// Linguist を使用して言語の名前から言語の色を取得する
+  ///
+  /// Copied from [getLinguistColor].
   const GetLinguistColorFamily();
 
-  /// See also [getLinguistColor].
+  /// Linguist を使用して言語の名前から言語の色を取得する
+  ///
+  /// Copied from [getLinguistColor].
   GetLinguistColorProvider call(
     String language,
   ) {
@@ -220,9 +242,13 @@ class GetLinguistColorFamily extends Family<AsyncValue<int?>> {
   String? get name => r'getLinguistColorProvider';
 }
 
-/// See also [getLinguistColor].
+/// Linguist を使用して言語の名前から言語の色を取得する
+///
+/// Copied from [getLinguistColor].
 class GetLinguistColorProvider extends AutoDisposeFutureProvider<int?> {
-  /// See also [getLinguistColor].
+  /// Linguist を使用して言語の名前から言語の色を取得する
+  ///
+  /// Copied from [getLinguistColor].
   GetLinguistColorProvider(
     String language,
   ) : this._internal(
