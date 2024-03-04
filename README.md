@@ -71,6 +71,28 @@ node -v
 v18.19.1
 ```
 
+### テスト
+
+ユニットテスト
+
+```sh
+flutter test --exclude-tags github_api_test,golden
+```
+
+インテグレーションテスト
+
+```sh
+flutter test integration_test
+```
+
+ゴールデンテスト
+
+(途中で消しました)
+
+```sh
+flutter test --exclude-tags golden
+```
+
 ## ライブラリ
 
 主な物を列挙
