@@ -4,8 +4,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:simple_github_search_app/component/part/select_modal.dart';
 import 'package:simple_github_search_app/component/part/text_field_dialog.dart';
-import 'package:simple_github_search_app/provider/flutter_secure_storage.dart';
-import 'package:simple_github_search_app/provider/shared_preferences.dart';
+import 'package:simple_github_search_app/provider/key_value_storage/secure_storage.dart';
+import 'package:simple_github_search_app/provider/key_value_storage/storage.dart';
 
 extension on ThemeMode {
   String localizations(AppLocalizations localizations) {

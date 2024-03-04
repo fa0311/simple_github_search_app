@@ -5,7 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:simple_github_search_app/app/router.dart';
-import 'package:simple_github_search_app/provider/shared_preferences.dart';
+import 'package:simple_github_search_app/provider/key_value_storage/storage.dart';
 import 'package:simple_github_search_app/util/constant.dart';
 import 'package:simple_github_search_app/util/logger.dart';
 

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class TestComponentUtil {
   TestComponentUtil._();
@@ -40,18 +39,6 @@ class TestComponentUtil {
   }) {
     return setApp(
       Builder(builder: builder),
-      isDarkMode: isDarkMode,
-      isLocalizations: isLocalizations,
-    );
-  }
-
-  static Widget setConsumer({
-    required Widget Function(BuildContext, WidgetRef, Widget?) builder,
-    bool isDarkMode = false,
-    bool isLocalizations = false,
-  }) {
-    return setApp(
-      Consumer(builder: builder),
       isDarkMode: isDarkMode,
       isLocalizations: isLocalizations,
     );

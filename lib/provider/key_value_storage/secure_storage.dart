@@ -5,7 +5,7 @@ import 'package:simple_github_search_app/infrastructure/key_value_storage/flutte
 import 'package:simple_github_search_app/infrastructure/key_value_storage/key_value_storage.dart';
 import 'package:simple_github_search_app/infrastructure/key_value_storage/memory.dart';
 
-part 'flutter_secure_storage.g.dart';
+part 'secure_storage.g.dart';
 
 @Riverpod(keepAlive: true)
 Future<KeyValueStorage> getSecureStorage(GetSecureStorageRef ref) async {
