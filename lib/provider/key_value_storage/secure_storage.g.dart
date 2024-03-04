@@ -8,7 +8,9 @@ part of 'secure_storage.dart';
 
 String _$getSecureStorageHash() => r'0680b678f5e30fbd2fdc58534e8f6e6f2e79d388';
 
-/// See also [getSecureStorage].
+/// セキュアなキーバリューストレージを取得する
+///
+/// Copied from [getSecureStorage].
 @ProviderFor(getSecureStorage)
 final getSecureStorageProvider = FutureProvider<KeyValueStorage>.internal(
   getSecureStorage,
@@ -24,7 +26,9 @@ typedef GetSecureStorageRef = FutureProviderRef<KeyValueStorage>;
 String _$githubTokenSettingHash() =>
     r'074eb3f29cbc3d30d18853303c0c9b20ceb24e26';
 
-/// See also [GithubTokenSetting].
+/// セキュアなキーバリューストレーからGitHubのトークンを取得する
+///
+/// Copied from [GithubTokenSetting].
 @ProviderFor(GithubTokenSetting)
 final githubTokenSettingProvider =
     AsyncNotifierProvider<GithubTokenSetting, String?>.internal(
