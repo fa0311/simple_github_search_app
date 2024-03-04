@@ -69,9 +69,9 @@ class RepositoryPage extends HookConsumerWidget {
                                   ),
                                   AnchorLink(
                                     onTap: () async {
-                                      await context.router.push(SearchRoute(query: 'user:${value.owner?.login}'));
+                                      await context.router.push(SearchRoute(query: 'user:${value.owner!.login}'));
                                     },
-                                    text: value.name,
+                                    text: value.owner!.login,
                                     style: Theme.of(context).textTheme.headlineMedium,
                                   ),
                                   Text('/', style: Theme.of(context).textTheme.headlineMedium),
@@ -80,7 +80,7 @@ class RepositoryPage extends HookConsumerWidget {
                                       await context.router
                                           .push(SearchRoute(query: 'repo:${value.owner?.login}/${value.name}'));
                                     },
-                                    text: value.owner?.login ?? '',
+                                    text: value.name,
                                     style: Theme.of(context).textTheme.headlineMedium,
                                   ),
                                 ],

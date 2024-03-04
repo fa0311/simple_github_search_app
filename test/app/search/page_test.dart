@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:simple_github_search_app/app/search/page.dart';
-import 'package:simple_github_search_app/component/part/circle_cached_network_image.dart';
 import 'package:simple_github_search_app/component/part/custom_scroll_listener.dart';
 import 'package:simple_github_search_app/infrastructure/github/model/param.dart';
 import 'package:simple_github_search_app/provider/github/model/search.dart';
@@ -28,8 +27,6 @@ class GithubSearchRepositoriesMock extends GithubSearchRepositories {
 
 void main() {
   testWidgets('検索ページの初期状態', (WidgetTester tester) async {
-    CircleCachedNetworkImage.enableHttpRequests = false;
-
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
@@ -53,6 +50,5 @@ void main() {
 
     // 下にスクロール
     await tester.drag(find.byType(CustomScrollListener), const Offset(0, -300));
-    CircleCachedNetworkImage.enableHttpRequests = true;
   });
 }
