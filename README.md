@@ -19,7 +19,7 @@ Flutterで制作されたシンプルなGitHubリポジトリ検索アプリ
 - Web
   - <https://simple-github-search-app.pages.dev/> から確認できます
 
-## 動作環境
+## 動作確認済み環境
 
 - Web
 
